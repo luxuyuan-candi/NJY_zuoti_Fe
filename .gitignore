@@ -3,3 +3,7 @@ project.private.config.json
 .env.*
 node_modules/
 miniprogram_npm/
+assets/designs/*.png
+assets/designs/*.jpg
+assets/designs/*.jpeg
+assets/designs/*.webp
