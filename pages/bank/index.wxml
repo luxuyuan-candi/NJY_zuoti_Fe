@@ -5,7 +5,11 @@
     <view wx:for="{{tabs}}" wx:key="*this" data-tab="{{item}}" bindtap="switchTab" class="tab {{activeTab === item ? 'active' : ''}}">{{item}}</view>
   </view>
 
-  <view wx:if="{{!authorized}}" class="empty card">
+  <view wx:if="{{loading}}" class="empty card">
+    <text>正在加载题库...</text>
+  </view>
+
+  <view wx:elif="{{!authorized}}" class="empty card">
     <text>暂未开通题库权限，请联系管理员授权。</text>
   </view>
 

@@ -1,10 +1,19 @@
-const { chapters } = require('../../utils/mock');
+const { getChapters } = require('../../utils/services');
 
 Page({
   data: {
-    chapters,
+    bankId: 'bank-exam-1',
+    chapters: [],
     modes: ['章节', '套卷', '专项'],
     activeMode: '章节'
+  },
+
+  onLoad(query) {
+    const bankId = query.id || 'bank-exam-1';
+    this.setData({ bankId });
+    getChapters(bankId)
+      .then((chapters) => this.setData({ chapters }))
+      .catch(() => wx.showToast({ title: '请先登录并等待授权', icon: 'none' }));
   },
 
   switchMode(e) {

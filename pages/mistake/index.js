@@ -1,8 +1,14 @@
-const { mistakes } = require('../../utils/mock');
+const { getMistakes } = require('../../utils/services');
 
 Page({
   data: {
-    mistakes
+    mistakes: []
+  },
+
+  onLoad() {
+    getMistakes()
+      .then((mistakes) => this.setData({ mistakes }))
+      .catch(() => wx.showToast({ title: '请先登录', icon: 'none' }));
   },
 
   remove(e) {

@@ -1,11 +1,24 @@
-const { banks } = require('../../utils/mock');
+const { getBanks } = require('../../utils/services');
 
 Page({
   data: {
     authorized: true,
     tabs: ['全部', '考试类', '课程类'],
     activeTab: '全部',
-    banks
+    banks: [],
+    loading: false
+  },
+
+  onShow() {
+    this.loadBanks();
+  },
+
+  loadBanks() {
+    this.setData({ loading: true });
+    getBanks()
+      .then((banks) => this.setData({ banks, authorized: true }))
+      .catch(() => this.setData({ authorized: false }))
+      .finally(() => this.setData({ loading: false }));
   },
 
   switchTab(e) {

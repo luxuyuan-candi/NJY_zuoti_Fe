@@ -1,3 +1,5 @@
+const { getMedals } = require('../../utils/services');
+
 Page({
   data: {
     medals: [
@@ -5,5 +7,9 @@ Page({
       { name: '考试达人', desc: '模拟考试达到 90 分获得' },
       { name: '错题清零', desc: '错题多次答对后清零获得' }
     ]
+  },
+
+  onLoad() {
+    getMedals().then((medals) => this.setData({ medals })).catch(() => {});
   }
 });

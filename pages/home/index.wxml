@@ -5,7 +5,7 @@
       <text class="video-time">08:32</text>
     </view>
     <view class="play">▶</view>
-    <text class="video-title">南检院学习导览</text>
+    <text class="video-title">{{video.title}}</text>
     <text class="video-desc">了解题库、考试、错题和离线缓存的使用方式</text>
   </view>
 

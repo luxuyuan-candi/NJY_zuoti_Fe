@@ -1,13 +1,20 @@
-const { question } = require('../../utils/mock');
+const { startPractice, submitPracticeAnswer } = require('../../utils/services');
+const { question: fallbackQuestion } = require('../../utils/mock');
 
 Page({
   data: {
-    question,
+    question: fallbackQuestion,
     selected: '',
     submitted: false,
     favorited: false,
     showNavigator: false,
     navNumbers: Array.from({ length: 20 }, (_, index) => index + 1)
+  },
+
+  onLoad() {
+    startPractice()
+      .then((question) => this.setData({ question }))
+      .catch(() => wx.showToast({ title: '请先登录并等待授权', icon: 'none' }));
   },
 
   selectOption(e) {
@@ -20,7 +27,18 @@ Page({
       wx.showToast({ title: '请先选择答案', icon: 'none' });
       return;
     }
-    this.setData({ submitted: true });
+    submitPracticeAnswer(this.data.question.id, this.data.selected)
+      .then((result) => {
+        this.setData({
+          submitted: true,
+          question: {
+            ...this.data.question,
+            answer: result.answer || this.data.question.answer,
+            analysis: result.analysis || this.data.question.analysis
+          }
+        });
+      })
+      .catch(() => this.setData({ submitted: true }));
   },
 
   toggleFavorite() {

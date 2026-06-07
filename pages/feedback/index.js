@@ -1,3 +1,5 @@
+const { submitFeedback } = require('../../utils/services');
+
 Page({
   data: {
     content: ''
@@ -12,7 +14,11 @@ Page({
       wx.showToast({ title: '请输入反馈内容', icon: 'none' });
       return;
     }
-    wx.showToast({ title: '已提交', icon: 'success' });
-    this.setData({ content: '' });
+    submitFeedback(this.data.content)
+      .then(() => {
+        wx.showToast({ title: '已提交', icon: 'success' });
+        this.setData({ content: '' });
+      })
+      .catch(() => wx.showToast({ title: '提交失败，请稍后重试', icon: 'none' }));
   }
 });

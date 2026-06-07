@@ -1,8 +1,14 @@
-const { favorites } = require('../../utils/mock');
+const { getFavorites } = require('../../utils/services');
 
 Page({
   data: {
-    favorites
+    favorites: []
+  },
+
+  onLoad() {
+    getFavorites()
+      .then((favorites) => this.setData({ favorites }))
+      .catch(() => wx.showToast({ title: '请先登录', icon: 'none' }));
   },
 
   remove(e) {

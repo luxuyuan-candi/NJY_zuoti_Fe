@@ -2,7 +2,7 @@
   <view class="card profile-card">
     <view class="avatar">南</view>
     <view style="flex: 1;">
-      <text class="title">{{loggedIn ? '学习用户' : '未登录'}}</text>
+      <text class="title">{{loggedIn ? (nickname || '学习用户') : '未登录'}}</text>
       <text class="desc">{{loggedIn ? '已授权访问题库' : '登录后查看奖牌、排名和学习资产'}}</text>
     </view>
     <view class="btn secondary login-btn" bindtap="goLogin">{{loggedIn ? '资料' : '登录'}}</view>

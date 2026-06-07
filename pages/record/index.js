@@ -1,13 +1,19 @@
-const { records } = require('../../utils/mock');
+const { getRecords } = require('../../utils/services');
 
 Page({
   data: {
-    records,
+    records: [],
     stats: [
       { label: '总做题', value: '626' },
       { label: '正确率', value: '81%' },
       { label: '考试', value: '3' }
     ]
+  },
+
+  onShow() {
+    getRecords()
+      .then((records) => this.setData({ records }))
+      .catch(() => this.setData({ records: [] }));
   },
 
   goMistake() {
