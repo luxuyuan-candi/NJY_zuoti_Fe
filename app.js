@@ -1,6 +1,7 @@
 App({
   globalData: {
     baseUrl: 'https://www.njwjxy.cn:30443/api/miniapp',
+    assetBaseUrl: 'https://www.njwjxy.cn:30443/zuoti-minio/public-assets',
     appId: 'wxb88840bf78c6cd4d',
     token: '',
     user: {
