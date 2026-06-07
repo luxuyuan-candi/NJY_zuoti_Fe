@@ -1,0 +1,11 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">考前高效复习指南</text>
+    <text class="hero-subtitle">用题库练习、错题本和趋势统计形成复习闭环。</text>
+  </view>
+  <view class="section card">
+    <text class="title">推荐做法</text>
+    <text class="desc">先完成章节练习，再进入模拟考试。错题多次答对后可自动移出错题本，收藏题适合临考前集中复盘。</text>
+    <view class="btn" style="margin-top: 32rpx;" bindtap="goBank">去题库</view>
+  </view>
+</view>

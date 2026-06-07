@@ -1,0 +1,5 @@
+.rank {
+  width: 72rpx;
+  color: #176bff;
+  font-weight: 800;
+}

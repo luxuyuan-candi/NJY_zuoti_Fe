@@ -1,0 +1,21 @@
+<view class="page with-bottom-bar">
+  <view class="hero">
+    <text class="hero-title">题目收藏</text>
+    <text class="hero-subtitle">把重点题集中起来，随时专项练习。</text>
+  </view>
+
+  <view class="section list">
+    <view class="card" wx:for="{{favorites}}" wx:key="id">
+      <view class="row between">
+        <text class="title">{{item.title}}</text>
+        <text class="tag">收藏</text>
+      </view>
+      <text class="desc">{{item.chapter}}</text>
+      <view class="btn secondary" style="margin-top: 18rpx; height: 64rpx;" data-id="{{item.id}}" bindtap="remove">取消收藏</view>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="btn" bindtap="practice">开始收藏题练习</view>
+  </view>
+</view>

@@ -1,0 +1,59 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/bank/index",
+    "pages/record/index",
+    "pages/profile/index",
+    "pages/video/detail",
+    "pages/promotion/detail",
+    "pages/notice/detail",
+    "pages/chapter/index",
+    "pages/practice/settings",
+    "pages/practice/answer",
+    "pages/practice/result",
+    "pages/paper/index",
+    "pages/exam/intro",
+    "pages/exam/result",
+    "pages/mistake/index",
+    "pages/favorite/index",
+    "pages/record/trend",
+    "pages/profile/medal",
+    "pages/profile/ranking",
+    "pages/auth/login",
+    "pages/settings/index",
+    "pages/feedback/index",
+    "pages/agreement/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "南检院做题",
+    "navigationBarBackgroundColor": "#f7f8fb",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f7f8fb"
+  },
+  "tabBar": {
+    "color": "#6b7280",
+    "selectedColor": "#176bff",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/bank/index",
+        "text": "题库"
+      },
+      {
+        "pagePath": "pages/record/index",
+        "text": "记录"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

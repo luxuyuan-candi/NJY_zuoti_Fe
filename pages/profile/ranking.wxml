@@ -1,0 +1,20 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">当前排名 16</text>
+    <text class="hero-subtitle">周榜排名 16，总榜排名 128。</text>
+  </view>
+
+  <view class="section tabs">
+    <view wx:for="{{tabs}}" wx:key="*this" class="tab {{index === 0 ? 'active' : ''}}">{{item}}</view>
+  </view>
+
+  <view class="section list">
+    <view class="card row between" wx:for="{{ranks}}" wx:key="rank">
+      <view class="row">
+        <text class="rank">#{{item.rank}}</text>
+        <text class="title">{{item.name}}</text>
+      </view>
+      <text class="metric-value" style="font-size: 30rpx;">{{item.score}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,30 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">本次正确率 80%</text>
+    <text class="hero-subtitle">耗时 18 分钟，新增 2 道错题。</text>
+  </view>
+
+  <view class="section grid-3">
+    <view class="card metric" wx:for="{{metrics}}" wx:key="label">
+      <text class="metric-value">{{item.value}}</text>
+      <text class="metric-label">{{item.label}}</text>
+    </view>
+  </view>
+
+  <view class="section list">
+    <view class="card" wx:for="{{details}}" wx:key="name">
+      <view class="row between">
+        <text class="title">{{item.name}}</text>
+        <text class="muted">{{item.accuracy}}%</text>
+      </view>
+      <view class="progress" style="margin-top: 14rpx;">
+        <view class="progress-fill" style="width: {{item.accuracy}}%;"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section grid-2">
+    <view class="btn secondary" bindtap="goMistake">查看错题</view>
+    <view class="btn" bindtap="retry">再练一次</view>
+  </view>
+</view>

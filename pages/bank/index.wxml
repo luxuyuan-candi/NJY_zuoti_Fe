@@ -1,0 +1,29 @@
+<view class="page">
+  <input class="input" placeholder="搜索题库、课程或章节" />
+
+  <view class="section tabs">
+    <view wx:for="{{tabs}}" wx:key="*this" data-tab="{{item}}" bindtap="switchTab" class="tab {{activeTab === item ? 'active' : ''}}">{{item}}</view>
+  </view>
+
+  <view wx:if="{{!authorized}}" class="empty card">
+    <text>暂未开通题库权限，请联系管理员授权。</text>
+  </view>
+
+  <view wx:else class="section list">
+    <view class="card" wx:for="{{banks}}" wx:key="id" data-id="{{item.id}}" bindtap="goChapter">
+      <view class="row between">
+        <text class="tag">{{item.type}}</text>
+        <text class="muted">{{item.cached}}</text>
+      </view>
+      <text class="title" style="margin-top: 18rpx; display: block;">{{item.name}}</text>
+      <text class="desc">{{item.desc}}</text>
+      <view class="row between" style="margin-top: 22rpx;">
+        <text class="muted">已做 {{item.done}} / {{item.total}}</text>
+        <text class="muted">正确率 {{item.accuracy}}%</text>
+      </view>
+      <view class="progress" style="margin-top: 14rpx;">
+        <view class="progress-fill" style="width: {{item.done / item.total * 100}}%;"></view>
+      </view>
+    </view>
+  </view>
+</view>

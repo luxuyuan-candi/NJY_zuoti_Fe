@@ -1,0 +1,15 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">我的奖牌</text>
+    <text class="hero-subtitle">记录学习里程碑和练习成就。</text>
+  </view>
+  <view class="section list">
+    <view class="card row" wx:for="{{medals}}" wx:key="name">
+      <text class="medal-icon">🏅</text>
+      <view>
+        <text class="title">{{item.name}}</text>
+        <text class="desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+</view>

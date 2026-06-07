@@ -1,0 +1,12 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">微信授权登录</text>
+    <text class="hero-subtitle">登录后由管理员授权题库访问范围。</text>
+  </view>
+  <view class="section card">
+    <text class="title">南检院做题</text>
+    <text class="desc">我们仅使用微信 openid 识别用户身份，不在前端保存任何密钥。</text>
+    <view class="btn" style="margin-top: 32rpx;" bindtap="login">授权登录</view>
+    <view class="btn ghost" style="margin-top: 18rpx;" bindtap="goAgreement">查看协议</view>
+  </view>
+</view>

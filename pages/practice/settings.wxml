@@ -1,0 +1,34 @@
+<view class="page with-bottom-bar">
+  <view class="hero">
+    <text class="hero-title">练习设置</text>
+    <text class="hero-subtitle">第一章 基础概念，预计耗时 {{selectedCount}} 分钟。</text>
+  </view>
+
+  <view class="section">
+    <view class="section-head"><text class="section-title">题目数量</text></view>
+    <view class="grid-2">
+      <view wx:for="{{counts}}" wx:key="*this" data-count="{{item}}" bindtap="selectCount" class="card count-card {{selectedCount === item ? 'active' : ''}}">
+        <text>{{item}} 题</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section list">
+    <view class="card row between">
+      <text class="title">出题顺序</text>
+      <text class="tag">{{order}}</text>
+    </view>
+    <view class="card row between">
+      <text class="title">答后显示解析</text>
+      <switch checked="{{showAnalysis}}" bindchange="toggleAnalysis" />
+    </view>
+    <view class="card row between">
+      <text class="title">只做未做题</text>
+      <switch checked="{{onlyUnfinished}}" bindchange="toggleUnfinished" />
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="btn" bindtap="start">开始练习</view>
+  </view>
+</view>

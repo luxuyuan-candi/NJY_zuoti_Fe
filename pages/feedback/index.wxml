@@ -1,0 +1,10 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">意见反馈</text>
+    <text class="hero-subtitle">题目、功能或授权问题都可以提交给管理员。</text>
+  </view>
+  <view class="section card">
+    <textarea class="textarea" value="{{content}}" bindinput="input" placeholder="请输入反馈内容" maxlength="500" />
+    <view class="btn" style="margin-top: 26rpx;" bindtap="submit">提交反馈</view>
+  </view>
+</view>

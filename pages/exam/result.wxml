@@ -1,0 +1,20 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">92 分</text>
+    <text class="hero-subtitle">超过 86% 的用户，当前进入周榜前 20。</text>
+  </view>
+
+  <view class="section list">
+    <view class="card" wx:for="{{breakdown}}" wx:key="name">
+      <view class="row between">
+        <text class="title">{{item.name}}</text>
+        <text class="metric-value" style="font-size: 30rpx;">{{item.score}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section grid-2">
+    <view class="btn secondary" bindtap="review">查看解析</view>
+    <view class="btn" bindtap="retry">重做本卷</view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+<view class="page">
+  <view class="section card">
+    <text class="title">用户协议与隐私说明</text>
+    <text class="desc">系统使用微信 openid 识别小程序用户身份。题库访问需要管理员授权。前端不保存 AppSecret、数据库密码、对象存储密钥等敏感信息。</text>
+  </view>
+</view>

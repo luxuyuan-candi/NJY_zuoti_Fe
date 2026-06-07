@@ -1,0 +1,21 @@
+<view class="page with-bottom-bar">
+  <view class="hero">
+    <text class="hero-title">错题本</text>
+    <text class="hero-subtitle">多次答对后自动移出，也可以手动移出。</text>
+  </view>
+
+  <view class="section list">
+    <view class="card" wx:for="{{mistakes}}" wx:key="id">
+      <view class="row between">
+        <text class="title">{{item.title}}</text>
+        <text class="tag gray">答对 {{item.correctTimes}} 次</text>
+      </view>
+      <text class="desc">{{item.chapter}}</text>
+      <view class="btn secondary" style="margin-top: 18rpx; height: 64rpx;" data-id="{{item.id}}" bindtap="remove">移出错题本</view>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="btn" bindtap="practice">开始错题重做</view>
+  </view>
+</view>

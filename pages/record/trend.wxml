@@ -1,0 +1,16 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">趋势统计</text>
+    <text class="hero-subtitle">正确率、考试成绩和做题数量持续跟踪。</text>
+  </view>
+
+  <view class="section card">
+    <text class="section-title">正确率趋势</text>
+    <view class="chart">
+      <view class="bar-wrap" wx:for="{{trends}}" wx:key="label">
+        <view class="bar" style="height: {{item.value * 3}}rpx;"></view>
+        <text class="muted">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,19 @@
+{
+  "description": "NJY zuoti WeChat mini program",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "latest",
+  "appid": "wxb88840bf78c6cd4d",
+  "projectname": "NJY_zuoti_Fe",
+  "condition": {}
+}

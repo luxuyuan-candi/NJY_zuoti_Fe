@@ -1,0 +1,16 @@
+<view class="page">
+  <view class="section list">
+    <view class="card row between">
+      <text class="title">答后显示解析</text>
+      <switch checked="{{showAnalysis}}" />
+    </view>
+    <view class="card row between">
+      <text class="title">默认题量</text>
+      <text class="tag">{{defaultCount}} 题</text>
+    </view>
+    <view class="card row between" bindtap="logout">
+      <text class="title">退出登录</text>
+      <text class="muted">›</text>
+    </view>
+  </view>
+</view>

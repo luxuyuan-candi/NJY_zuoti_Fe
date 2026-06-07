@@ -1,0 +1,62 @@
+.answer-top {
+  margin-bottom: 24rpx;
+}
+
+.option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  margin-top: 26rpx;
+}
+
+.option {
+  display: flex;
+  gap: 18rpx;
+  padding: 22rpx;
+  border: 1rpx solid #e7eaf0;
+  border-radius: 14rpx;
+}
+
+.option.selected {
+  border-color: #176bff;
+  background: #eef5ff;
+}
+
+.option.right {
+  border-color: #18a058;
+  background: #edf8f1;
+}
+
+.option-key {
+  font-weight: 800;
+}
+
+.option-text {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.analysis {
+  border-color: #bfe5cd;
+}
+
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64rpx;
+  border-radius: 12rpx;
+  background: #f0f2f5;
+}
+
+.number.active {
+  background: #176bff;
+  color: #fff;
+}

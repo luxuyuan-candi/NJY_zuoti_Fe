@@ -1,0 +1,38 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">学习记录</text>
+    <text class="hero-subtitle">错题、收藏、成绩和趋势都在这里沉淀。</text>
+  </view>
+
+  <view class="section grid-3">
+    <view class="card metric" wx:for="{{stats}}" wx:key="label">
+      <text class="metric-value">{{item.value}}</text>
+      <text class="metric-label">{{item.label}}</text>
+    </view>
+  </view>
+
+  <view class="section grid-3">
+    <view class="card" bindtap="goMistake"><text class="title">错题本</text><text class="desc">2 道待复盘</text></view>
+    <view class="card" bindtap="goFavorite"><text class="title">题目收藏</text><text class="desc">2 道重点题</text></view>
+    <view class="card" bindtap="goTrend"><text class="title">趋势统计</text><text class="desc">查看变化</text></view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title">最近记录</text>
+      <text class="section-link" bindtap="goTrend">趋势</text>
+    </view>
+    <view class="list">
+      <view class="card" wx:for="{{records}}" wx:key="id" data-type="{{item.type}}" bindtap="goResult">
+        <view class="row between">
+          <text class="title">{{item.title}}</text>
+          <text class="tag">{{item.type}}</text>
+        </view>
+        <view class="row between" style="margin-top: 16rpx;">
+          <text class="muted">{{item.date}}</text>
+          <text class="metric-value" style="font-size: 30rpx;">{{item.score}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

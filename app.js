@@ -1,0 +1,19 @@
+App({
+  globalData: {
+    baseUrl: 'https://www.njwjxy.cn:30443/api/miniapp',
+    appId: 'wxb88840bf78c6cd4d',
+    token: '',
+    user: {
+      id: 'u-demo',
+      nickname: '未登录用户',
+      authorized: false
+    }
+  },
+
+  onLaunch() {
+    const token = wx.getStorageSync('token') || '';
+    const user = wx.getStorageSync('user') || this.globalData.user;
+    this.globalData.token = token;
+    this.globalData.user = user;
+  }
+});

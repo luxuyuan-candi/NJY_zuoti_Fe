@@ -1,0 +1,4 @@
+.medal-icon {
+  margin-right: 22rpx;
+  font-size: 52rpx;
+}

@@ -1,0 +1,20 @@
+.chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 330rpx;
+  margin-top: 28rpx;
+}
+
+.bar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.bar {
+  width: 56rpx;
+  border-radius: 999rpx 999rpx 8rpx 8rpx;
+  background: linear-gradient(180deg, #176bff 0%, #19a7ce 100%);
+}

@@ -1,0 +1,11 @@
+.count-card {
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.count-card.active {
+  border-color: #176bff;
+  background: #eef5ff;
+  color: #176bff;
+}
