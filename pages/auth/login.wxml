@@ -8,12 +8,9 @@
     <view class="avatar-large">
       <image wx:if="{{avatarUrl}}" class="avatar-image" src="{{avatarUrl}}" mode="aspectFill"></image>
     </view>
-    <text class="openid">{{openid || '正在获取 openid'}}</text>
 
     <view class="avatar-actions">
-      <view class="btn secondary small-btn" bindtap="chooseFromAlbum">选图片</view>
-      <view class="btn secondary small-btn" bindtap="takePhoto">拍照</view>
-      <button class="btn secondary small-btn native-btn" open-type="chooseAvatar" bindchooseavatar="chooseWechatAvatar">微信头像</button>
+      <view class="btn secondary avatar-trigger" bindtap="chooseAvatarAction">头像训责</view>
     </view>
 
     <text class="field-label">昵称</text>
@@ -23,6 +20,5 @@
     <input class="input" value="{{email}}" maxlength="255" type="text" placeholder="填写邮箱" bindinput="onEmailInput" />
 
     <view class="btn save-btn" bindtap="saveProfile">{{saving ? '保存中' : '保存资料'}}</view>
-    <view class="btn ghost" style="margin-top: 18rpx;" bindtap="goAgreement">查看协议</view>
   </view>
 </view>

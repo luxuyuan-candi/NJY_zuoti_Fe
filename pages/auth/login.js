@@ -2,7 +2,6 @@ const { ensureIdentity, updateUserProfile } = require('../../utils/services');
 
 Page({
   data: {
-    openid: '',
     avatarUrl: '',
     avatarBase64: '',
     avatarContentType: 'image/jpeg',
@@ -23,26 +22,53 @@ Page({
   setUser(user) {
     if (!user) return;
     this.setData({
-      openid: user.openid || '',
       avatarUrl: user.avatarUrl || '',
       nickname: user.nickname || '',
       email: user.email || ''
     });
   },
 
-  chooseFromAlbum() {
-    this.chooseLocalAvatar(['album']);
+  chooseAvatarAction() {
+    wx.showActionSheet({
+      itemList: ['选图片', '拍照', '微信头像'],
+      success: ({ tapIndex }) => {
+        if (tapIndex === 0) {
+          this.chooseLocalAvatar(['album']);
+          return;
+        }
+        if (tapIndex === 1) {
+          this.chooseLocalAvatar(['camera']);
+          return;
+        }
+        this.chooseWechatAvatar();
+      }
+    });
   },
 
-  takePhoto() {
-    this.chooseLocalAvatar(['camera']);
-  },
-
-  chooseWechatAvatar(e) {
-    const avatarUrl = e.detail && e.detail.avatarUrl;
-    if (avatarUrl) {
-      this.useAvatarFile(avatarUrl);
-    }
+  chooseWechatAvatar() {
+    wx.getUserProfile({
+      desc: '用于获取微信头像',
+      success: ({ userInfo }) => {
+        const avatarUrl = userInfo && userInfo.avatarUrl;
+        if (!avatarUrl) {
+          return;
+        }
+        wx.downloadFile({
+          url: avatarUrl,
+          success: ({ tempFilePath }) => {
+            if (tempFilePath) {
+              this.useAvatarFile(tempFilePath);
+            }
+          },
+          fail: () => {
+            wx.showToast({ title: '微信头像获取失败', icon: 'none' });
+          }
+        });
+      },
+      fail: () => {
+        wx.showToast({ title: '微信头像获取失败', icon: 'none' });
+      }
+    });
   },
 
   chooseLocalAvatar(sourceType) {
@@ -114,9 +140,5 @@ Page({
       .finally(() => {
         this.setData({ saving: false });
       });
-  },
-
-  goAgreement() {
-    wx.navigateTo({ url: '/pages/agreement/index' });
   }
 });

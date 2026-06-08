@@ -22,7 +22,6 @@
             <text class="title">{{item.displayName}}</text>
             <text class="role-tag">{{item.roleLabel}}</text>
           </view>
-          <text class="desc">{{item.openid}}</text>
         </view>
         <button
           wx:if="{{item.canEditRole}}"
