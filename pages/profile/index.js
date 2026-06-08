@@ -1,6 +1,7 @@
 const { ensureIdentity, getRanking, getMedals } = require('../../utils/services');
 
 const BASE_TOOLS = [
+  { name: '身份配置', url: '/pages/auth/login' },
   { name: '反馈', url: '/pages/feedback/index' },
   { name: '设置', url: '/pages/settings/index' },
   { name: '协议', url: '/pages/agreement/index' }
