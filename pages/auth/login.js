@@ -8,7 +8,8 @@ Page({
     avatarExt: 'jpg',
     nickname: '',
     email: '',
-    saving: false
+    saving: false,
+    showAvatarPicker: false
   },
 
   onLoad() {
@@ -28,47 +29,32 @@ Page({
     });
   },
 
-  chooseAvatarAction() {
-    wx.showActionSheet({
-      itemList: ['选图片', '拍照', '微信头像'],
-      success: ({ tapIndex }) => {
-        if (tapIndex === 0) {
-          this.chooseLocalAvatar(['album']);
-          return;
-        }
-        if (tapIndex === 1) {
-          this.chooseLocalAvatar(['camera']);
-          return;
-        }
-        this.chooseWechatAvatar();
-      }
-    });
+  noop() {},
+
+  openAvatarPicker() {
+    this.setData({ showAvatarPicker: true });
   },
 
-  chooseWechatAvatar() {
-    wx.getUserProfile({
-      desc: '用于获取微信头像',
-      success: ({ userInfo }) => {
-        const avatarUrl = userInfo && userInfo.avatarUrl;
-        if (!avatarUrl) {
-          return;
-        }
-        wx.downloadFile({
-          url: avatarUrl,
-          success: ({ tempFilePath }) => {
-            if (tempFilePath) {
-              this.useAvatarFile(tempFilePath);
-            }
-          },
-          fail: () => {
-            wx.showToast({ title: '微信头像获取失败', icon: 'none' });
-          }
-        });
-      },
-      fail: () => {
-        wx.showToast({ title: '微信头像获取失败', icon: 'none' });
-      }
-    });
+  closeAvatarPicker() {
+    this.setData({ showAvatarPicker: false });
+  },
+
+  chooseFromAlbum() {
+    this.chooseLocalAvatar(['album']);
+  },
+
+  takePhoto() {
+    this.chooseLocalAvatar(['camera']);
+  },
+
+  chooseWechatAvatar(e) {
+    const avatarUrl = e.detail && e.detail.avatarUrl;
+    if (!avatarUrl) {
+      wx.showToast({ title: '微信头像获取失败', icon: 'none' });
+      return;
+    }
+    this.closeAvatarPicker();
+    this.useAvatarFile(avatarUrl);
   },
 
   chooseLocalAvatar(sourceType) {
@@ -79,6 +65,7 @@ Page({
       success: (res) => {
         const file = res.tempFiles && res.tempFiles[0];
         if (file && file.tempFilePath) {
+          this.closeAvatarPicker();
           this.useAvatarFile(file.tempFilePath);
         }
       }

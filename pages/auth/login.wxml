@@ -10,7 +10,7 @@
     </view>
 
     <view class="avatar-actions">
-      <view class="btn secondary avatar-trigger" bindtap="chooseAvatarAction">头像训责</view>
+      <view class="btn secondary avatar-trigger" bindtap="openAvatarPicker">头像选择</view>
     </view>
 
     <text class="field-label">昵称</text>
@@ -20,5 +20,19 @@
     <input class="input" value="{{email}}" maxlength="255" type="text" placeholder="填写邮箱" bindinput="onEmailInput" />
 
     <view class="btn save-btn" bindtap="saveProfile">{{saving ? '保存中' : '保存资料'}}</view>
+  </view>
+
+  <view wx:if="{{showAvatarPicker}}" class="picker-mask" bindtap="closeAvatarPicker">
+    <view class="picker-sheet" catchtap="noop">
+      <text class="picker-title">头像选择</text>
+      <view class="btn secondary picker-btn" bindtap="chooseFromAlbum">选图片</view>
+      <view class="btn secondary picker-btn" bindtap="takePhoto">拍照</view>
+      <button
+        class="btn secondary picker-btn native-picker-btn"
+        open-type="chooseAvatar"
+        bindchooseavatar="chooseWechatAvatar"
+      >微信头像</button>
+      <view class="btn ghost picker-btn" bindtap="closeAvatarPicker">取消</view>
+    </view>
   </view>
 </view>
