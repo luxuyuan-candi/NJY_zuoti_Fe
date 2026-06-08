@@ -8,8 +8,7 @@ Page({
     avatarExt: 'jpg',
     nickname: '',
     email: '',
-    saving: false,
-    showAvatarPicker: false
+    saving: false
   },
 
   onLoad() {
@@ -29,47 +28,13 @@ Page({
     });
   },
 
-  noop() {},
-
-  openAvatarPicker() {
-    this.setData({ showAvatarPicker: true });
-  },
-
-  closeAvatarPicker() {
-    this.setData({ showAvatarPicker: false });
-  },
-
-  chooseFromAlbum() {
-    this.chooseLocalAvatar(['album']);
-  },
-
-  takePhoto() {
-    this.chooseLocalAvatar(['camera']);
-  },
-
   chooseWechatAvatar(e) {
     const avatarUrl = e.detail && e.detail.avatarUrl;
     if (!avatarUrl) {
       wx.showToast({ title: '微信头像获取失败', icon: 'none' });
       return;
     }
-    this.closeAvatarPicker();
     this.useAvatarFile(avatarUrl);
-  },
-
-  chooseLocalAvatar(sourceType) {
-    wx.chooseMedia({
-      count: 1,
-      mediaType: ['image'],
-      sourceType,
-      success: (res) => {
-        const file = res.tempFiles && res.tempFiles[0];
-        if (file && file.tempFilePath) {
-          this.closeAvatarPicker();
-          this.useAvatarFile(file.tempFilePath);
-        }
-      }
-    });
   },
 
   useAvatarFile(filePath) {

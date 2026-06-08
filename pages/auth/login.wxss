@@ -28,6 +28,15 @@
   width: 100%;
 }
 
+.native-avatar-btn {
+  padding: 0;
+  line-height: 88rpx;
+}
+
+.native-avatar-btn::after {
+  border: 0;
+}
+
 .field-label {
   margin: 28rpx 0 12rpx;
   color: #253149;
@@ -37,45 +46,4 @@
 
 .save-btn {
   margin-top: 34rpx;
-}
-
-.picker-mask {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  display: flex;
-  align-items: flex-end;
-  background: rgba(23, 32, 51, 0.28);
-}
-
-.picker-sheet {
-  width: 100%;
-  padding: 24rpx 28rpx 34rpx;
-  border-top-left-radius: 24rpx;
-  border-top-right-radius: 24rpx;
-  background: #fff;
-  box-sizing: border-box;
-}
-
-.picker-title {
-  display: block;
-  margin-bottom: 18rpx;
-  text-align: center;
-  font-size: 28rpx;
-  font-weight: 700;
-  color: #172033;
-}
-
-.picker-btn {
-  width: 100%;
-  margin-top: 14rpx;
-}
-
-.native-picker-btn {
-  padding: 0;
-  line-height: 88rpx;
-}
-
-.native-picker-btn::after {
-  border: 0;
 }
