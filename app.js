@@ -10,6 +10,8 @@ App({
       nickname: '',
       avatarUrl: '',
       email: '',
+      role: 'USER',
+      roleLabel: '普通用户',
       authorized: false
     }
   },

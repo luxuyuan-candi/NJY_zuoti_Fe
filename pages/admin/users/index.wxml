@@ -1,0 +1,37 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">人员管理</text>
+    <text class="hero-subtitle">按当前身份配置用户角色</text>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title">用户列表</text>
+      <text class="section-link" bindtap="loadUsers">刷新</text>
+    </view>
+
+    <view wx:if="{{loading}}" class="empty">正在加载</view>
+    <view wx:elif="{{!users.length}}" class="empty">暂无用户</view>
+    <view wx:else class="list">
+      <view class="card user-card" wx:for="{{users}}" wx:key="openid">
+        <view class="avatar">
+          <image wx:if="{{item.avatarUrl}}" class="avatar-image" src="{{item.avatarUrl}}" mode="aspectFill"></image>
+        </view>
+        <view class="user-info">
+          <view class="name-row">
+            <text class="title">{{item.displayName}}</text>
+            <text class="role-tag">{{item.roleLabel}}</text>
+          </view>
+          <text class="desc">{{item.openid}}</text>
+        </view>
+        <button
+          wx:if="{{item.canEditRole}}"
+          class="btn secondary small-btn"
+          data-openid="{{item.openid}}"
+          bindtap="chooseRole"
+        >配置</button>
+        <text wx:else class="muted">不可配置</text>
+      </view>
+    </view>
+  </view>
+</view>

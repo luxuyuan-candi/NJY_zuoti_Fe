@@ -1,15 +1,15 @@
-.profile-card {
+.user-card {
   display: flex;
   align-items: center;
-  gap: 22rpx;
+  gap: 18rpx;
 }
 
 .avatar {
-  width: 96rpx;
-  height: 96rpx;
+  width: 76rpx;
+  height: 76rpx;
+  border: 1rpx solid #e0e6f0;
   border-radius: 999rpx;
   overflow: hidden;
-  border: 1rpx solid #e0e6f0;
   background: #fff;
 }
 
@@ -19,7 +19,7 @@
   height: 100%;
 }
 
-.profile-info {
+.user-info {
   flex: 1;
   min-width: 0;
 }
@@ -27,7 +27,7 @@
 .name-row {
   display: flex;
   align-items: center;
-  gap: 14rpx;
+  gap: 12rpx;
 }
 
 .name-row .title {
@@ -46,12 +46,9 @@
   line-height: 1;
 }
 
-.medal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12rpx;
-  min-height: 132rpx;
-  text-align: center;
+.small-btn {
+  width: 108rpx;
+  height: 58rpx;
+  padding: 0;
   font-size: 24rpx;
 }

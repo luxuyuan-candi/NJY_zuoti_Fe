@@ -70,6 +70,14 @@ const updateUserProfile = (payload) => request({
   return user;
 });
 
+const getUsers = () => request({ url: '/users' });
+
+const updateUserRole = (openid, role) => request({
+  url: `/users/${openid}/role`,
+  method: 'PUT',
+  data: { role }
+});
+
 const getHomeContent = () => withFallback(
   request({ url: '/content/home', auth: false }),
   {
@@ -135,6 +143,8 @@ module.exports = {
   ensureIdentity,
   getCurrentUser,
   updateUserProfile,
+  getUsers,
+  updateUserRole,
   getHomeContent,
   getBanks,
   getChapters,
