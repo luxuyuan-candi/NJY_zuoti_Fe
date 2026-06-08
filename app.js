@@ -5,8 +5,11 @@ App({
     appId: 'wxb88840bf78c6cd4d',
     token: '',
     user: {
-      id: 'u-demo',
-      nickname: '未登录用户',
+      id: '',
+      openid: '',
+      nickname: '',
+      avatarUrl: '',
+      email: '',
       authorized: false
     }
   },

@@ -23,6 +23,53 @@ const loginByCode = (payload) => request({
   auth: false
 });
 
+const ensureIdentity = () => {
+  const token = wx.getStorageSync('token');
+  if (token) {
+    return getCurrentUser().catch(() => wx.getStorageSync('user') || null);
+  }
+
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success: ({ code }) => {
+        if (!code) {
+          reject(new Error('missing wx login code'));
+          return;
+        }
+        loginByCode({ code })
+          .then((data) => {
+            const app = getApp();
+            wx.setStorageSync('token', data.token);
+            wx.setStorageSync('user', data.user);
+            app.globalData.token = data.token;
+            app.globalData.user = data.user;
+            resolve(data.user);
+          })
+          .catch(reject);
+      },
+      fail: reject
+    });
+  });
+};
+
+const getCurrentUser = () => request({ url: '/user/me' }).then((user) => {
+  const app = getApp();
+  wx.setStorageSync('user', user);
+  app.globalData.user = user;
+  return user;
+});
+
+const updateUserProfile = (payload) => request({
+  url: '/user/me',
+  method: 'PUT',
+  data: payload
+}).then((user) => {
+  const app = getApp();
+  wx.setStorageSync('user', user);
+  app.globalData.user = user;
+  return user;
+});
+
 const getHomeContent = () => withFallback(
   request({ url: '/content/home', auth: false }),
   {
@@ -85,6 +132,9 @@ const submitFeedback = (content) => request({
 
 module.exports = {
   loginByCode,
+  ensureIdentity,
+  getCurrentUser,
+  updateUserProfile,
   getHomeContent,
   getBanks,
   getChapters,

@@ -1,12 +1,28 @@
 <view class="page">
   <view class="hero">
-    <text class="hero-title">微信授权登录</text>
-    <text class="hero-subtitle">登录后由管理员授权题库访问范围。</text>
+    <text class="hero-title">身份配置</text>
+    <text class="hero-subtitle">系统已通过微信 openid 识别你的身份，可补充头像、昵称和邮箱。</text>
   </view>
-  <view class="section card">
-    <text class="title">南检院做题</text>
-    <text class="desc">我们仅使用微信 openid 识别用户身份，不在前端保存任何密钥。</text>
-    <view class="btn" style="margin-top: 32rpx;" bindtap="login">授权登录</view>
+
+  <view class="section card profile-form">
+    <view class="avatar-large">
+      <image wx:if="{{avatarUrl}}" class="avatar-image" src="{{avatarUrl}}" mode="aspectFill"></image>
+    </view>
+    <text class="openid">{{openid || '正在获取 openid'}}</text>
+
+    <view class="avatar-actions">
+      <view class="btn secondary small-btn" bindtap="chooseFromAlbum">选图片</view>
+      <view class="btn secondary small-btn" bindtap="takePhoto">拍照</view>
+      <button class="btn secondary small-btn native-btn" open-type="chooseAvatar" bindchooseavatar="chooseWechatAvatar">微信头像</button>
+    </view>
+
+    <text class="field-label">昵称</text>
+    <input class="input" value="{{nickname}}" maxlength="128" placeholder="填写昵称" bindinput="onNicknameInput" />
+
+    <text class="field-label">邮箱</text>
+    <input class="input" value="{{email}}" maxlength="255" type="text" placeholder="填写邮箱" bindinput="onEmailInput" />
+
+    <view class="btn save-btn" bindtap="saveProfile">{{saving ? '保存中' : '保存资料'}}</view>
     <view class="btn ghost" style="margin-top: 18rpx;" bindtap="goAgreement">查看协议</view>
   </view>
 </view>

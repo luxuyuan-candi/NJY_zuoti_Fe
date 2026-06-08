@@ -1,8 +1,8 @@
-const { getRanking, getMedals } = require('../../utils/services');
+const { ensureIdentity, getRanking, getMedals } = require('../../utils/services');
 
 Page({
   data: {
-    loggedIn: false,
+    user: {},
     medals: ['连续学习', '考试达人', '错题清零'],
     ranking: [
       { label: '总榜', value: '128' },
@@ -17,13 +17,21 @@ Page({
   },
 
   onShow() {
-    const token = wx.getStorageSync('token');
     const user = wx.getStorageSync('user');
-    this.setData({ loggedIn: Boolean(token) });
-    if (user && user.nickname) {
-      this.setData({ nickname: user.nickname });
+    if (user) {
+      this.setData({ user });
     }
-    if (!token) return;
+    ensureIdentity()
+      .then((currentUser) => {
+        if (currentUser) {
+          this.setData({ user: currentUser });
+        }
+        return this.loadAssets();
+      })
+      .catch(() => {});
+  },
+
+  loadAssets() {
     getRanking()
       .then((ranking) => {
         this.setData({
@@ -33,8 +41,9 @@ Page({
             { label: '当前积分', value: String(ranking.currentScore || 0) }
           ]
         });
-      });
-    getMedals()
+      })
+      .catch(() => {});
+    return getMedals()
       .then((medals) => this.setData({ medals: medals.map((item) => item.name || item) }))
       .catch(() => {});
   },
