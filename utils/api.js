@@ -1,6 +1,5 @@
-const app = getApp();
-
 const request = ({ url, method = 'GET', data = {}, header = {}, auth = true }) => {
+  const app = getApp();
   const token = wx.getStorageSync('token') || app.globalData.token;
 
   return new Promise((resolve, reject) => {
