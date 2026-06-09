@@ -42,8 +42,23 @@ Page({
       wx.showToast({ title: '缺少练习上下文', icon: 'none' });
       return;
     }
-    wx.navigateTo({
-      url: `/pages/practice/settings?bankId=${retryConfig.bankId}&chapterKey=${encodeURIComponent(retryConfig.chapterKey || '')}&title=${encodeURIComponent(retryConfig.title || '')}&total=${retryConfig.total || 0}&bankName=${encodeURIComponent(retryConfig.bankName || '')}&selectedCount=${retryConfig.selectedCount || 10}`
-    });
+    const targetUrl = `/pages/practice/settings?bankId=${retryConfig.bankId}&chapterKey=${encodeURIComponent(retryConfig.chapterKey || '')}&title=${encodeURIComponent(retryConfig.title || '')}&total=${retryConfig.total || 0}&bankName=${encodeURIComponent(retryConfig.bankName || '')}&selectedCount=${retryConfig.selectedCount || 10}`;
+    const pages = getCurrentPages();
+    const backDelta = Math.min(3, Math.max(pages.length - 1, 0));
+
+    if (backDelta > 0) {
+      wx.navigateBack({
+        delta: backDelta,
+        success: () => {
+          wx.navigateTo({ url: targetUrl });
+        },
+        fail: () => {
+          wx.redirectTo({ url: targetUrl });
+        }
+      });
+      return;
+    }
+
+    wx.redirectTo({ url: targetUrl });
   }
 });
