@@ -73,10 +73,11 @@ Page({
   saveProfile() {
     if (this.data.saving) return;
     this.setData({ saving: true });
+    const persistedAvatarUrl = /^https?:\/\//.test(this.data.avatarUrl) ? this.data.avatarUrl : '';
     updateUserProfile({
       nickname: this.data.nickname.trim(),
       email: this.data.email.trim(),
-      avatar_url: this.data.avatarBase64 ? '' : this.data.avatarUrl,
+      avatar_url: this.data.avatarBase64 ? '' : persistedAvatarUrl,
       avatar_base64: this.data.avatarBase64,
       avatar_content_type: this.data.avatarContentType,
       avatar_ext: this.data.avatarExt

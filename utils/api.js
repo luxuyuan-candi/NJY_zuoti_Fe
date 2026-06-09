@@ -7,6 +7,7 @@ const request = ({ url, method = 'GET', data = {}, header = {}, auth = true }) =
     wx.request({
       url: `${app.globalData.baseUrl}${url}`,
       method,
+      timeout: 15000,
       data,
       header: {
         'Content-Type': 'application/json',
