@@ -41,7 +41,6 @@
     <view class="btn ghost" bindtap="toggleDoubtful">{{doubtful ? '已存疑' : '存疑'}}</view>
     <view wx:if="{{!submitted}}" class="btn" bindtap="submit">提交</view>
     <view wx:elif="{{allAnswered}}" class="btn" bindtap="finish">完成</view>
-    <view wx:elif="{{currentIndex + 1 < questions.length}}" class="btn" bindtap="nextQuestion">下一题</view>
-    <view wx:else class="btn" bindtap="finish">完成</view>
+    <view wx:else class="btn" bindtap="nextQuestion">下一题</view>
   </view>
 </view>

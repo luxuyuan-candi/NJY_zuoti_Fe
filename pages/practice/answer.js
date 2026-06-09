@@ -72,8 +72,14 @@ Page({
   },
 
   selectOption(e) {
-    if (this.data.submitted) return;
-    this.setData({ selected: e.currentTarget.dataset.key });
+    const selected = e.currentTarget.dataset.key;
+    const currentQuestion = this.data.currentQuestion;
+    const existingResult = currentQuestion ? this.data.answerResults[currentQuestion.id] : null;
+    const changedAfterSubmit = !!existingResult && existingResult.selected !== selected;
+    this.setData({
+      selected,
+      submitted: changedAfterSubmit ? false : this.data.submitted
+    });
   },
 
   submit() {
@@ -122,6 +128,13 @@ Page({
   nextQuestion() {
     const nextIndex = this.data.currentIndex + 1;
     if (nextIndex >= this.data.questions.length) {
+      const firstUnansweredIndex = this.data.questions.findIndex(
+        (question) => !this.data.answerResults[question.id]
+      );
+      if (firstUnansweredIndex >= 0) {
+        this.syncCurrentQuestion(firstUnansweredIndex);
+        return;
+      }
       this.finish();
       return;
     }
