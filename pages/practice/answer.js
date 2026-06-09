@@ -254,7 +254,7 @@ Page({
         }))
     }).then((record) => {
       getApp().globalData.lastPracticeResult = record;
-      wx.navigateTo({ url: `/pages/practice/result?recordId=${record.id}` });
+      wx.redirectTo({ url: `/pages/practice/result?recordId=${record.id}` });
     }).catch(() => wx.showToast({ title: '结果保存失败', icon: 'none' }));
   }
 });

@@ -136,7 +136,6 @@ const aggregateMistakes = (records) => {
 const getPracticeDashboard = () => {
   const records = listCompletedPracticeRecords();
   const practiceRecords = records.filter((item) => item.type === '练习');
-  const examRecords = records.filter((item) => item.type === '考试');
   const totalAnswered = records.reduce((sum, item) => sum + Number(item.answeredCount || 0), 0);
   const totalCorrect = records.reduce((sum, item) => sum + Number(item.correctCount || 0), 0);
   const accuracy = totalAnswered ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
@@ -147,12 +146,12 @@ const getPracticeDashboard = () => {
     stats: [
       { label: '总做题数', value: String(totalAnswered) },
       { label: '正确率', value: `${accuracy}%` },
-      { label: '考试数', value: String(examRecords.length) }
+      { label: '考试数', value: String(records.length) }
     ],
     records: records.map((item) => buildRecordSummary(item)),
     mistakeCount: mistakes.length,
     practiceCount: practiceRecords.length,
-    examCount: examRecords.length
+    examCount: records.length
   };
 };
 
