@@ -19,7 +19,7 @@
     </view>
   </view>
 
-  <view wx:if="{{submitted}}" class="section card analysis">
+  <view wx:if="{{submitted && showAnalysis}}" class="section card analysis">
     <text class="title">答案解析</text>
     <text class="desc">正确答案：{{currentQuestion.answer}}</text>
     <text class="desc">{{currentQuestion.analysis || '当前题目暂无解析。'}}</text>

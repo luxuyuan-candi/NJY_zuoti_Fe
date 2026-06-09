@@ -6,10 +6,13 @@
 
   <view class="section">
     <view class="section-head"><text class="section-title">题目数量</text></view>
-    <view class="grid-2">
-      <view wx:for="{{counts}}" wx:key="*this" data-count="{{item}}" bindtap="selectCount" class="card count-card {{selectedCount === item ? 'active' : ''}}">
-        <text>{{item}} 题</text>
-      </view>
+    <view class="card picker-card">
+      <picker mode="selector" range="{{countOptions}}" value="{{selectedCountIndex}}" bindchange="changeCount">
+        <view class="picker-trigger row between">
+          <text class="title">选择题数</text>
+          <text class="picker-value">{{selectedCount}} 题</text>
+        </view>
+      </picker>
     </view>
   </view>
 
@@ -21,10 +24,6 @@
     <view class="card row between">
       <text class="title">答后显示解析</text>
       <switch checked="{{showAnalysis}}" bindchange="toggleAnalysis" />
-    </view>
-    <view class="card row between">
-      <text class="title">只做未做题</text>
-      <switch checked="{{onlyUnfinished}}" bindchange="toggleUnfinished" />
     </view>
   </view>
 

@@ -15,7 +15,8 @@ Page({
     navItems: [],
     answerResults: {},
     doubtfulMap: {},
-    allAnswered: false
+    allAnswered: false,
+    showAnalysis: true
   },
 
   onLoad(query) {
@@ -29,7 +30,8 @@ Page({
 
     this.setData({
       title: decodeURIComponent(query.title || ''),
-      bankName: decodeURIComponent(query.bankName || '')
+      bankName: decodeURIComponent(query.bankName || ''),
+      showAnalysis: query.showAnalysis !== 'false'
     });
     app.globalData.lastPracticeConfig = {
       bankId: query.bankId || '',
@@ -37,7 +39,8 @@ Page({
       selectedCount: Number(query.count || 10),
       title: decodeURIComponent(query.title || ''),
       bankName: decodeURIComponent(query.bankName || ''),
-      total: Number(query.total || 0)
+      total: Number(query.total || 0),
+      showAnalysis: query.showAnalysis !== 'false'
     };
 
     startPractice(payload)

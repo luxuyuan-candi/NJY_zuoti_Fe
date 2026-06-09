@@ -1,11 +1,13 @@
-.count-card {
-  text-align: center;
-  font-size: 30rpx;
-  font-weight: 700;
+.picker-card {
+  padding: 0;
 }
 
-.count-card.active {
-  border-color: #176bff;
-  background: #eef5ff;
+.picker-trigger {
+  padding: 28rpx 30rpx;
+}
+
+.picker-value {
+  font-size: 30rpx;
+  font-weight: 700;
   color: #176bff;
 }
