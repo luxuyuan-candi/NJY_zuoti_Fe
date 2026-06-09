@@ -43,22 +43,13 @@ Page({
       return;
     }
     const targetUrl = `/pages/chapter/index?id=${retryConfig.bankId}`;
-    const pages = getCurrentPages();
-    const backDelta = Math.min(3, Math.max(pages.length - 1, 0));
-
-    if (backDelta > 0) {
-      wx.navigateBack({
-        delta: backDelta,
-        success: () => {
-          wx.redirectTo({ url: targetUrl });
-        },
-        fail: () => {
-          wx.redirectTo({ url: targetUrl });
-        }
-      });
-      return;
-    }
-
-    wx.redirectTo({ url: targetUrl });
+    wx.reLaunch({
+      url: '/pages/bank/index',
+      success: () => {
+        setTimeout(() => {
+          wx.navigateTo({ url: targetUrl });
+        }, 50);
+      }
+    });
   }
 });
