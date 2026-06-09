@@ -34,22 +34,6 @@ Page({
   },
 
   retry() {
-    const app = getApp();
-    const retryConfig = (app.globalData.lastPracticeResult && app.globalData.lastPracticeResult.retryConfig)
-      || app.globalData.lastPracticeConfig
-      || null;
-    if (!retryConfig || !retryConfig.bankId) {
-      wx.showToast({ title: '缺少练习上下文', icon: 'none' });
-      return;
-    }
-    const targetUrl = `/pages/chapter/index?id=${retryConfig.bankId}`;
-    wx.reLaunch({
-      url: '/pages/bank/index',
-      success: () => {
-        setTimeout(() => {
-          wx.navigateTo({ url: targetUrl });
-        }, 50);
-      }
-    });
+    wx.reLaunch({ url: '/pages/bank/index' });
   }
 });
