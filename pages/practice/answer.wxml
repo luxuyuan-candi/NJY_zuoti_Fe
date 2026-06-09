@@ -12,14 +12,21 @@
   <view wx:if="{{currentQuestion}}" class="section card">
     <text class="title">{{currentQuestion.stem}}</text>
     <view class="option-list">
-      <view wx:for="{{currentQuestion.options}}" wx:key="key" data-key="{{item.key}}" bindtap="selectOption" class="option {{selected === item.key ? 'selected' : ''}} {{submitted && item.key === currentQuestion.answer ? 'right' : ''}}">
+      <view wx:for="{{currentQuestion.options}}" wx:key="key" data-key="{{item.key}}" bindtap="selectOption" class="option {{selected === item.key ? 'selected' : ''}} {{submitted && analysisRevealed && item.key === currentQuestion.answer ? 'right' : ''}}">
         <text class="option-key">{{item.key}}</text>
         <text class="option-text">{{item.text}}</text>
       </view>
     </view>
   </view>
 
-  <view wx:if="{{submitted && showAnalysis}}" class="section card analysis">
+  <view wx:if="{{submitted && !showAnalysis && !analysisRevealed}}" class="section card analysis">
+    <view class="row between">
+      <text class="desc">已提交本题答案。</text>
+      <view class="btn secondary small-btn" bindtap="revealAnalysis">查看解析</view>
+    </view>
+  </view>
+
+  <view wx:if="{{submitted && analysisRevealed}}" class="section card analysis">
     <text class="title">答案解析</text>
     <text class="desc">正确答案：{{currentQuestion.answer}}</text>
     <text class="desc">{{currentQuestion.analysis || '当前题目暂无解析。'}}</text>

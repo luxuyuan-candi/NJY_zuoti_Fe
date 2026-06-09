@@ -16,7 +16,8 @@ Page({
     answerResults: {},
     doubtfulMap: {},
     allAnswered: false,
-    showAnalysis: true
+    showAnalysis: true,
+    analysisRevealed: false
   },
 
   onLoad(query) {
@@ -65,7 +66,8 @@ Page({
       currentQuestion,
       selected: result ? result.selected : '',
       submitted: !!result,
-      doubtful
+      doubtful,
+      analysisRevealed: result ? !!result.analysisRevealed : false
     });
   },
 
@@ -119,13 +121,15 @@ Page({
             selected,
             correct: !!result.correct,
             answer: result.answer || '',
-            analysis: result.analysis || ''
+            analysis: result.analysis || '',
+            analysisRevealed: this.data.showAnalysis
           }
         };
         this.setData({
           questions: nextQuestions,
           answerResults: nextResults,
           submitted: true,
+          analysisRevealed: this.data.showAnalysis,
           currentQuestion: {
             ...currentQuestion,
             answer: result.answer || '',
@@ -135,6 +139,24 @@ Page({
         this.refreshNavItems(nextQuestions, nextResults);
       })
       .catch(() => wx.showToast({ title: '提交失败', icon: 'none' }));
+  },
+
+  revealAnalysis() {
+    const { currentQuestion, answerResults } = this.data;
+    if (!currentQuestion) return;
+    const currentResult = answerResults[currentQuestion.id];
+    if (!currentResult) return;
+    const nextResults = {
+      ...answerResults,
+      [currentQuestion.id]: {
+        ...currentResult,
+        analysisRevealed: true
+      }
+    };
+    this.setData({
+      answerResults: nextResults,
+      analysisRevealed: true
+    });
   },
 
   nextQuestion() {
