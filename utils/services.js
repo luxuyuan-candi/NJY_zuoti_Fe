@@ -13,7 +13,8 @@ const normalizeQuestion = (question) => ({
   ...question,
   no: question.no || 1,
   total: question.total || 20,
-  type: question.type === 'single_choice' ? '单选题' : question.type || '单选题'
+  type: question.type || '',
+  typeLabel: question.typeLabel || (question.type === 'single_choice' ? '单选题' : question.type === 'multiple_choice' ? '多选题' : question.type === 'true_false' ? '判断题' : '题目')
 });
 
 const loginByCode = (payload) => request({
@@ -120,19 +121,20 @@ const getHomeContent = () => withFallback(
   }
 );
 
-const getBanks = () => withFallback(request({ url: '/banks' }), mock.banks);
+const getBanks = () => request({ url: '/banks' });
 
-const getChapters = (bankId) => withFallback(
-  request({ url: `/banks/${bankId || 'bank-exam-1'}/chapters` }).then((data) => data.chapters || data),
-  mock.chapters
-);
+const getChapters = (bankId) => request({ url: `/banks/${bankId || ''}/chapters` });
 
 const getPapers = () => withFallback(request({ url: '/exams/papers' }), mock.papers);
 
-const startPractice = () => withFallback(
-  request({ url: '/practice/start', method: 'POST' }).then((data) => normalizeQuestion(data.question || data)),
-  normalizeQuestion(mock.question)
-);
+const startPractice = (payload) => request({
+  url: '/practice/start',
+  method: 'POST',
+  data: payload
+}).then((data) => ({
+  ...data,
+  questions: (data.questions || []).map((question) => normalizeQuestion(question))
+}));
 
 const submitPracticeAnswer = (questionId, answer) => request({
   url: '/practice/answers',

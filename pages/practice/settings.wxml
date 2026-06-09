@@ -1,7 +1,7 @@
 <view class="page with-bottom-bar">
   <view class="hero">
     <text class="hero-title">练习设置</text>
-    <text class="hero-subtitle">第一章 基础概念，预计耗时 {{selectedCount}} 分钟。</text>
+    <text class="hero-subtitle">{{title || bankName || '当前题库'}}，共 {{totalQuestions}} 题，本次预计 {{selectedCount}} 题。</text>
   </view>
 
   <view class="section">

@@ -1,7 +1,7 @@
 <view class="page">
   <view class="hero">
-    <text class="hero-title">本次正确率 80%</text>
-    <text class="hero-subtitle">耗时 18 分钟，新增 2 道错题。</text>
+    <text class="hero-title">{{heroTitle}}</text>
+    <text class="hero-subtitle">{{heroSubtitle}}</text>
   </view>
 
   <view class="section grid-3">
@@ -11,7 +11,7 @@
     </view>
   </view>
 
-  <view class="section list">
+  <view wx:if="{{details.length}}" class="section list">
     <view class="card" wx:for="{{details}}" wx:key="name">
       <view class="row between">
         <text class="title">{{item.name}}</text>

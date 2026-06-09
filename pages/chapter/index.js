@@ -2,18 +2,27 @@ const { getChapters } = require('../../utils/services');
 
 Page({
   data: {
-    bankId: 'bank-exam-1',
+    bankId: '',
+    bank: null,
     chapters: [],
     modes: ['章节', '套卷', '专项'],
-    activeMode: '章节'
+    activeMode: '章节',
+    loading: false
   },
 
   onLoad(query) {
-    const bankId = query.id || 'bank-exam-1';
-    this.setData({ bankId });
+    const bankId = query.id || '';
+    this.setData({ bankId, loading: true });
     getChapters(bankId)
-      .then((chapters) => this.setData({ chapters }))
-      .catch(() => wx.showToast({ title: '请先登录并等待授权', icon: 'none' }));
+      .then((data) => this.setData({
+        bank: data.bank || null,
+        chapters: data.chapters || [],
+        loading: false
+      }))
+      .catch(() => {
+        this.setData({ loading: false });
+        wx.showToast({ title: '请先登录并等待授权', icon: 'none' });
+      });
   },
 
   switchMode(e) {
@@ -26,10 +35,21 @@ Page({
   },
 
   goSettings(e) {
-    wx.navigateTo({ url: `/pages/practice/settings?chapterId=${e.currentTarget.dataset.id || ''}` });
+    const { id, title, total } = e.currentTarget.dataset;
+    const { bankId, bank } = this.data;
+    wx.navigateTo({
+      url: `/pages/practice/settings?bankId=${bankId}&chapterKey=${encodeURIComponent(id || '')}&title=${encodeURIComponent(title || '')}&total=${total || 0}&bankName=${encodeURIComponent((bank && bank.name) || '')}`
+    });
   },
 
   cacheChapter() {
     wx.showToast({ title: '缓存任务已创建', icon: 'none' });
+  },
+
+  startFullBankPractice() {
+    const { bankId, bank } = this.data;
+    wx.navigateTo({
+      url: `/pages/practice/settings?bankId=${bankId}&title=${encodeURIComponent((bank && bank.name) || '')}&total=${(bank && bank.questionCount) || 0}&bankName=${encodeURIComponent((bank && bank.name) || '')}`
+    });
   }
 });

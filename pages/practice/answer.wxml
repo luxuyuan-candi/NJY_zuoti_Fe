@@ -1,18 +1,18 @@
 <view class="page with-bottom-bar">
-  <view class="answer-top card">
+  <view wx:if="{{currentQuestion}}" class="answer-top card">
     <view class="row between">
-      <text class="tag">{{question.type}}</text>
-      <text class="muted">{{question.no}} / {{question.total}}</text>
+      <text class="tag">{{currentQuestion.typeLabel}}</text>
+      <text class="muted">{{currentQuestion.no}} / {{currentQuestion.total}}</text>
     </view>
     <view class="progress" style="margin-top: 18rpx;">
-      <view class="progress-fill" style="width: {{question.no / question.total * 100}}%;"></view>
+      <view class="progress-fill" style="width: {{currentQuestion.no / currentQuestion.total * 100}}%;"></view>
     </view>
   </view>
 
-  <view class="section card">
-    <text class="title">{{question.stem}}</text>
+  <view wx:if="{{currentQuestion}}" class="section card">
+    <text class="title">{{currentQuestion.stem}}</text>
     <view class="option-list">
-      <view wx:for="{{question.options}}" wx:key="key" data-key="{{item.key}}" bindtap="selectOption" class="option {{selected === item.key ? 'selected' : ''}} {{submitted && item.key === question.answer ? 'right' : ''}}">
+      <view wx:for="{{currentQuestion.options}}" wx:key="key" data-key="{{item.key}}" bindtap="selectOption" class="option {{selected === item.key ? 'selected' : ''}} {{submitted && item.key === currentQuestion.answer ? 'right' : ''}}">
         <text class="option-key">{{item.key}}</text>
         <text class="option-text">{{item.text}}</text>
       </view>
@@ -21,21 +21,26 @@
 
   <view wx:if="{{submitted}}" class="section card analysis">
     <text class="title">答案解析</text>
-    <text class="desc">正确答案：{{question.answer}}</text>
-    <text class="desc">{{question.analysis}}</text>
+    <text class="desc">正确答案：{{currentQuestion.answer}}</text>
+    <text class="desc">{{currentQuestion.analysis || '当前题目暂无解析。'}}</text>
   </view>
 
   <view wx:if="{{showNavigator}}" class="section card">
     <text class="title">题目导航</text>
     <view class="number-grid">
-      <text wx:for="{{navNumbers}}" wx:key="*this" class="number {{index === 0 ? 'active' : ''}}">{{item}}</text>
+      <text wx:for="{{navItems}}" wx:key="index" data-index="{{item.index}}" bindtap="openQuestion" class="number {{currentIndex === item.index ? 'active' : ''}} {{item.answered ? 'done' : ''}}">{{item.label}}</text>
     </view>
+  </view>
+
+  <view wx:if="{{!currentQuestion}}" class="section card">
+    <text class="desc">正在加载题目...</text>
   </view>
 
   <view class="bottom-bar">
     <view class="btn ghost" bindtap="toggleNavigator">题号</view>
     <view class="btn ghost" bindtap="toggleFavorite">{{favorited ? '已收藏' : '收藏'}}</view>
     <view wx:if="{{!submitted}}" class="btn" bindtap="submit">提交</view>
+    <view wx:elif="{{currentIndex + 1 < questions.length}}" class="btn" bindtap="nextQuestion">下一题</view>
     <view wx:else class="btn" bindtap="finish">完成</view>
   </view>
 </view>

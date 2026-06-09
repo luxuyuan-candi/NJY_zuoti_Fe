@@ -1,28 +1,40 @@
 <view class="page with-bottom-bar">
   <view class="hero">
-    <text class="hero-title">综合能力考试题库</text>
-    <text class="hero-subtitle">已完成 426 / 1280，正确率 82%。</text>
+    <text class="hero-title">{{bank ? bank.name : '题库章节'}}</text>
+    <text class="hero-subtitle">{{bank ? bank.levelLabel + '理论题，共 ' + bank.questionCount + ' 题。' : '正在加载题库数据。'}}</text>
   </view>
 
   <view class="section tabs">
     <view wx:for="{{modes}}" wx:key="*this" data-mode="{{item}}" bindtap="switchMode" class="tab {{activeMode === item ? 'active' : ''}}">{{item}}</view>
   </view>
 
-  <view class="section list">
-    <view class="card" wx:for="{{chapters}}" wx:key="id" data-id="{{item.id}}" bindtap="goSettings">
+  <view wx:if="{{loading}}" class="section list">
+    <view class="card">
+      <text class="desc">正在加载章节...</text>
+    </view>
+  </view>
+
+  <view wx:elif="{{!chapters.length}}" class="section list">
+    <view class="card">
+      <text class="desc">当前题库还没有可用章节。</text>
+    </view>
+  </view>
+
+  <view wx:else class="section list">
+    <view class="card" wx:for="{{chapters}}" wx:key="id" data-id="{{item.pathKey}}" data-title="{{item.name}}" data-total="{{item.total}}" bindtap="goSettings">
       <view class="row between">
         <text class="title">{{item.name}}</text>
         <text class="tag gray">{{item.cached}}</text>
       </view>
-      <text class="desc">已做 {{item.done}} / {{item.total}}，正确率 {{item.accuracy}}%</text>
+      <text class="desc">{{item.subtitle ? item.subtitle + ' · ' : ''}}共 {{item.total}} 题</text>
       <view class="progress" style="margin-top: 16rpx;">
-        <view class="progress-fill" style="width: {{item.done / item.total * 100}}%;"></view>
+        <view class="progress-fill" style="width: 100%;"></view>
       </view>
     </view>
   </view>
 
   <view class="bottom-bar">
     <view class="btn ghost" bindtap="cacheChapter">缓存题目</view>
-    <view class="btn" bindtap="goSettings">开始综合练习</view>
+    <view class="btn" bindtap="startFullBankPractice">开始综合练习</view>
   </view>
 </view>
