@@ -54,6 +54,17 @@
   height: 64rpx;
   border-radius: 12rpx;
   background: #f0f2f5;
+  color: #1f2937;
+}
+
+.number.done {
+  background: #18a058;
+  color: #fff;
+}
+
+.number.doubtful {
+  background: #f4b740;
+  color: #fff;
 }
 
 .number.active {

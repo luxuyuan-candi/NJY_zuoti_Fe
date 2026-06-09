@@ -28,7 +28,7 @@
   <view wx:if="{{showNavigator}}" class="section card">
     <text class="title">题目导航</text>
     <view class="number-grid">
-      <text wx:for="{{navItems}}" wx:key="index" data-index="{{item.index}}" bindtap="openQuestion" class="number {{currentIndex === item.index ? 'active' : ''}} {{item.answered ? 'done' : ''}}">{{item.label}}</text>
+      <text wx:for="{{navItems}}" wx:key="index" data-index="{{item.index}}" bindtap="openQuestion" class="number {{item.answered ? 'done' : ''}} {{item.doubtful ? 'doubtful' : ''}} {{currentIndex === item.index ? 'active' : ''}}">{{item.label}}</text>
     </view>
   </view>
 
@@ -38,7 +38,7 @@
 
   <view class="bottom-bar">
     <view class="btn ghost" bindtap="toggleNavigator">题号</view>
-    <view class="btn ghost" bindtap="toggleFavorite">{{favorited ? '已收藏' : '收藏'}}</view>
+    <view class="btn ghost" bindtap="toggleDoubtful">{{doubtful ? '已存疑' : '存疑'}}</view>
     <view wx:if="{{!submitted}}" class="btn" bindtap="submit">提交</view>
     <view wx:elif="{{currentIndex + 1 < questions.length}}" class="btn" bindtap="nextQuestion">下一题</view>
     <view wx:else class="btn" bindtap="finish">完成</view>

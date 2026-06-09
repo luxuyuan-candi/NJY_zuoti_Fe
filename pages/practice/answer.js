@@ -10,10 +10,11 @@ Page({
     currentQuestion: null,
     selected: '',
     submitted: false,
-    favorited: false,
+    doubtful: false,
     showNavigator: false,
     navItems: [],
-    answerResults: {}
+    answerResults: {},
+    doubtfulMap: {}
   },
 
   onLoad(query) {
@@ -45,20 +46,23 @@ Page({
   syncCurrentQuestion(index) {
     const currentQuestion = this.data.questions[index] || null;
     const result = currentQuestion ? this.data.answerResults[currentQuestion.id] : null;
+    const doubtful = currentQuestion ? !!this.data.doubtfulMap[currentQuestion.id] : false;
     this.setData({
       currentIndex: index,
       currentQuestion,
       selected: result ? result.selected : '',
-      submitted: !!result
+      submitted: !!result,
+      doubtful
     });
   },
 
-  refreshNavItems(questions, answerResults) {
+  refreshNavItems(questions, answerResults, doubtfulMap = this.data.doubtfulMap) {
     this.setData({
       navItems: (questions || []).map((question, index) => ({
         index,
         label: index + 1,
-        answered: !!answerResults[question.id]
+        answered: !!answerResults[question.id],
+        doubtful: !!doubtfulMap[question.id]
       }))
     });
   },
@@ -126,8 +130,22 @@ Page({
     this.syncCurrentQuestion(index);
   },
 
-  toggleFavorite() {
-    this.setData({ favorited: !this.data.favorited });
+  toggleDoubtful() {
+    const { currentQuestion, doubtfulMap, doubtful, questions, answerResults } = this.data;
+    if (!currentQuestion) return;
+    const nextDoubtful = !doubtful;
+    const nextMap = {
+      ...doubtfulMap,
+      [currentQuestion.id]: nextDoubtful
+    };
+    if (!nextDoubtful) {
+      delete nextMap[currentQuestion.id];
+    }
+    this.setData({
+      doubtful: nextDoubtful,
+      doubtfulMap: nextMap
+    });
+    this.refreshNavItems(questions, answerResults, nextMap);
   },
 
   toggleNavigator() {
