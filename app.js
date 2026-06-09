@@ -1,3 +1,5 @@
+const { ensureIdentity } = require('./utils/services');
+
 App({
   globalData: {
     baseUrl: 'https://www.njwjxy.cn:30443/api/miniapp',
@@ -10,8 +12,8 @@ App({
       nickname: '',
       avatarUrl: '',
       email: '',
-      role: 'USER',
-      roleLabel: '普通用户',
+      role: 'GUEST',
+      roleLabel: '游客',
       authorized: false
     }
   },
@@ -21,5 +23,6 @@ App({
     const user = wx.getStorageSync('user') || this.globalData.user;
     this.globalData.token = token;
     this.globalData.user = user;
+    ensureIdentity().catch(() => {});
   }
 });
