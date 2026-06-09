@@ -14,7 +14,8 @@ Page({
     showNavigator: false,
     navItems: [],
     answerResults: {},
-    doubtfulMap: {}
+    doubtfulMap: {},
+    allAnswered: false
   },
 
   onLoad(query) {
@@ -57,13 +58,16 @@ Page({
   },
 
   refreshNavItems(questions, answerResults, doubtfulMap = this.data.doubtfulMap) {
+    const allAnswered = (questions || []).length > 0
+      && (questions || []).every((question) => !!answerResults[question.id]);
     this.setData({
       navItems: (questions || []).map((question, index) => ({
         index,
         label: index + 1,
         answered: !!answerResults[question.id],
         doubtful: !!doubtfulMap[question.id]
-      }))
+      })),
+      allAnswered
     });
   },
 
