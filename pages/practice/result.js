@@ -1,5 +1,8 @@
+const { getPracticeRecord } = require('../../utils/services');
+
 Page({
   data: {
+    recordId: '',
     title: '',
     heroTitle: '本次练习已完成',
     heroSubtitle: '',
@@ -11,11 +14,25 @@ Page({
     details: []
   },
 
+  onLoad(query) {
+    this.setData({
+      recordId: query.recordId || ''
+    });
+  },
+
   onShow() {
-    const result = getApp().globalData.lastPracticeResult || null;
-    if (!result) {
+    const fallbackResult = getApp().globalData.lastPracticeResult || null;
+    if (this.data.recordId) {
+      getPracticeRecord(this.data.recordId)
+        .then((record) => this.applyResult(record || fallbackResult))
+        .catch(() => this.applyResult(fallbackResult));
       return;
     }
+    this.applyResult(fallbackResult);
+  },
+
+  applyResult(result) {
+    if (!result) return;
     this.setData({
       title: result.title || '',
       heroTitle: `本次正确率 ${result.accuracy}%`,

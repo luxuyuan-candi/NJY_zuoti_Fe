@@ -1,6 +1,7 @@
 const { request } = require('./api');
 const { assetUrl } = require('./assets');
 const mock = require('./mock');
+const practiceHistory = require('./practice-history');
 
 const withFallback = (promise, fallback) => promise.catch((error) => {
   if (error && (error.statusCode === 401 || error.statusCode === 403)) {
@@ -142,9 +143,21 @@ const submitPracticeAnswer = (questionId, answer) => request({
   data: { question_id: questionId, answer }
 });
 
-const getRecords = () => withFallback(request({ url: '/records' }), mock.records);
-const getMistakes = () => withFallback(request({ url: '/records/mistakes' }), mock.mistakes);
+const getRecords = () => Promise.resolve(practiceHistory.getPracticeDashboard().records);
+const getRecordDashboard = () => Promise.resolve(practiceHistory.getPracticeDashboard());
+const getPracticeTrends = () => Promise.resolve(practiceHistory.getPracticeTrends());
+const getMistakes = () => Promise.resolve(practiceHistory.getMistakeBook());
+const removeMistake = (questionId) => {
+  practiceHistory.dismissMistake(questionId);
+  return Promise.resolve(practiceHistory.getMistakeBook());
+};
 const getFavorites = () => withFallback(request({ url: '/records/favorites' }), mock.favorites);
+const saveCompletedPractice = (payload) => {
+  const record = practiceHistory.createCompletedPracticeRecord(payload);
+  practiceHistory.saveCompletedPracticeRecord(record);
+  return Promise.resolve(record);
+};
+const getPracticeRecord = (recordId) => Promise.resolve(practiceHistory.getPracticeRecordById(recordId));
 
 const getRanking = () => withFallback(request({ url: '/ranking/me' }), { total: 128, weekly: 16, currentScore: 2680 });
 const getLeaderboard = () => withFallback(request({ url: '/ranking/leaderboard' }), [
@@ -177,8 +190,13 @@ module.exports = {
   getPapers,
   startPractice,
   submitPracticeAnswer,
+  saveCompletedPractice,
+  getPracticeRecord,
   getRecords,
+  getRecordDashboard,
+  getPracticeTrends,
   getMistakes,
+  removeMistake,
   getFavorites,
   getRanking,
   getLeaderboard,

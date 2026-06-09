@@ -4,7 +4,7 @@
     <text class="hero-subtitle">正确率、考试成绩和做题数量持续跟踪。</text>
   </view>
 
-  <view class="section card">
+  <view class="section card" wx:if="{{trends.length}}">
     <text class="section-title">正确率趋势</text>
     <view class="chart">
       <view class="bar-wrap" wx:for="{{trends}}" wx:key="label">
@@ -12,5 +12,10 @@
         <text class="muted">{{item.label}}</text>
       </view>
     </view>
+  </view>
+
+  <view class="section card" wx:else>
+    <text class="section-title">暂无趋势数据</text>
+    <text class="desc">完成一次练习并点击“完成”后，这里才会开始累计趋势。</text>
   </view>
 </view>

@@ -1,19 +1,21 @@
-const { getMistakes } = require('../../utils/services');
+const { getMistakes, removeMistake } = require('../../utils/services');
 
 Page({
   data: {
     mistakes: []
   },
 
-  onLoad() {
+  onShow() {
     getMistakes()
       .then((mistakes) => this.setData({ mistakes }))
-      .catch(() => wx.showToast({ title: '请先登录', icon: 'none' }));
+      .catch(() => this.setData({ mistakes: [] }));
   },
 
   remove(e) {
     const id = e.currentTarget.dataset.id;
-    this.setData({ mistakes: this.data.mistakes.filter((item) => item.id !== id) });
+    removeMistake(id)
+      .then((mistakes) => this.setData({ mistakes }))
+      .catch(() => wx.showToast({ title: '移出失败', icon: 'none' }));
   },
 
   practice() {

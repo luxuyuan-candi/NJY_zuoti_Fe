@@ -1,4 +1,4 @@
-const { startPractice, submitPracticeAnswer } = require('../../utils/services');
+const { startPractice, submitPracticeAnswer, saveCompletedPractice } = require('../../utils/services');
 
 Page({
   data: {
@@ -230,15 +230,31 @@ Page({
       accuracy: item.total ? Math.round((item.correct / item.total) * 100) : 0
     }));
 
-    getApp().globalData.lastPracticeResult = {
+    saveCompletedPractice({
+      type: '练习',
       title: title || bankName || '练习结果',
       answeredCount,
       correctCount,
       wrongCount: answeredCount - correctCount,
       accuracy,
       details,
-      retryConfig: getApp().globalData.lastPracticeConfig || null
-    };
-    wx.navigateTo({ url: '/pages/practice/result' });
+      retryConfig: getApp().globalData.lastPracticeConfig || null,
+      questions: answeredQuestions
+        .filter((item) => !!item.result)
+        .map(({ question, result }) => ({
+          questionId: question.id,
+          stem: question.stem || '',
+          chapter: (((question.knowledge || {}).pathNames || []).slice(0, -1).join(' / ')) || title || bankName || '练习题',
+          selected: result.selected,
+          answer: result.answer || '',
+          correct: !!result.correct,
+          analysis: result.analysis || '',
+          type: question.type || '',
+          typeLabel: question.typeLabel || ''
+        }))
+    }).then((record) => {
+      getApp().globalData.lastPracticeResult = record;
+      wx.navigateTo({ url: `/pages/practice/result?recordId=${record.id}` });
+    }).catch(() => wx.showToast({ title: '结果保存失败', icon: 'none' }));
   }
 });
