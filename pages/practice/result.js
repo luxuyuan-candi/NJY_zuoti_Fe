@@ -34,6 +34,16 @@ Page({
   },
 
   retry() {
-    wx.navigateTo({ url: '/pages/practice/settings' });
+    const app = getApp();
+    const retryConfig = (app.globalData.lastPracticeResult && app.globalData.lastPracticeResult.retryConfig)
+      || app.globalData.lastPracticeConfig
+      || null;
+    if (!retryConfig || !retryConfig.bankId) {
+      wx.showToast({ title: '缺少练习上下文', icon: 'none' });
+      return;
+    }
+    wx.navigateTo({
+      url: `/pages/practice/settings?bankId=${retryConfig.bankId}&chapterKey=${encodeURIComponent(retryConfig.chapterKey || '')}&title=${encodeURIComponent(retryConfig.title || '')}&total=${retryConfig.total || 0}&bankName=${encodeURIComponent(retryConfig.bankName || '')}&selectedCount=${retryConfig.selectedCount || 10}`
+    });
   }
 });

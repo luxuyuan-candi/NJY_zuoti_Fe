@@ -19,6 +19,7 @@ Page({
   },
 
   onLoad(query) {
+    const app = getApp();
     const payload = {
       bank_id: query.bankId || '',
       chapter_key: decodeURIComponent(query.chapterKey || ''),
@@ -30,6 +31,14 @@ Page({
       title: decodeURIComponent(query.title || ''),
       bankName: decodeURIComponent(query.bankName || '')
     });
+    app.globalData.lastPracticeConfig = {
+      bankId: query.bankId || '',
+      chapterKey: decodeURIComponent(query.chapterKey || ''),
+      selectedCount: Number(query.count || 10),
+      title: decodeURIComponent(query.title || ''),
+      bankName: decodeURIComponent(query.bankName || ''),
+      total: Number(query.total || 0)
+    };
 
     startPractice(payload)
       .then((data) => {
@@ -202,7 +211,8 @@ Page({
       correctCount,
       wrongCount: answeredCount - correctCount,
       accuracy,
-      details
+      details,
+      retryConfig: getApp().globalData.lastPracticeConfig || null
     };
     wx.navigateTo({ url: '/pages/practice/result' });
   }

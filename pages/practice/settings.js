@@ -13,17 +13,22 @@ Page({
   },
 
   onLoad(query) {
-    const totalQuestions = Number(query.total || 0);
+    const app = getApp();
+    const fallbackConfig = app.globalData.lastPracticeConfig || null;
+    const resolvedQuery = Object.keys(query || {}).length ? query : (fallbackConfig || {});
+    const totalQuestions = Number(resolvedQuery.total || 0);
     const counts = [10, 20, 30, 50].filter((count) => count <= totalQuestions);
     const resolvedCounts = counts.length ? counts : [Math.max(1, totalQuestions || 10)];
     this.setData({
-      title: decodeURIComponent(query.title || ''),
-      bankId: query.bankId || '',
-      chapterKey: decodeURIComponent(query.chapterKey || ''),
-      bankName: decodeURIComponent(query.bankName || ''),
+      title: decodeURIComponent(resolvedQuery.title || ''),
+      bankId: resolvedQuery.bankId || '',
+      chapterKey: decodeURIComponent(resolvedQuery.chapterKey || ''),
+      bankName: decodeURIComponent(resolvedQuery.bankName || ''),
       totalQuestions,
       counts: resolvedCounts,
-      selectedCount: resolvedCounts[0]
+      selectedCount: resolvedCounts.includes(Number(resolvedQuery.selectedCount))
+        ? Number(resolvedQuery.selectedCount)
+        : resolvedCounts[0]
     });
   },
 
@@ -41,8 +46,16 @@ Page({
 
   start() {
     const { bankId, chapterKey, selectedCount, title, bankName, order } = this.data;
+    getApp().globalData.lastPracticeConfig = {
+      bankId,
+      chapterKey,
+      selectedCount,
+      title,
+      bankName,
+      total: this.data.totalQuestions
+    };
     wx.navigateTo({
-      url: `/pages/practice/answer?bankId=${bankId}&chapterKey=${encodeURIComponent(chapterKey || '')}&count=${selectedCount}&title=${encodeURIComponent(title || '')}&bankName=${encodeURIComponent(bankName || '')}&order=${encodeURIComponent(order)}`
+      url: `/pages/practice/answer?bankId=${bankId}&chapterKey=${encodeURIComponent(chapterKey || '')}&count=${selectedCount}&title=${encodeURIComponent(title || '')}&bankName=${encodeURIComponent(bankName || '')}&order=${encodeURIComponent(order)}&total=${this.data.totalQuestions || 0}`
     });
   }
 });
