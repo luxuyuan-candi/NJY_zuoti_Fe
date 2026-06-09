@@ -23,33 +23,57 @@ const loginByCode = (payload) => request({
   auth: false
 });
 
+const persistIdentity = (data) => {
+  const app = getApp();
+  wx.setStorageSync('token', data.token);
+  wx.setStorageSync('user', data.user);
+  app.globalData.token = data.token;
+  app.globalData.user = data.user;
+  return data.user;
+};
+
+const clearIdentityCache = () => {
+  const app = getApp();
+  wx.removeStorageSync('token');
+  wx.removeStorageSync('user');
+  app.globalData.token = '';
+  app.globalData.user = {
+    id: '',
+    openid: '',
+    nickname: '',
+    avatarUrl: '',
+    email: '',
+    role: 'GUEST',
+    roleLabel: '游客',
+    authorized: false
+  };
+};
+
+const loginWithWxCode = () => new Promise((resolve, reject) => {
+  wx.login({
+    success: ({ code }) => {
+      if (!code) {
+        reject(new Error('missing wx login code'));
+        return;
+      }
+      loginByCode({ code })
+        .then((data) => resolve(persistIdentity(data)))
+        .catch(reject);
+    },
+    fail: reject
+  });
+});
+
 const ensureIdentity = () => {
   const token = wx.getStorageSync('token');
   if (token) {
-    return getCurrentUser().catch(() => wx.getStorageSync('user') || null);
+    return getCurrentUser().catch(() => {
+      clearIdentityCache();
+      return loginWithWxCode();
+    });
   }
 
-  return new Promise((resolve, reject) => {
-    wx.login({
-      success: ({ code }) => {
-        if (!code) {
-          reject(new Error('missing wx login code'));
-          return;
-        }
-        loginByCode({ code })
-          .then((data) => {
-            const app = getApp();
-            wx.setStorageSync('token', data.token);
-            wx.setStorageSync('user', data.user);
-            app.globalData.token = data.token;
-            app.globalData.user = data.user;
-            resolve(data.user);
-          })
-          .catch(reject);
-      },
-      fail: reject
-    });
-  });
+  return loginWithWxCode();
 };
 
 const getCurrentUser = () => request({ url: '/user/me' }).then((user) => {
