@@ -29,7 +29,7 @@
           <text class="tag">{{item.type}}</text>
         </view>
         <view class="row between" style="margin-top: 16rpx;">
-          <text class="muted">{{item.date}}</text>
+          <text class="muted">{{item.dateTime || item.date}}</text>
           <text class="metric-value" style="font-size: 30rpx;">{{item.score}}</text>
         </view>
       </view>
