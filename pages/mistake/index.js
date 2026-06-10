@@ -41,5 +41,14 @@ Page({
       return;
     }
     wx.navigateTo({ url: '/pages/practice/settings?source=mistake' });
+  },
+
+  openDetail(e) {
+    const { id } = e.currentTarget.dataset;
+    if (!id) {
+      return;
+    }
+    const mode = this.data.recordMode ? 'record' : 'global';
+    wx.navigateTo({ url: `/pages/mistake/detail?id=${id}&mode=${mode}` });
   }
 });

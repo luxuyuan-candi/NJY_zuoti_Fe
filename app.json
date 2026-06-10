@@ -15,6 +15,7 @@
     "pages/exam/intro",
     "pages/exam/result",
     "pages/mistake/index",
+    "pages/mistake/detail",
     "pages/favorite/index",
     "pages/record/trend",
     "pages/profile/medal",

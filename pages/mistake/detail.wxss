@@ -1,0 +1,38 @@
+.option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  margin-top: 26rpx;
+}
+
+.option {
+  display: flex;
+  gap: 18rpx;
+  padding: 22rpx;
+  border: 1rpx solid #e7eaf0;
+  border-radius: 14rpx;
+  background: #fff;
+}
+
+.option.selected {
+  border-color: #f4b740;
+  background: #fff8e7;
+}
+
+.option.right {
+  border-color: #18a058;
+  background: #edf8f1;
+}
+
+.option-key {
+  font-weight: 800;
+}
+
+.option-text {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.analysis {
+  border-color: #bfe5cd;
+}

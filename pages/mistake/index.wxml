@@ -5,7 +5,7 @@
   </view>
 
   <view class="section list">
-    <view class="card" wx:for="{{mistakes}}" wx:key="id">
+    <view class="card" wx:for="{{mistakes}}" wx:key="id" data-id="{{item.id}}" bindtap="openDetail">
       <view class="row between">
         <text class="title">{{item.title}}</text>
         <text class="tag gray">{{recordMode ? '本次错题' : ('做错 ' + item.wrongTimes + ' 次')}}</text>
@@ -13,7 +13,7 @@
       <text class="desc">{{item.chapter}}</text>
       <view wx:if="{{item.selectedAnswer || item.correctAnswer}}" class="desc" style="margin-top: 12rpx;">你的答案：{{item.selectedAnswer || '未作答'}} / 正确答案：{{item.correctAnswer || '-'}}</view>
       <view wx:if="{{item.analysis}}" class="desc" style="margin-top: 12rpx;">解析：{{item.analysis}}</view>
-      <view wx:if="{{!recordMode}}" class="btn secondary" style="margin-top: 18rpx; height: 64rpx;" data-id="{{item.id}}" bindtap="remove">移出错题本</view>
+      <view wx:if="{{!recordMode}}" class="btn secondary" style="margin-top: 18rpx; height: 64rpx;" data-id="{{item.id}}" catchtap="remove">移出错题本</view>
     </view>
     <view class="card" wx:if="{{!mistakes.length}}">
       <text class="title">暂无错题</text>

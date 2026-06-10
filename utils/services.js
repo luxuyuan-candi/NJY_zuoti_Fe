@@ -148,6 +148,8 @@ const getPracticeTrends = () => request({ url: '/records/trends' });
 const getMistakes = (recordId = '') => request({
   url: recordId ? `/records/${recordId}/mistakes` : '/records/mistakes'
 });
+const getMistakeDetail = (mistakeId) => request({ url: `/records/mistakes/${mistakeId}` });
+const getRecordMistakeDetail = (itemId) => request({ url: `/records/mistake-items/${itemId}` });
 const removeMistake = (mistakeId) => request({
   url: `/records/mistakes/${mistakeId}`,
   method: 'DELETE'
@@ -197,6 +199,8 @@ module.exports = {
   getRecordDashboard,
   getPracticeTrends,
   getMistakes,
+  getMistakeDetail,
+  getRecordMistakeDetail,
   removeMistake,
   getFavorites,
   getRanking,
