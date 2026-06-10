@@ -1,20 +1,142 @@
-.chart {
+.section-head {
   display: flex;
-  align-items: flex-end;
+  align-items: baseline;
   justify-content: space-between;
-  height: 330rpx;
+  gap: 16rpx;
+}
+
+.section-meta {
+  font-size: 24rpx;
+  color: #7c8aa5;
+}
+
+.combo-chart {
+  display: flex;
+  gap: 20rpx;
   margin-top: 28rpx;
 }
 
-.bar-wrap {
+.y-axis {
+  height: 360rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 8rpx;
+}
+
+.y-axis-label {
+  font-size: 22rpx;
+  color: #8c97ab;
+  line-height: 1;
+}
+
+.plot-area {
+  position: relative;
+  flex: 1;
+  height: 360rpx;
+  border-bottom: 2rpx solid rgba(23, 107, 255, 0.18);
+}
+
+.grid-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 2rpx dashed rgba(23, 107, 255, 0.16);
+}
+
+.grid-line.top {
+  top: 0;
+}
+
+.grid-line.middle {
+  top: 50%;
+}
+
+.grid-line.bottom {
+  bottom: 0;
+}
+
+.bar-layer,
+.line-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.question-bar {
+  position: absolute;
+  bottom: 0;
+  min-height: 12rpx;
+  border-radius: 12rpx 12rpx 0 0;
+  background: linear-gradient(180deg, rgba(25, 167, 206, 0.85) 0%, rgba(23, 107, 255, 0.5) 100%);
+}
+
+.line-segment {
+  position: absolute;
+  height: 4rpx;
+  border-radius: 999rpx;
+  background: #176bff;
+  transform-origin: left center;
+}
+
+.line-point {
+  position: absolute;
+  border-radius: 50%;
+  background: #176bff;
+  border: 4rpx solid #ffffff;
+  box-shadow: 0 0 0 4rpx rgba(23, 107, 255, 0.15);
+  box-sizing: border-box;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 28rpx;
+  margin-top: 24rpx;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.legend-swatch {
+  width: 28rpx;
+  height: 12rpx;
+  border-radius: 999rpx;
+}
+
+.bar-swatch {
+  background: linear-gradient(180deg, rgba(25, 167, 206, 0.85) 0%, rgba(23, 107, 255, 0.5) 100%);
+}
+
+.line-swatch {
+  background: #176bff;
+}
+
+.legend-text {
+  font-size: 24rpx;
+  color: #52627d;
+}
+
+.x-axis {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16rpx 10rpx;
+  margin-top: 28rpx;
+}
+
+.x-axis-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12rpx;
+  gap: 4rpx;
+  min-width: 0;
 }
 
-.bar {
-  width: 56rpx;
-  border-radius: 999rpx 999rpx 8rpx 8rpx;
-  background: linear-gradient(180deg, #176bff 0%, #19a7ce 100%);
+.x-axis-date,
+.x-axis-time {
+  font-size: 20rpx;
+  line-height: 1.3;
+  color: #7c8aa5;
 }

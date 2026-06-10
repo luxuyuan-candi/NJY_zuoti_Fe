@@ -1,15 +1,45 @@
 <view class="page">
   <view class="hero">
     <text class="hero-title">趋势统计</text>
-    <text class="hero-subtitle">正确率、考试成绩和做题数量持续跟踪。</text>
+    <text class="hero-subtitle">最近 10 次练习的正确率和做题数量趋势。</text>
   </view>
 
   <view class="section card" wx:if="{{trends.length}}">
-    <text class="section-title">正确率趋势</text>
-    <view class="chart">
-      <view class="bar-wrap" wx:for="{{trends}}" wx:key="label">
-        <view class="bar" style="height: {{item.value * 3}}rpx;"></view>
-        <text class="muted">{{item.label}}</text>
+    <view class="section-head">
+      <text class="section-title">练习趋势</text>
+      <text class="section-meta">题量峰值 {{maxQuestionCount}}</text>
+    </view>
+    <view class="combo-chart">
+      <view class="y-axis">
+        <text class="y-axis-label" wx:for="{{yAxisLabels}}" wx:key="*this">{{item}}</text>
+      </view>
+      <view class="plot-area">
+        <view class="grid-line top"></view>
+        <view class="grid-line middle"></view>
+        <view class="grid-line bottom"></view>
+        <view class="bar-layer">
+          <view class="question-bar" wx:for="{{chartBars}}" wx:key="id" style="{{item.barStyle}}"></view>
+        </view>
+        <view class="line-layer">
+          <view class="line-segment" wx:for="{{chartSegments}}" wx:key="id" style="{{item.segmentStyle}}"></view>
+          <view class="line-point" wx:for="{{chartPoints}}" wx:key="id" style="{{item.pointStyle}}"></view>
+        </view>
+      </view>
+    </view>
+    <view class="legend">
+      <view class="legend-item">
+        <view class="legend-swatch bar-swatch"></view>
+        <text class="legend-text">题目数量</text>
+      </view>
+      <view class="legend-item">
+        <view class="legend-swatch line-swatch"></view>
+        <text class="legend-text">正确率</text>
+      </view>
+    </view>
+    <view class="x-axis">
+      <view class="x-axis-item" wx:for="{{trends}}" wx:key="id">
+        <text class="x-axis-date">{{item.dateLabel}}</text>
+        <text class="x-axis-time">{{item.timeLabel}}</text>
       </view>
     </view>
   </view>
