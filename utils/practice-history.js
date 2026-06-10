@@ -82,51 +82,50 @@ const aggregateMistakes = (records) => {
   const orderedRecords = [...records].sort((left, right) => (
     new Date(left.createdAt).getTime() - new Date(right.createdAt).getTime()
   ));
-  const states = {};
+  const activeMistakesByQuestion = {};
+  const mistakeEntries = [];
   orderedRecords.forEach((record) => {
     (record.questions || []).forEach((item) => {
       const questionId = item.questionId;
       if (!questionId) {
         return;
       }
-      const currentState = states[questionId] || {
-        id: questionId,
-        title: item.stem || '未命名题目',
-        chapter: item.chapter || record.title || '练习题',
-        correctTimes: 0,
-        active: false,
-        lastWrongAt: '',
-        lastSeenAt: ''
-      };
-      currentState.title = item.stem || currentState.title;
-      currentState.chapter = item.chapter || currentState.chapter;
-      currentState.lastSeenAt = record.createdAt;
       if (item.correct) {
-        if (currentState.active) {
-          currentState.correctTimes += 1;
-          if (currentState.correctTimes >= 2) {
-            currentState.active = false;
+        (activeMistakesByQuestion[questionId] || []).forEach((entry) => {
+          entry.correctTimes += 1;
+          if (entry.correctTimes >= 2) {
+            entry.resolved = true;
           }
-        }
+        });
+        activeMistakesByQuestion[questionId] = (activeMistakesByQuestion[questionId] || [])
+          .filter((entry) => !entry.resolved);
       } else {
-        currentState.active = true;
-        currentState.correctTimes = 0;
-        currentState.lastWrongAt = record.createdAt;
+        const entry = {
+          id: `${record.id}:${questionId}`,
+          questionId,
+          title: item.stem || '未命名题目',
+          chapter: item.chapter || record.title || '练习题',
+          correctTimes: 0,
+          wrongAt: record.createdAt,
+          resolved: false
+        };
+        if (!activeMistakesByQuestion[questionId]) {
+          activeMistakesByQuestion[questionId] = [];
+        }
+        activeMistakesByQuestion[questionId].push(entry);
+        mistakeEntries.push(entry);
       }
-      states[questionId] = currentState;
     });
   });
 
   const dismissed = getDismissedMistakes();
-  return Object.values(states)
-    .filter((item) => item.active)
-    .filter((item) => {
-      const dismissedAt = dismissed[item.id];
-      return !dismissedAt || new Date(item.lastWrongAt).getTime() > new Date(dismissedAt).getTime();
-    })
-    .sort((left, right) => new Date(right.lastWrongAt).getTime() - new Date(left.lastWrongAt).getTime())
+  return mistakeEntries
+    .filter((item) => !item.resolved)
+    .filter((item) => !dismissed[item.id])
+    .sort((left, right) => new Date(right.wrongAt).getTime() - new Date(left.wrongAt).getTime())
     .map((item) => ({
       id: item.id,
+      questionId: item.questionId,
       title: item.title,
       chapter: item.chapter,
       correctTimes: item.correctTimes
@@ -137,8 +136,8 @@ const getPracticeDashboard = () => {
   const records = listCompletedPracticeRecords();
   const practiceRecords = records.filter((item) => item.type === '练习');
   const totalAnswered = records.reduce((sum, item) => sum + Number(item.answeredCount || 0), 0);
-  const totalCorrect = records.reduce((sum, item) => sum + Number(item.correctCount || 0), 0);
-  const accuracy = totalAnswered ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
+  const totalWrong = records.reduce((sum, item) => sum + Number(item.wrongCount || 0), 0);
+  const accuracy = totalAnswered ? Math.round(((totalAnswered - totalWrong) / totalAnswered) * 100) : 0;
   const mistakes = aggregateMistakes(records);
 
   return {
