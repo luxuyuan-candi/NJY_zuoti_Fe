@@ -233,6 +233,8 @@ Page({
     saveCompletedPractice({
       type: '练习',
       title: title || bankName || '练习结果',
+      bankId: (getApp().globalData.lastPracticeConfig || {}).bankId || '',
+      chapterKey: (getApp().globalData.lastPracticeConfig || {}).chapterKey || '',
       answeredCount,
       correctCount,
       wrongCount: answeredCount - correctCount,

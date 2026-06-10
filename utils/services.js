@@ -1,7 +1,6 @@
 const { request } = require('./api');
 const { assetUrl } = require('./assets');
 const mock = require('./mock');
-const practiceHistory = require('./practice-history');
 
 const withFallback = (promise, fallback) => promise.catch((error) => {
   if (error && (error.statusCode === 401 || error.statusCode === 403)) {
@@ -143,21 +142,23 @@ const submitPracticeAnswer = (questionId, answer) => request({
   data: { question_id: questionId, answer }
 });
 
-const getRecords = () => Promise.resolve(practiceHistory.getPracticeDashboard().records);
-const getRecordDashboard = () => Promise.resolve(practiceHistory.getPracticeDashboard());
-const getPracticeTrends = () => Promise.resolve(practiceHistory.getPracticeTrends());
-const getMistakes = () => Promise.resolve(practiceHistory.getMistakeBook());
-const removeMistake = (questionId) => {
-  practiceHistory.dismissMistake(questionId);
-  return Promise.resolve(practiceHistory.getMistakeBook());
-};
+const getRecords = () => request({ url: '/records' }).then((dashboard) => dashboard.records || []);
+const getRecordDashboard = () => request({ url: '/records' });
+const getPracticeTrends = () => request({ url: '/records/trends' });
+const getMistakes = (recordId = '') => request({
+  url: recordId ? `/records/${recordId}/mistakes` : '/records/mistakes'
+});
+const removeMistake = (mistakeId) => request({
+  url: `/records/mistakes/${mistakeId}`,
+  method: 'DELETE'
+}).then(() => getMistakes());
 const getFavorites = () => withFallback(request({ url: '/records/favorites' }), mock.favorites);
-const saveCompletedPractice = (payload) => {
-  const record = practiceHistory.createCompletedPracticeRecord(payload);
-  practiceHistory.saveCompletedPracticeRecord(record);
-  return Promise.resolve(record);
-};
-const getPracticeRecord = (recordId) => Promise.resolve(practiceHistory.getPracticeRecordById(recordId));
+const saveCompletedPractice = (payload) => request({
+  url: '/records',
+  method: 'POST',
+  data: payload
+});
+const getPracticeRecord = (recordId) => request({ url: `/records/${recordId}` });
 
 const getRanking = () => withFallback(request({ url: '/ranking/me' }), { total: 128, weekly: 16, currentScore: 2680 });
 const getLeaderboard = () => withFallback(request({ url: '/ranking/leaderboard' }), [

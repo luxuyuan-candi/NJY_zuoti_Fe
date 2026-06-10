@@ -1,25 +1,27 @@
-<view class="page with-bottom-bar">
+<view class="page {{recordMode ? '' : 'with-bottom-bar'}}">
   <view class="hero">
-    <text class="hero-title">错题本</text>
-    <text class="hero-subtitle">多次答对后自动移出，也可以手动移出。</text>
+    <text class="hero-title">{{title}}</text>
+    <text class="hero-subtitle">{{subtitle}}</text>
   </view>
 
   <view class="section list">
     <view class="card" wx:for="{{mistakes}}" wx:key="id">
       <view class="row between">
         <text class="title">{{item.title}}</text>
-        <text class="tag gray">答对 {{item.correctTimes}} 次</text>
+        <text class="tag gray">{{recordMode ? '本次错题' : ('做错 ' + item.wrongTimes + ' 次')}}</text>
       </view>
       <text class="desc">{{item.chapter}}</text>
-      <view class="btn secondary" style="margin-top: 18rpx; height: 64rpx;" data-id="{{item.id}}" bindtap="remove">移出错题本</view>
+      <view wx:if="{{item.selectedAnswer || item.correctAnswer}}" class="desc" style="margin-top: 12rpx;">你的答案：{{item.selectedAnswer || '未作答'}} / 正确答案：{{item.correctAnswer || '-'}}</view>
+      <view wx:if="{{item.analysis}}" class="desc" style="margin-top: 12rpx;">解析：{{item.analysis}}</view>
+      <view wx:if="{{!recordMode}}" class="btn secondary" style="margin-top: 18rpx; height: 64rpx;" data-id="{{item.id}}" bindtap="remove">移出错题本</view>
     </view>
     <view class="card" wx:if="{{!mistakes.length}}">
       <text class="title">暂无错题</text>
-      <text class="desc">完成练习后答错的题目会进入这里，连续答对两次后会自动移出。</text>
+      <text class="desc">{{recordMode ? '本次完成记录没有错题。' : '完成练习后答错的题目会进入这里，并累计做错次数。'}}</text>
     </view>
   </view>
 
-  <view class="bottom-bar">
+  <view wx:if="{{!recordMode}}" class="bottom-bar">
     <view class="btn" bindtap="practice">开始错题重做</view>
   </view>
 </view>

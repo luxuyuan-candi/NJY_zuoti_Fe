@@ -47,7 +47,11 @@ Page({
   },
 
   goMistake() {
-    wx.navigateTo({ url: '/pages/mistake/index' });
+    if (!this.data.recordId) {
+      wx.navigateTo({ url: '/pages/mistake/index' });
+      return;
+    }
+    wx.navigateTo({ url: `/pages/mistake/index?recordId=${this.data.recordId}` });
   },
 
   retry() {
