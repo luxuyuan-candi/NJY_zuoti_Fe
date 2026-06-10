@@ -1,12 +1,10 @@
-const { getChapters } = require('../../utils/services');
+const { getChapters, getMistakes } = require('../../utils/services');
 
 Page({
   data: {
     bankId: '',
     bank: null,
     chapters: [],
-    modes: ['章节', '套卷', '专项'],
-    activeMode: '章节',
     loading: false
   },
 
@@ -25,15 +23,6 @@ Page({
       });
   },
 
-  switchMode(e) {
-    const mode = e.currentTarget.dataset.mode;
-    if (mode === '套卷') {
-      wx.navigateTo({ url: '/pages/paper/index' });
-      return;
-    }
-    this.setData({ activeMode: mode });
-  },
-
   goSettings(e) {
     const { id, title, total } = e.currentTarget.dataset;
     const { bankId, bank } = this.data;
@@ -42,8 +31,17 @@ Page({
     });
   },
 
-  cacheChapter() {
-    wx.showToast({ title: '缓存任务已创建', icon: 'none' });
+  startMistakePractice() {
+    getMistakes()
+      .then((mistakes) => {
+        if (!mistakes.length) {
+          wx.showToast({ title: '当前错题本没有题目', icon: 'none' });
+          return;
+        }
+        getApp().globalData.currentMistakeSet = mistakes;
+        wx.navigateTo({ url: '/pages/practice/settings?source=mistake' });
+      })
+      .catch(() => wx.showToast({ title: '加载错题失败', icon: 'none' }));
   },
 
   startFullBankPractice() {

@@ -4,10 +4,6 @@
     <text class="hero-subtitle">{{bank ? bank.levelLabel + '理论题，共 ' + bank.questionCount + ' 题。' : '正在加载题库数据。'}}</text>
   </view>
 
-  <view class="section tabs">
-    <view wx:for="{{modes}}" wx:key="*this" data-mode="{{item}}" bindtap="switchMode" class="tab {{activeMode === item ? 'active' : ''}}">{{item}}</view>
-  </view>
-
   <view wx:if="{{loading}}" class="section list">
     <view class="card">
       <text class="desc">正在加载章节...</text>
@@ -34,7 +30,7 @@
   </view>
 
   <view class="bottom-bar">
-    <view class="btn ghost" bindtap="cacheChapter">缓存题目</view>
+    <view class="btn ghost" bindtap="startMistakePractice">错题重做</view>
     <view class="btn" bindtap="startFullBankPractice">开始综合练习</view>
   </view>
 </view>
