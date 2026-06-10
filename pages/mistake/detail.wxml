@@ -20,7 +20,7 @@
         <view
           wx:for="{{question.options}}"
           wx:key="key"
-          class="option {{question.selectedAnswer === item.key ? 'selected' : ''}} {{question.correctAnswer === item.key ? 'right' : ''}}"
+          class="option {{mode === 'record' && question.selectedAnswer === item.key ? 'selected' : ''}} {{question.correctAnswer === item.key ? 'right' : ''}}"
         >
           <text class="option-key">{{item.key}}</text>
           <text class="option-text">{{item.text}}</text>
@@ -30,7 +30,7 @@
 
     <view class="section card analysis">
       <text class="title">作答信息</text>
-      <text class="desc">你的答案：{{question.selectedAnswer || '未作答'}}</text>
+      <text wx:if="{{mode === 'record'}}" class="desc">你的答案：{{question.selectedAnswer || '未作答'}}</text>
       <text class="desc">正确答案：{{question.correctAnswer || '-'}}</text>
       <text class="desc">答案解析：{{question.analysis || '当前题目暂无解析。'}}</text>
     </view>
