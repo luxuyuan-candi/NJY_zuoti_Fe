@@ -40,6 +40,7 @@ Page({
     if (this.data.recordMode) {
       return;
     }
+    getApp().globalData.currentMistakeSet = this.data.mistakes || [];
     wx.navigateTo({ url: '/pages/practice/settings?source=mistake' });
   },
 

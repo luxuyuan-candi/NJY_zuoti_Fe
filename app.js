@@ -6,6 +6,7 @@ App({
     assetBaseUrl: 'https://www.njwjxy.cn:30443/zuoti-minio/public-assets',
     appId: 'wxb88840bf78c6cd4d',
     token: '',
+    currentMistakeSet: [],
     lastPracticeConfig: null,
     lastPracticeResult: null,
     user: {

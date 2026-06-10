@@ -22,11 +22,15 @@ Page({
 
   onLoad(query) {
     const app = getApp();
+    const lastPracticeConfig = app.globalData.lastPracticeConfig || {};
     const payload = {
-      bank_id: query.bankId || '',
+      bank_id: query.bankId || lastPracticeConfig.bankId || '',
       chapter_key: decodeURIComponent(query.chapterKey || ''),
       count: Number(query.count || 10),
-      order: decodeURIComponent(query.order || '顺序出题') === '顺序出题' ? 'SEQUENTIAL' : 'RANDOM'
+      order: decodeURIComponent(query.order || '顺序出题') === '顺序出题' ? 'SEQUENTIAL' : 'RANDOM',
+      question_ids: (query.source || lastPracticeConfig.source) === 'mistake'
+        ? (lastPracticeConfig.questionIds || []).slice(0, Number(query.count || 10))
+        : []
     };
 
     this.setData({
@@ -35,8 +39,10 @@ Page({
       showAnalysis: query.showAnalysis !== 'false'
     });
     app.globalData.lastPracticeConfig = {
+      source: query.source || lastPracticeConfig.source || '',
       bankId: query.bankId || '',
       chapterKey: decodeURIComponent(query.chapterKey || ''),
+      questionIds: payload.question_ids || [],
       selectedCount: Number(query.count || 10),
       title: decodeURIComponent(query.title || ''),
       bankName: decodeURIComponent(query.bankName || ''),
