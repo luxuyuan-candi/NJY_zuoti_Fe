@@ -172,12 +172,8 @@ const saveCompletedPractice = (payload) => request({
 });
 const getPracticeRecord = (recordId) => request({ url: `/records/${recordId}` });
 
-const getRanking = () => withFallback(request({ url: '/ranking/me' }), { total: 128, weekly: 16, currentScore: 2680 });
-const getLeaderboard = () => withFallback(request({ url: '/ranking/leaderboard' }), [
-  { rank: 1, name: '学习用户 A', score: 3120 },
-  { rank: 2, name: '学习用户 B', score: 2980 },
-  { rank: 16, name: '我', score: 2680 }
-]);
+const getRanking = () => request({ url: '/ranking/me' });
+const getLeaderboard = (scope = 'total') => request({ url: `/ranking/leaderboard?scope=${scope}` });
 const getMedals = () => withFallback(request({ url: '/ranking/medals' }), [
   { name: '连续学习', desc: '连续学习 7 天获得' },
   { name: '考试达人', desc: '模拟考试达到 90 分获得' },

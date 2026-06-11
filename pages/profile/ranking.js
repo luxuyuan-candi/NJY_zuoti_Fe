@@ -1,18 +1,50 @@
 const { getLeaderboard, getRanking } = require('../../utils/services');
 
+const TABS = [
+  { key: 'total', label: '总榜' },
+  { key: 'weekly', label: '周榜' }
+];
+
 Page({
   data: {
-    tabs: ['总榜', '周榜'],
-    current: { total: 128, weekly: 16, currentScore: 2680 },
-    ranks: [
-      { name: '学习用户 A', score: 3120, rank: 1 },
-      { name: '学习用户 B', score: 2980, rank: 2 },
-      { name: '我', score: 2680, rank: 16 }
-    ]
+    tabs: TABS,
+    activeTab: 'total',
+    current: {
+      total: null,
+      weekly: null,
+      currentScore: 0,
+      totalAnsweredCount: 0,
+      weeklyAnsweredCount: 0,
+      minAnsweredCount: 100,
+      eligibleTotal: false,
+      eligibleWeekly: false
+    },
+    ranks: []
   },
 
-  onLoad() {
-    getRanking().then((current) => this.setData({ current })).catch(() => {});
-    getLeaderboard().then((ranks) => this.setData({ ranks })).catch(() => {});
+  onShow() {
+    this.loadCurrent();
+    this.loadLeaderboard(this.data.activeTab);
+  },
+
+  loadCurrent() {
+    getRanking()
+      .then((current) => this.setData({ current }))
+      .catch(() => {});
+  },
+
+  loadLeaderboard(scope) {
+    getLeaderboard(scope)
+      .then((ranks) => this.setData({ ranks }))
+      .catch(() => this.setData({ ranks: [] }));
+  },
+
+  switchTab(e) {
+    const tab = e.currentTarget.dataset.tab;
+    if (!tab || tab === this.data.activeTab) {
+      return;
+    }
+    this.setData({ activeTab: tab, ranks: [] });
+    this.loadLeaderboard(tab);
   }
 });

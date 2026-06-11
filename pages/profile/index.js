@@ -13,9 +13,9 @@ Page({
     tools: BASE_TOOLS,
     medals: ['连续学习', '考试达人', '错题清零'],
     ranking: [
-      { label: '总榜', value: '128' },
-      { label: '周榜', value: '16' },
-      { label: '当前积分', value: '2680' }
+      { label: '总榜', value: '--' },
+      { label: '周榜', value: '--' },
+      { label: '当前', value: '0' }
     ]
   },
 
@@ -39,9 +39,9 @@ Page({
       .then((ranking) => {
         this.setData({
           ranking: [
-            { label: '总榜', value: String(ranking.total || 0) },
-            { label: '周榜', value: String(ranking.weekly || 0) },
-            { label: '当前积分', value: String(ranking.currentScore || 0) }
+            { label: '总榜', value: formatRankValue(ranking.total) },
+            { label: '周榜', value: formatRankValue(ranking.weekly) },
+            { label: '当前', value: String(ranking.currentScore || 0) }
           ]
         });
       })
@@ -89,3 +89,7 @@ Page({
     wx.navigateTo({ url: e.currentTarget.dataset.url });
   }
 });
+
+function formatRankValue(value) {
+  return value ? String(value) : '--';
+}
