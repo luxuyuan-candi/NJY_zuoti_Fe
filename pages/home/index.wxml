@@ -23,7 +23,6 @@
   <view class="section">
     <view class="section-head">
       <text class="section-title">学习推广</text>
-      <text class="section-link" bindtap="goNotice">公告</text>
     </view>
     <view class="list">
       <view class="card promo-card" wx:for="{{promotions}}" wx:key="id" data-id="{{item.id}}" bindtap="goPromotion">
