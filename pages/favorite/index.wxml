@@ -5,13 +5,18 @@
   </view>
 
   <view class="section list">
-    <view class="card" wx:for="{{favorites}}" wx:key="id">
+    <view class="card" wx:for="{{favorites}}" wx:key="id" data-id="{{item.id}}" bindtap="openDetail">
       <view class="row between">
         <text class="title">{{item.title}}</text>
         <text class="tag">收藏</text>
       </view>
       <text class="desc">{{item.chapter}}</text>
-      <view class="btn secondary" style="margin-top: 18rpx; height: 64rpx;" data-id="{{item.id}}" bindtap="remove">取消收藏</view>
+      <text wx:if="{{item.dateTime}}" class="desc" style="margin-top: 12rpx;">收藏时间：{{item.dateTime}}</text>
+      <view class="btn secondary" style="margin-top: 18rpx; height: 64rpx;" data-id="{{item.id}}" catchtap="remove">取消收藏</view>
+    </view>
+    <view class="card" wx:if="{{!favorites.length}}">
+      <text class="title">暂无收藏题</text>
+      <text class="desc">做题时点击“收藏”后，题目会进入这里，支持集中查看和专项练习。</text>
     </view>
   </view>
 

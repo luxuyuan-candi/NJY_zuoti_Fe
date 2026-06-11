@@ -9,6 +9,7 @@ Page({
       { label: '考试数', value: '0' }
     ],
     mistakeDesc: '完成练习后生成',
+    favoriteDesc: '做题时点击收藏生成',
     trendDesc: '完成练习后生成',
     hasCompletedPractice: false
   },
@@ -22,6 +23,7 @@ Page({
           mistakeDesc: dashboard.hasCompletedPractice
             ? `${dashboard.mistakeCount || 0} 道待复盘`
             : '完成练习后生成',
+          favoriteDesc: `${dashboard.favoriteCount || 0} 道已收藏`,
           trendDesc: dashboard.hasCompletedPractice
             ? `${(dashboard.records || []).length} 次完成记录`
             : '完成练习后生成',

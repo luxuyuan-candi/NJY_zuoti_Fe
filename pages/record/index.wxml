@@ -13,7 +13,7 @@
 
   <view class="section grid-3">
     <view class="card" bindtap="goMistake"><text class="title">错题本</text><text class="desc">{{mistakeDesc}}</text></view>
-    <view class="card" bindtap="goFavorite"><text class="title">题目收藏</text><text class="desc">查看收藏题</text></view>
+    <view class="card" bindtap="goFavorite"><text class="title">题目收藏</text><text class="desc">{{favoriteDesc}}</text></view>
     <view class="card" bindtap="goTrend"><text class="title">趋势统计</text><text class="desc">{{trendDesc}}</text></view>
   </view>
 

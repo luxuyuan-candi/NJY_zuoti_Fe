@@ -17,6 +17,7 @@
     "pages/mistake/index",
     "pages/mistake/detail",
     "pages/favorite/index",
+    "pages/favorite/detail",
     "pages/record/trend",
     "pages/profile/medal",
     "pages/profile/ranking",

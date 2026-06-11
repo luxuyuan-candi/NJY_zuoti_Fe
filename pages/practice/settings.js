@@ -19,9 +19,11 @@ Page({
     const fallbackConfig = app.globalData.lastPracticeConfig || null;
     const resolvedQuery = Object.keys(query || {}).length ? query : (fallbackConfig || {});
     const source = resolvedQuery.source || '';
-    if (source === 'mistake') {
-      const mistakeItems = app.globalData.currentMistakeSet || [];
-      const questionIds = mistakeItems.map((item) => item.questionId).filter(Boolean);
+    if (source === 'mistake' || source === 'favorite') {
+      const practiceItems = source === 'mistake'
+        ? (app.globalData.currentMistakeSet || [])
+        : (app.globalData.currentFavoriteSet || []);
+      const questionIds = practiceItems.map((item) => item.questionId).filter(Boolean);
       const totalQuestions = questionIds.length;
       const maxQuestionCount = Math.max(1, totalQuestions || 1);
       const countOptions = Array.from({ length: maxQuestionCount }, (_, index) => index + 1);
@@ -31,7 +33,7 @@ Page({
       );
       this.setData({
         source,
-        title: '错题重做',
+        title: source === 'mistake' ? '错题重做' : '收藏题练习',
         bankId: '',
         chapterKey: '',
         bankName: '',
@@ -43,7 +45,7 @@ Page({
         showAnalysis: resolvedQuery.showAnalysis !== false && resolvedQuery.showAnalysis !== 'false'
       });
       if (!totalQuestions) {
-        wx.showToast({ title: '当前错题本没有题目', icon: 'none' });
+        wx.showToast({ title: source === 'mistake' ? '当前错题本没有题目' : '当前没有收藏题', icon: 'none' });
       }
       return;
     }
@@ -82,8 +84,8 @@ Page({
 
   start() {
     const { source, bankId, chapterKey, selectedCount, title, bankName, order, showAnalysis, questionIds } = this.data;
-    if (source === 'mistake' && !questionIds.length) {
-      wx.showToast({ title: '当前没有可重做的错题', icon: 'none' });
+    if ((source === 'mistake' || source === 'favorite') && !questionIds.length) {
+      wx.showToast({ title: source === 'mistake' ? '当前没有可重做的错题' : '当前没有可练习的收藏题', icon: 'none' });
       return;
     }
     getApp().globalData.lastPracticeConfig = {

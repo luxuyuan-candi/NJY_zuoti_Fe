@@ -154,7 +154,17 @@ const removeMistake = (mistakeId) => request({
   url: `/records/mistakes/${mistakeId}`,
   method: 'DELETE'
 }).then(() => getMistakes());
-const getFavorites = () => withFallback(request({ url: '/records/favorites' }), mock.favorites);
+const getFavorites = () => request({ url: '/records/favorites' });
+const saveFavorite = (questionId) => request({
+  url: '/records/favorites',
+  method: 'POST',
+  data: { questionId }
+});
+const removeFavorite = (favoriteId) => request({
+  url: `/records/favorites/${favoriteId}`,
+  method: 'DELETE'
+}).then(() => getFavorites());
+const getFavoriteDetail = (favoriteId) => request({ url: `/records/favorites/${favoriteId}` });
 const saveCompletedPractice = (payload) => request({
   url: '/records',
   method: 'POST',
@@ -203,6 +213,9 @@ module.exports = {
   getRecordMistakeDetail,
   removeMistake,
   getFavorites,
+  saveFavorite,
+  removeFavorite,
+  getFavoriteDetail,
   getRanking,
   getLeaderboard,
   getMedals,

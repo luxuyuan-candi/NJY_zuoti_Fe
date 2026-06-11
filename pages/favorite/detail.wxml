@@ -1,0 +1,37 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">收藏题详情</text>
+    <text class="hero-subtitle">{{question.chapter || '练习题'}}</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="section card">
+    <text class="desc">正在加载题目详情...</text>
+  </view>
+
+  <block wx:elif="{{question}}">
+    <view class="section card">
+      <view class="row between">
+        <text class="tag">{{question.typeLabel || '题目'}}</text>
+        <text class="tag">收藏</text>
+      </view>
+      <text class="title" style="margin-top: 20rpx;">{{question.stem}}</text>
+
+      <view class="option-list">
+        <view
+          wx:for="{{question.options}}"
+          wx:key="key"
+          class="option {{question.correctAnswer === item.key ? 'right' : ''}}"
+        >
+          <text class="option-key">{{item.key}}</text>
+          <text class="option-text">{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section card analysis">
+      <text class="title">题目解析</text>
+      <text class="desc">正确答案：{{question.correctAnswer || '-'}}</text>
+      <text class="desc">答案解析：{{question.analysis || '当前题目暂无解析。'}}</text>
+    </view>
+  </block>
+</view>

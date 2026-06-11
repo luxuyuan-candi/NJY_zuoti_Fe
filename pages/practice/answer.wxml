@@ -46,6 +46,7 @@
   <view class="bottom-bar">
     <view class="btn ghost" bindtap="toggleNavigator">题号</view>
     <view class="btn ghost" bindtap="toggleDoubtful">{{doubtful ? '已存疑' : '存疑'}}</view>
+    <view class="btn ghost" bindtap="toggleFavorite">{{favoriteId ? '已收藏' : '收藏'}}</view>
     <view wx:if="{{!submitted}}" class="btn" bindtap="submit">提交</view>
     <view wx:elif="{{allAnswered}}" class="btn" bindtap="finish">完成</view>
     <view wx:else class="btn" bindtap="nextQuestion">下一题</view>

@@ -1,4 +1,11 @@
-const { startPractice, submitPracticeAnswer, saveCompletedPractice } = require('../../utils/services');
+const {
+  getFavorites,
+  saveFavorite,
+  removeFavorite,
+  startPractice,
+  submitPracticeAnswer,
+  saveCompletedPractice
+} = require('../../utils/services');
 
 Page({
   data: {
@@ -17,7 +24,9 @@ Page({
     doubtfulMap: {},
     allAnswered: false,
     showAnalysis: true,
-    analysisRevealed: false
+    analysisRevealed: false,
+    favoriteMap: {},
+    favoriteId: ''
   },
 
   onLoad(query) {
@@ -28,7 +37,7 @@ Page({
       chapter_key: decodeURIComponent(query.chapterKey || ''),
       count: Number(query.count || 10),
       order: decodeURIComponent(query.order || '顺序出题') === '顺序出题' ? 'SEQUENTIAL' : 'RANDOM',
-      question_ids: (query.source || lastPracticeConfig.source) === 'mistake'
+      question_ids: ['mistake', 'favorite'].includes(query.source || lastPracticeConfig.source)
         ? (lastPracticeConfig.questionIds || []).slice(0, Number(query.count || 10))
         : []
     };
@@ -61,19 +70,33 @@ Page({
         this.syncCurrentQuestion(0);
       })
       .catch(() => wx.showToast({ title: '题目加载失败', icon: 'none' }));
+
+    getFavorites()
+      .then((favorites) => {
+        const favoriteMap = {};
+        (favorites || []).forEach((item) => {
+          if (item.questionId) {
+            favoriteMap[item.questionId] = item.id;
+          }
+        });
+        this.setData({ favoriteMap }, () => this.syncCurrentQuestion(this.data.currentIndex || 0));
+      })
+      .catch(() => this.setData({ favoriteMap: {} }));
   },
 
   syncCurrentQuestion(index) {
     const currentQuestion = this.data.questions[index] || null;
     const result = currentQuestion ? this.data.answerResults[currentQuestion.id] : null;
     const doubtful = currentQuestion ? !!this.data.doubtfulMap[currentQuestion.id] : false;
+    const favoriteId = currentQuestion ? (this.data.favoriteMap[currentQuestion.id] || '') : '';
     this.setData({
       currentIndex: index,
       currentQuestion,
       selected: result ? result.selected : '',
       submitted: !!result,
       doubtful,
-      analysisRevealed: result ? !!result.analysisRevealed : false
+      analysisRevealed: result ? !!result.analysisRevealed : false,
+      favoriteId
     });
   },
 
@@ -205,6 +228,35 @@ Page({
     this.refreshNavItems(questions, answerResults, nextMap);
   },
 
+  toggleFavorite() {
+    const { currentQuestion, favoriteId } = this.data;
+    if (!currentQuestion) return;
+    if (favoriteId) {
+      removeFavorite(favoriteId)
+        .then((favorites) => {
+          const favoriteMap = buildFavoriteMap(favorites);
+          this.setData({ favoriteMap }, () => {
+            this.syncCurrentQuestion(this.data.currentIndex);
+            wx.showToast({ title: '已取消收藏', icon: 'none' });
+          });
+        })
+        .catch(() => wx.showToast({ title: '取消收藏失败', icon: 'none' }));
+      return;
+    }
+    saveFavorite(currentQuestion.id)
+      .then((favorite) => {
+        const favoriteMap = {
+          ...this.data.favoriteMap,
+          [currentQuestion.id]: favorite.id
+        };
+        this.setData({ favoriteMap }, () => {
+          this.syncCurrentQuestion(this.data.currentIndex);
+          wx.showToast({ title: '已收藏', icon: 'none' });
+        });
+      })
+      .catch(() => wx.showToast({ title: '收藏失败', icon: 'none' }));
+  },
+
   toggleNavigator() {
     this.setData({ showNavigator: !this.data.showNavigator });
   },
@@ -266,3 +318,13 @@ Page({
     }).catch(() => wx.showToast({ title: '结果保存失败', icon: 'none' }));
   }
 });
+
+function buildFavoriteMap(favorites) {
+  const favoriteMap = {};
+  (favorites || []).forEach((item) => {
+    if (item.questionId) {
+      favoriteMap[item.questionId] = item.id;
+    }
+  });
+  return favoriteMap;
+}
