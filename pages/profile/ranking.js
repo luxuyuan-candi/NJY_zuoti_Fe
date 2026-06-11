@@ -9,6 +9,7 @@ Page({
   data: {
     tabs: TABS,
     activeTab: 'total',
+    loadingRanks: true,
     current: {
       total: null,
       weekly: null,
@@ -34,9 +35,10 @@ Page({
   },
 
   loadLeaderboard(scope) {
+    this.setData({ loadingRanks: true });
     getLeaderboard(scope)
-      .then((ranks) => this.setData({ ranks }))
-      .catch(() => this.setData({ ranks: [] }));
+      .then((ranks) => this.setData({ ranks, loadingRanks: false }))
+      .catch(() => this.setData({ ranks: [], loadingRanks: false }));
   },
 
   switchTab(e) {
@@ -44,7 +46,7 @@ Page({
     if (!tab || tab === this.data.activeTab) {
       return;
     }
-    this.setData({ activeTab: tab, ranks: [] });
+    this.setData({ activeTab: tab, ranks: [], loadingRanks: true });
     this.loadLeaderboard(tab);
   }
 });

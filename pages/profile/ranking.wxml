@@ -48,7 +48,10 @@
       </view>
       <text class="metric-value rank-score">{{item.accuracy}}%</text>
     </view>
-    <view class="card" wx:if="{{!ranks.length}}">
+    <view class="card" wx:if="{{loadingRanks}}">
+      <text class="desc">正在加载榜单...</text>
+    </view>
+    <view class="card" wx:elif="{{!ranks.length}}">
       <text class="title">{{activeTab === 'weekly' ? '周榜暂无符合条件的用户' : '总榜暂无符合条件的用户'}}</text>
       <text class="desc">达到 100 题后会按正确率进入榜单。</text>
     </view>

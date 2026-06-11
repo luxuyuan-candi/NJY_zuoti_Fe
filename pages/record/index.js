@@ -17,8 +17,9 @@ Page({
   onShow() {
     getRecordDashboard()
       .then((dashboard) => {
+        const recentRecords = (dashboard.records || []).slice(0, 4);
         this.setData({
-          records: dashboard.records || [],
+          records: recentRecords,
           stats: dashboard.stats || this.data.stats,
           mistakeDesc: dashboard.hasCompletedPractice
             ? `${dashboard.mistakeCount || 0} 道待复盘`
