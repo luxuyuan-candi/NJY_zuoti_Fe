@@ -11,11 +11,11 @@ Page({
     user: {},
     displayName: '匿名',
     tools: BASE_TOOLS,
-    medals: ['连续学习', '考试达人', '错题清零'],
+    medals: [],
     ranking: [
       { label: '总榜', value: '--' },
       { label: '周榜', value: '--' },
-      { label: '当前', value: '0' }
+      { label: '获得积分', value: '0' }
     ]
   },
 
@@ -41,13 +41,18 @@ Page({
           ranking: [
             { label: '总榜', value: formatRankValue(ranking.total) },
             { label: '周榜', value: formatRankValue(ranking.weekly) },
-            { label: '当前', value: String(ranking.currentScore || 0) }
+            { label: '获得积分', value: String(ranking.currentScore || 0) }
           ]
         });
       })
       .catch(() => {});
     return getMedals()
-      .then((medals) => this.setData({ medals: medals.map((item) => item.name || item) }))
+      .then((medals) => {
+        const preview = (medals || [])
+          .filter((item) => item && item.achieved)
+          .slice(0, 3);
+        this.setData({ medals: preview.length ? preview.map((item) => item.name) : ['继续努力'] });
+      })
       .catch(() => {});
   },
 
