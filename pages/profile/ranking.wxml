@@ -19,13 +19,6 @@
     </view>
   </view>
 
-  <view class="section card rule-card">
-    <text class="section-title">统计规则</text>
-    <text class="desc">总榜和周榜按正确率排序，做题数达到 {{current.minAnsweredCount || 100}} 题才参与排名。</text>
-    <text class="desc">周榜本周做题 {{current.weeklyAnsweredCount || 0}} 题；总榜累计做题 {{current.totalAnsweredCount || 0}} 题。</text>
-    <text class="desc">当前积分：收藏 +1，完成练习 +10，移出错题 +3。</text>
-  </view>
-
   <view class="section tabs">
     <view
       wx:for="{{tabs}}"

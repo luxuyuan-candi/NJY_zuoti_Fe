@@ -21,12 +21,6 @@
   color: #ffffff;
 }
 
-.rule-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12rpx;
-}
-
 .rank {
   width: 72rpx;
   color: #176bff;
