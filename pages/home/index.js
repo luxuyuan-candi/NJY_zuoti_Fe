@@ -3,6 +3,12 @@ const { assetUrl } = require('../../utils/assets');
 
 Page({
   data: {
+    notice: {
+      id: 'notice-1',
+      title: '题库授权说明',
+      content: '用户完成微信登录后，需要由管理员授权题库后才可进行练习、考试和离线缓存。',
+      marqueeText: '题库授权说明：用户完成微信登录后，需要由管理员授权题库后才可进行练习、考试和离线缓存。'
+    },
     video: {
       title: '南检院学习导览',
       duration: '08:32',
@@ -18,8 +24,11 @@ Page({
 
   onLoad() {
     getHomeContent().then((data) => {
+      const notice = (data.notices || [])[0] || this.data.notice;
+      wx.setStorageSync('homeNotice', notice);
       wx.setStorageSync('homeVideo', data.video || this.data.video);
       this.setData({
+        notice,
         video: data.video || this.data.video,
         promotions: data.promotions || this.data.promotions
       });

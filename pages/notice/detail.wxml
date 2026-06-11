@@ -1,6 +1,6 @@
 <view class="page">
   <view class="section card">
-    <text class="title">题库授权说明</text>
-    <text class="desc">用户完成微信登录后，需要由管理员授权考试类或课程类题库，授权后可进行练习、考试和离线缓存。</text>
+    <text class="title">{{notice.title}}</text>
+    <text class="desc">{{notice.content}}</text>
   </view>
 </view>

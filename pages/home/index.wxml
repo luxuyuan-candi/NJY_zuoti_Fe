@@ -1,4 +1,13 @@
 <view class="page">
+  <view class="notice-bar" bindtap="goNotice">
+    <text class="notice-label">公告</text>
+    <view class="notice-marquee">
+      <view class="notice-track">
+        <text class="notice-text">{{notice.marqueeText || notice.title}}</text>
+      </view>
+    </view>
+  </view>
+
   <view class="video-hero" bindtap="goVideo">
     <image class="video-cover" src="{{video.coverUrl}}" mode="aspectFill"></image>
     <view class="video-shade"></view>

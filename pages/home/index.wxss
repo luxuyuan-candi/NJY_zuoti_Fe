@@ -1,3 +1,51 @@
+.notice-bar {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  height: 72rpx;
+  margin-bottom: 20rpx;
+  padding: 0 22rpx;
+  border-radius: 18rpx;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.notice-label {
+  flex: 0 0 auto;
+  color: #176bff;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.notice-marquee {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.notice-track {
+  display: inline-block;
+  min-width: 100%;
+  padding-left: 100%;
+  animation: notice-marquee 12s linear infinite;
+}
+
+.notice-text {
+  color: #52627d;
+  font-size: 24rpx;
+}
+
+@keyframes notice-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
 .video-hero {
   position: relative;
   overflow: hidden;

@@ -5,6 +5,7 @@ const BASE_TOOLS = [
 ];
 
 const MANAGER_TOOL = { name: '人员管理', url: '/pages/admin/users/index' };
+const NOTICE_TOOL = { name: '公告配置', url: '/pages/admin/notice/index' };
 
 Page({
   data: {
@@ -59,13 +60,22 @@ Page({
   applyUser(user) {
     const role = user.role || 'USER';
     const canManageUsers = role === 'ADMIN' || role === 'SUPER_ADMIN';
+    const canManageNotice = role === 'SUPER_ADMIN';
+    const tools = [];
+    if (canManageUsers) {
+      tools.push(MANAGER_TOOL);
+    }
+    if (canManageNotice) {
+      tools.push(NOTICE_TOOL);
+    }
+    tools.push(...BASE_TOOLS);
     this.setData({
       user: {
         ...user,
         roleLabel: user.roleLabel || this.roleLabel(role)
       },
       displayName: user.nickname || '匿名',
-      tools: canManageUsers ? [MANAGER_TOOL, ...BASE_TOOLS] : BASE_TOOLS
+      tools
     });
   },
 
