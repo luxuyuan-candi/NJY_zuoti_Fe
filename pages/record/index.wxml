@@ -4,6 +4,13 @@
     <text class="hero-subtitle">错题、收藏、成绩和趋势都在这里沉淀。</text>
   </view>
 
+  <view wx:if="{{!authorized}}" class="section">
+    <view class="card empty">
+      <text>{{unauthorizedMessage}}</text>
+    </view>
+  </view>
+
+  <block wx:else>
   <view class="section grid-3">
     <view class="card metric" wx:for="{{stats}}" wx:key="label">
       <text class="metric-value">{{item.value}}</text>
@@ -39,4 +46,5 @@
       </view>
     </view>
   </view>
+  </block>
 </view>

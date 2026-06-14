@@ -1,8 +1,9 @@
-const { getBanks } = require('../../utils/services');
+const { ensureIdentity, getBanks } = require('../../utils/services');
 
 Page({
   data: {
     authorized: true,
+    unauthorizedMessage: '游客无权查看题库，请先完成身份配置并联系管理员授权。',
     tabs: ['全部', '初级', '中级', '高级'],
     activeTab: '全部',
     keyword: '',
@@ -17,11 +18,32 @@ Page({
 
   loadBanks() {
     this.setData({ loading: true });
-    getBanks()
+    ensureIdentity()
+      .then((user) => {
+        if (user && user.role === 'GUEST') {
+          this.setData({
+            authorized: false,
+            unauthorizedMessage: '游客无权查看题库，请先完成身份配置并联系管理员授权。',
+            banks: [],
+            visibleBanks: []
+          });
+          return null;
+        }
+        return getBanks();
+      })
       .then((banks) => {
+        if (!banks) return;
         this.setData({ banks, authorized: true }, () => this.applyFilters());
       })
-      .catch(() => this.setData({ authorized: false }))
+      .catch((error) => {
+        const unauthorized = error && (error.statusCode === 401 || error.statusCode === 403 || error.detail);
+        this.setData({
+          authorized: false,
+          unauthorizedMessage: unauthorized
+            ? '游客无权查看题库，请先完成身份配置并联系管理员授权。'
+            : '题库暂时不可用，请稍后重试。'
+        });
+      })
       .finally(() => this.setData({ loading: false }));
   },
 
