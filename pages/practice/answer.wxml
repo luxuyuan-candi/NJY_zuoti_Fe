@@ -59,15 +59,19 @@
     <text class="desc">{{currentQuestion.analysis || '当前题目暂无解析。'}}</text>
   </view>
 
-  <view wx:if="{{showNavigator}}" class="section card">
-    <text class="title">题目导航</text>
+  <view wx:if="{{!currentQuestion}}" class="section card">
+    <text class="desc">正在加载题目...</text>
+  </view>
+
+  <view wx:if="{{showNavigator}}" class="navigator-mask" bindtap="toggleNavigator"></view>
+  <view wx:if="{{showNavigator}}" class="navigator-sheet" catchtap="noop">
+    <view class="navigator-head row between">
+      <text class="title">题目导航</text>
+      <text class="muted" bindtap="toggleNavigator">收起</text>
+    </view>
     <view class="number-grid">
       <text wx:for="{{navItems}}" wx:key="index" data-index="{{item.index}}" bindtap="openQuestion" class="number {{item.answered ? 'done' : ''}} {{item.doubtful ? 'doubtful' : ''}} {{currentIndex === item.index ? 'active' : ''}}">{{item.label}}</text>
     </view>
-  </view>
-
-  <view wx:if="{{!currentQuestion}}" class="section card">
-    <text class="desc">正在加载题目...</text>
   </view>
 
   <view class="bottom-bar">

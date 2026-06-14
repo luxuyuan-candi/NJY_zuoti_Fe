@@ -263,6 +263,8 @@ Page({
     this.setData({ showNavigator: !this.data.showNavigator });
   },
 
+  noop() {},
+
   finish() {
     const { questions, answerResults, title, bankName } = this.data;
     const answeredQuestions = questions.map((question) => {
