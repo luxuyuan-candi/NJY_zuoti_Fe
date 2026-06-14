@@ -128,12 +128,14 @@ Page({
   submit() {
     const { currentQuestion, selected, answerResults } = this.data;
     if (!currentQuestion) return;
-    if (!selected) {
+    const isPractical = !((currentQuestion.options || []).length);
+    const submittedAnswer = isPractical ? '__PRACTICAL_COMPLETED__' : selected;
+    if (!submittedAnswer) {
       wx.showToast({ title: '请先选择答案', icon: 'none' });
       return;
     }
 
-    submitPracticeAnswer(currentQuestion.id, selected)
+    submitPracticeAnswer(currentQuestion.id, submittedAnswer)
       .then((result) => {
         const nextQuestions = this.data.questions.map((question) => (
           question.id === currentQuestion.id
@@ -147,7 +149,7 @@ Page({
         const nextResults = {
           ...answerResults,
           [currentQuestion.id]: {
-            selected,
+            selected: submittedAnswer,
             correct: !!result.correct,
             answer: result.answer || '',
             analysis: result.analysis || '',
@@ -305,7 +307,7 @@ Page({
           questionId: question.id,
           stem: question.stem || '',
           chapter: (((question.knowledge || {}).pathNames || []).slice(0, -1).join(' / ')) || title || bankName || '练习题',
-          selected: result.selected,
+          selected: result.selected === '__PRACTICAL_COMPLETED__' ? '' : result.selected,
           answer: result.answer || '',
           correct: !!result.correct,
           analysis: result.analysis || '',

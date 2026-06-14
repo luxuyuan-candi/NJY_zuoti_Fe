@@ -40,6 +40,46 @@
   border-color: #bfe5cd;
 }
 
+.practical-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  margin-top: 26rpx;
+}
+
+.practical-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.practical-label {
+  color: #176bff;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.score-table {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.score-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  padding: 16rpx;
+  border-radius: 12rpx;
+  background: #f7f8fb;
+}
+
+.score-cell {
+  color: #52627d;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
 .small-btn {
   min-width: 160rpx;
   height: 64rpx;
