@@ -22,6 +22,7 @@
     "pages/profile/medal",
     "pages/profile/ranking",
     "pages/admin/users/index",
+    "pages/admin/feedback/index",
     "pages/admin/notice/index",
     "pages/auth/login",
     "pages/settings/index",

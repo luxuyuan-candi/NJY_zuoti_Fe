@@ -132,6 +132,7 @@ const updateAdminNotice = (payload) => request({
   method: 'PUT',
   data: payload
 });
+const getAdminFeedback = () => request({ url: '/admin/feedback' });
 
 const getBanks = () => request({ url: '/banks' });
 
@@ -209,6 +210,7 @@ module.exports = {
   getCurrentNotice,
   getAdminNotice,
   updateAdminNotice,
+  getAdminFeedback,
   getBanks,
   getChapters,
   getPapers,

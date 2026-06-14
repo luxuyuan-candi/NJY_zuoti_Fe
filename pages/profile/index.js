@@ -6,6 +6,7 @@ const BASE_TOOLS = [
 
 const MANAGER_TOOL = { name: '人员管理', url: '/pages/admin/users/index' };
 const NOTICE_TOOL = { name: '公告配置', url: '/pages/admin/notice/index' };
+const FEEDBACK_TOOL = { name: '查看反馈', url: '/pages/admin/feedback/index' };
 
 Page({
   data: {
@@ -67,6 +68,7 @@ Page({
     }
     if (canManageNotice) {
       tools.push(NOTICE_TOOL);
+      tools.push(FEEDBACK_TOOL);
     }
     tools.push(...BASE_TOOLS);
     this.setData({

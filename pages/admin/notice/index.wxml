@@ -11,7 +11,14 @@
   <view wx:else class="section list">
     <view class="card">
       <text class="section-title">公告标题</text>
-      <input class="field-input" placeholder="请输入公告标题" value="{{title}}" bindinput="onTitleInput" maxlength="60" />
+      <textarea
+        class="field-input field-titlearea"
+        placeholder="请输入公告标题"
+        value="{{title}}"
+        bindinput="onTitleInput"
+        maxlength="60"
+        auto-height
+      ></textarea>
     </view>
 
     <view class="card">

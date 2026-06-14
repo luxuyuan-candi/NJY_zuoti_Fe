@@ -12,3 +12,8 @@
 .field-textarea {
   min-height: 240rpx;
 }
+
+.field-titlearea {
+  min-height: 96rpx;
+  line-height: 1.5;
+}
