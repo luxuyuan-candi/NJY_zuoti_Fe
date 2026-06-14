@@ -4,8 +4,6 @@ Page({
   data: {
     authorized: true,
     unauthorizedMessage: '游客无权查看题库，请先完成身份配置并联系管理员授权。',
-    tabs: ['全部', '初级', '中级', '高级'],
-    activeTab: '全部',
     keyword: '',
     banks: [],
     visibleBanks: [],
@@ -47,25 +45,18 @@ Page({
       .finally(() => this.setData({ loading: false }));
   },
 
-  switchTab(e) {
-    const activeTab = e.currentTarget.dataset.tab;
-    this.setData({ activeTab });
-    this.applyFilters();
-  },
-
   updateKeyword(e) {
     this.setData({ keyword: (e.detail.value || '').trim() });
     this.applyFilters();
   },
 
   applyFilters() {
-    const { banks, activeTab, keyword } = this.data;
+    const { banks, keyword } = this.data;
     const normalizedKeyword = keyword.toLowerCase();
     const visibleBanks = banks.filter((bank) => {
-      const levelMatched = activeTab === '全部' || bank.levelLabel === activeTab;
       const keywordMatched = !normalizedKeyword
-        || `${bank.name} ${bank.desc} ${bank.levelLabel}`.toLowerCase().includes(normalizedKeyword);
-      return levelMatched && keywordMatched;
+        || `${bank.name} ${bank.desc} ${bank.levelLabel} ${bank.type}`.toLowerCase().includes(normalizedKeyword);
+      return keywordMatched;
     });
     this.setData({ visibleBanks });
   },

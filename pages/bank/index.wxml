@@ -1,10 +1,6 @@
 <view class="page">
   <block wx:if="{{authorized}}">
   <input class="input" placeholder="搜索题库或等级" bindinput="updateKeyword" />
-
-  <view class="section tabs">
-    <view wx:for="{{tabs}}" wx:key="*this" data-tab="{{item}}" bindtap="switchTab" class="tab {{activeTab === item ? 'active' : ''}}">{{item}}</view>
-  </view>
   </block>
 
   <view wx:if="{{loading}}" class="empty card">
