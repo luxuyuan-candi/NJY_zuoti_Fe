@@ -6,7 +6,8 @@ Page({
     subtitle: '展示你累计做错过的题目和做错次数。',
     mistakes: [],
     recordId: '',
-    recordMode: false
+    recordMode: false,
+    loading: true
   },
 
   onLoad(query) {
@@ -21,9 +22,10 @@ Page({
   },
 
   onShow() {
+    this.setData({ loading: true });
     getMistakes(this.data.recordId)
-      .then((mistakes) => this.setData({ mistakes }))
-      .catch(() => this.setData({ mistakes: [] }));
+      .then((mistakes) => this.setData({ mistakes, loading: false }))
+      .catch(() => this.setData({ mistakes: [], loading: false }));
   },
 
   remove(e) {
@@ -32,7 +34,10 @@ Page({
     }
     const id = e.currentTarget.dataset.id;
     removeMistake(id)
-      .then((mistakes) => this.setData({ mistakes }))
+      .then((mistakes) => {
+        this.setData({ mistakes });
+        wx.showToast({ title: '已移出错题本', icon: 'success' });
+      })
       .catch(() => wx.showToast({ title: '移出失败', icon: 'none' }));
   },
 
