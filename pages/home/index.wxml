@@ -32,6 +32,14 @@
           <text class="tag gray">{{item.tag}}</text>
         </view>
         <text class="desc">{{item.desc}}</text>
+        <view class="promo-actions">
+          <text class="promo-file">{{item.fileName}}</text>
+          <view class="promo-cache-btn" data-id="{{item.id}}" catchtap="cachePromotion">
+            <text wx:if="{{cacheProgressMap[item.id] >= 0 && cacheProgressMap[item.id] <= 100}}">{{cacheProgressMap[item.id]}}%</text>
+            <text wx:elif="{{cacheMap[item.id]}}">本地打开</text>
+            <text wx:else>缓存到本地</text>
+          </view>
+        </view>
       </view>
     </view>
   </view>

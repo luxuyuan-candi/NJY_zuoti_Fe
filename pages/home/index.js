@@ -1,6 +1,8 @@
 const { getHomeContent } = require('../../utils/services');
 const { assetUrl } = require('../../utils/assets');
 
+const EBOOK_CACHE_KEY = 'ebookPromotionCacheMap';
+
 Page({
   data: {
     notice: {
@@ -23,10 +25,14 @@ Page({
       { id: 'ebook-05', title: '医药商品购销员指南包课程包', desc: '配套课程指南教材，便于按模块进行系统化学习。', tag: '课程资料', fileType: 'pdf', fileName: '医药商品购销员（指南包 课程包）.pdf', fileUrl: assetUrl('docs/ebooks/ebook-05-guide-course-pack.pdf') },
       { id: 'ebook-06', title: '医药商品购销员高级', desc: '高级电子教材，适合高阶岗位知识学习和综合复盘。', tag: '电子教材', fileType: 'pdf', fileName: '医药商品购销员（高级）.pdf', fileUrl: assetUrl('docs/ebooks/ebook-06-advanced.pdf') },
       { id: 'ebook-07', title: '药品购销技术', desc: '面向药品购销场景的专题教材，可作为业务拓展阅读。', tag: '专题教材', fileType: 'pdf', fileName: '药品购销技术.pdf', fileUrl: assetUrl('docs/ebooks/ebook-07-pharma-sales-technique.pdf') }
-    ]
+    ],
+    cacheMap: {},
+    cacheProgressMap: {}
   },
 
   onLoad() {
+    const cacheMap = this.loadCacheMap();
+    this.setData({ cacheMap });
     getHomeContent().then((data) => {
       const notice = (data.notices || [])[0] || this.data.notice;
       wx.setStorageSync('homeNotice', notice);
@@ -34,7 +40,8 @@ Page({
       this.setData({
         notice,
         video: data.video || this.data.video,
-        promotions: data.promotions || this.data.promotions
+        promotions: data.promotions || this.data.promotions,
+        cacheMap: this.reconcileCacheMap(data.promotions || this.data.promotions, cacheMap)
       });
     });
   },
@@ -59,6 +66,12 @@ Page({
   },
 
   openPromotionFile(promotion) {
+    const cached = (this.data.cacheMap || {})[promotion.id];
+    if (cached && cached.filePath) {
+      this.openLocalDocument(promotion, cached.filePath);
+      return;
+    }
+
     wx.showLoading({ title: '打开教材中' });
     wx.downloadFile({
       url: promotion.fileUrl,
@@ -84,6 +97,122 @@ Page({
         wx.showToast({ title: '教材下载失败', icon: 'none' });
       }
     });
+  },
+
+  cachePromotion(e) {
+    const { id } = e.currentTarget.dataset;
+    const promotion = (this.data.promotions || []).find((item) => item.id === id);
+    if (!promotion || !promotion.fileUrl) {
+      wx.showToast({ title: '教材不存在', icon: 'none' });
+      return;
+    }
+    const cached = (this.data.cacheMap || {})[promotion.id];
+    if (cached && cached.filePath) {
+      this.openLocalDocument(promotion, cached.filePath);
+      return;
+    }
+
+    const downloadTask = wx.downloadFile({
+      url: promotion.fileUrl,
+      success: ({ statusCode, tempFilePath }) => {
+        if (statusCode < 200 || statusCode >= 300 || !tempFilePath) {
+          this.clearCacheProgress(promotion.id);
+          wx.showToast({ title: '教材下载失败', icon: 'none' });
+          return;
+        }
+        wx.saveFile({
+          tempFilePath,
+          success: ({ savedFilePath }) => {
+            const nextCacheMap = {
+              ...this.data.cacheMap,
+              [promotion.id]: {
+                filePath: savedFilePath,
+                fileName: promotion.fileName || '',
+                fileUrl: promotion.fileUrl || '',
+                updatedAt: Date.now()
+              }
+            };
+            wx.setStorageSync(EBOOK_CACHE_KEY, nextCacheMap);
+            this.setData({
+              cacheMap: nextCacheMap
+            });
+            this.clearCacheProgress(promotion.id);
+            wx.showToast({ title: '已缓存到本地', icon: 'success' });
+          },
+          fail: () => {
+            this.clearCacheProgress(promotion.id);
+            wx.showToast({ title: '本地空间不足', icon: 'none' });
+          }
+        });
+      },
+      fail: () => {
+        this.clearCacheProgress(promotion.id);
+        wx.showToast({ title: '教材下载失败', icon: 'none' });
+      }
+    });
+
+    downloadTask.onProgressUpdate((progress) => {
+      const nextMap = {
+        ...this.data.cacheProgressMap,
+        [promotion.id]: progress.progress || 0
+      };
+      this.setData({ cacheProgressMap: nextMap });
+    });
+  },
+
+  openLocalDocument(promotion, filePath) {
+    wx.openDocument({
+      filePath,
+      fileType: promotion.fileType || 'pdf',
+      showMenu: true,
+      fail: () => {
+        const nextCacheMap = { ...this.data.cacheMap };
+        delete nextCacheMap[promotion.id];
+        wx.setStorageSync(EBOOK_CACHE_KEY, nextCacheMap);
+        this.setData({ cacheMap: nextCacheMap });
+        wx.showToast({ title: '本地缓存已失效', icon: 'none' });
+      }
+    });
+  },
+
+  loadCacheMap() {
+    const cacheMap = wx.getStorageSync(EBOOK_CACHE_KEY) || {};
+    const fileManager = wx.getFileSystemManager();
+    const nextCacheMap = {};
+    Object.keys(cacheMap).forEach((id) => {
+      const item = cacheMap[id];
+      if (!item || !item.filePath) {
+        return;
+      }
+      try {
+        fileManager.accessSync(item.filePath);
+        nextCacheMap[id] = item;
+      } catch (error) {
+        return;
+      }
+    });
+    if (Object.keys(nextCacheMap).length !== Object.keys(cacheMap).length) {
+      wx.setStorageSync(EBOOK_CACHE_KEY, nextCacheMap);
+    }
+    return nextCacheMap;
+  },
+
+  reconcileCacheMap(promotions, cacheMap) {
+    const validIds = new Set((promotions || []).map((item) => item.id));
+    const nextCacheMap = {};
+    Object.keys(cacheMap || {}).forEach((id) => {
+      if (validIds.has(id)) {
+        nextCacheMap[id] = cacheMap[id];
+      }
+    });
+    wx.setStorageSync(EBOOK_CACHE_KEY, nextCacheMap);
+    return nextCacheMap;
+  },
+
+  clearCacheProgress(id) {
+    const nextMap = { ...this.data.cacheProgressMap };
+    delete nextMap[id];
+    this.setData({ cacheProgressMap: nextMap });
   },
 
   goNotice() {

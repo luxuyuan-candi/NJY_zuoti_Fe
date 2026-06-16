@@ -128,3 +128,31 @@
   height: 180rpx;
   margin: 0 -24rpx 24rpx;
 }
+
+.promo-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.promo-file {
+  flex: 1;
+  min-width: 0;
+  color: #7b8798;
+  font-size: 22rpx;
+  line-height: 1.4;
+}
+
+.promo-cache-btn {
+  flex: 0 0 auto;
+  min-width: 160rpx;
+  padding: 14rpx 18rpx;
+  border-radius: 12rpx;
+  background: #eef5ff;
+  color: #176bff;
+  font-size: 24rpx;
+  font-weight: 700;
+  text-align: center;
+}
