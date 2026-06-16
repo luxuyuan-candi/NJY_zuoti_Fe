@@ -46,6 +46,11 @@
   }
 }
 
+.video-swiper {
+  height: 390rpx;
+  margin-bottom: 24rpx;
+}
+
 .video-hero {
   position: relative;
   overflow: hidden;

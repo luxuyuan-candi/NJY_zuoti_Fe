@@ -9,6 +9,6 @@
   ></video>
   <view class="section card">
     <text class="title">{{video.title}}</text>
-    <text class="desc">介绍题库授权、章节练习、模拟考试、错题复盘和离线缓存能力。</text>
+    <text class="desc">{{video.desc || '首页教学视频。'}}</text>
   </view>
 </view>

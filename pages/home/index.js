@@ -12,11 +12,18 @@ Page({
       marqueeText: '题库授权说明：用户完成微信登录后，需要由管理员授权题库后才可进行练习、考试和离线缓存。'
     },
     video: {
-      title: '南检院学习导览',
-      duration: '08:32',
-      url: assetUrl('video/zuoti-guide.mp4'),
-      coverUrl: assetUrl('images/video-cover.png')
+      id: 'video-01',
+      title: '题库练习导览',
+      duration: '00:16',
+      url: assetUrl('video/home-video-01-guide.mp4'),
+      coverUrl: assetUrl('images/home-video-01-guide.jpg'),
+      desc: '快速了解题库、章节和随机练习的使用路径。'
     },
+    videos: [
+      { id: 'video-01', title: '题库练习导览', duration: '00:16', url: assetUrl('video/home-video-01-guide.mp4'), coverUrl: assetUrl('images/home-video-01-guide.jpg'), desc: '快速了解题库、章节和随机练习的使用路径。' },
+      { id: 'video-02', title: '错题复盘与记录统计', duration: '00:16', url: assetUrl('video/home-video-02-practice.mp4'), coverUrl: assetUrl('images/home-video-02-practice.jpg'), desc: '查看错题本、最近记录和趋势统计的复盘方式。' },
+      { id: 'video-03', title: '教材学习与资料查看', duration: '00:15', url: assetUrl('video/home-video-03-ebook.mp4'), coverUrl: assetUrl('images/home-video-03-ebook.jpg'), desc: '在首页查看电子教材，并结合练习完成知识巩固。' }
+    ],
     promotions: [
       { id: 'ebook-01', title: '医药商品购销员基础知识', desc: '基础理论电子教材，适合入门复习与概念梳理。', tag: '电子教材', fileType: 'pdf', fileName: '1_医药商品购销员-基础知识.pdf', fileUrl: assetUrl('docs/ebooks/ebook-01-basic-knowledge.pdf') },
       { id: 'ebook-02', title: '医药商品购销员初级', desc: '初级岗位电子教材，覆盖基础业务知识与实务内容。', tag: '电子教材', fileType: 'pdf', fileName: '1_医药商品购销员-初级.pdf', fileUrl: assetUrl('docs/ebooks/ebook-02-primary.pdf') },
@@ -40,15 +47,19 @@ Page({
       this.setData({
         notice,
         video: data.video || this.data.video,
+        videos: data.videos || (data.video ? [data.video] : this.data.videos),
         promotions: data.promotions || this.data.promotions,
         cacheMap: this.reconcileCacheMap(data.promotions || this.data.promotions, cacheMap)
       });
     });
   },
 
-  goVideo() {
-    wx.setStorageSync('homeVideo', this.data.video);
-    wx.navigateTo({ url: '/pages/video/detail' });
+  goVideo(e) {
+    const { id } = (e && e.currentTarget && e.currentTarget.dataset) || {};
+    const selectedVideo = (this.data.videos || []).find((item) => item.id === id) || this.data.video;
+    wx.setStorageSync('homeVideo', selectedVideo);
+    wx.setStorageSync('homeVideos', this.data.videos || []);
+    wx.navigateTo({ url: `/pages/video/detail?id=${selectedVideo.id || ''}` });
   },
 
   goPromotion(e) {

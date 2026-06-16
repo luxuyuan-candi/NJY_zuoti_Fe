@@ -8,17 +8,21 @@
     </view>
   </view>
 
-  <view class="video-hero" bindtap="goVideo">
-    <image class="video-cover" src="{{video.coverUrl}}" mode="aspectFill"></image>
-    <view class="video-shade"></view>
-    <view class="video-top">
-      <text class="tag">教学视频</text>
-      <text class="video-time">{{video.duration}}</text>
-    </view>
-    <view class="play">▶</view>
-    <text class="video-title">{{video.title}}</text>
-    <text class="video-desc">了解题库、考试、错题和离线缓存的使用方式</text>
-  </view>
+  <swiper class="video-swiper" indicator-dots autoplay circular interval="5000" duration="500">
+    <swiper-item wx:for="{{videos}}" wx:key="id">
+      <view class="video-hero" data-id="{{item.id}}" bindtap="goVideo">
+        <image class="video-cover" src="{{item.coverUrl}}" mode="aspectFill"></image>
+        <view class="video-shade"></view>
+        <view class="video-top">
+          <text class="tag">教学视频</text>
+          <text class="video-time">{{item.duration}}</text>
+        </view>
+        <view class="play">▶</view>
+        <text class="video-title">{{item.title}}</text>
+        <text class="video-desc">{{item.desc}}</text>
+      </view>
+    </swiper-item>
+  </swiper>
 
   <view class="section">
     <view class="section-head">
