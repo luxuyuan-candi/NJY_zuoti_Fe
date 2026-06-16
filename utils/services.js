@@ -108,16 +108,16 @@ const getHomeContent = () => withFallback(
   {
     video: {
       id: 'video-01',
-      title: '题库练习导览',
+      title: '首页与功能总览',
       duration: '00:16',
       url: assetUrl('video/home-video-01-guide.mp4'),
       coverUrl: assetUrl('images/home-video-01-guide.jpg'),
-      desc: '快速了解题库、章节和随机练习的使用路径。'
+      desc: '概览小程序首页入口、公告区和学习内容布局。'
     },
     videos: [
-      { id: 'video-01', title: '题库练习导览', duration: '00:16', url: assetUrl('video/home-video-01-guide.mp4'), coverUrl: assetUrl('images/home-video-01-guide.jpg'), desc: '快速了解题库、章节和随机练习的使用路径。' },
-      { id: 'video-02', title: '错题复盘与记录统计', duration: '00:16', url: assetUrl('video/home-video-02-practice.mp4'), coverUrl: assetUrl('images/home-video-02-practice.jpg'), desc: '查看错题本、最近记录和趋势统计的复盘方式。' },
-      { id: 'video-03', title: '教材学习与资料查看', duration: '00:15', url: assetUrl('video/home-video-03-ebook.mp4'), coverUrl: assetUrl('images/home-video-03-ebook.jpg'), desc: '在首页查看电子教材，并结合练习完成知识巩固。' }
+      { id: 'video-01', title: '首页与功能总览', duration: '00:16', url: assetUrl('video/home-video-01-guide.mp4'), coverUrl: assetUrl('images/home-video-01-guide.jpg'), desc: '概览小程序首页入口、公告区和学习内容布局。' },
+      { id: 'video-02', title: '题库练习与结果查看', duration: '00:16', url: assetUrl('video/home-video-02-practice.mp4'), coverUrl: assetUrl('images/home-video-02-practice.jpg'), desc: '浏览题库入口、做题流程和练习结果页面内容。' },
+      { id: 'video-03', title: '教材入口与学习资料', duration: '00:15', url: assetUrl('video/home-video-03-ebook.mp4'), coverUrl: assetUrl('images/home-video-03-ebook.jpg'), desc: '查看首页电子教材入口和资料浏览方式。' }
     ],
     promotions: [
       { id: 'ebook-01', title: '医药商品购销员基础知识', desc: '基础理论电子教材，适合入门复习与概念梳理。', tag: '电子教材', fileType: 'pdf', fileName: '1_医药商品购销员-基础知识.pdf', fileUrl: assetUrl('docs/ebooks/ebook-01-basic-knowledge.pdf') },

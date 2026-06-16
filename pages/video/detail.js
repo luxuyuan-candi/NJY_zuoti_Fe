@@ -4,11 +4,11 @@ Page({
   data: {
     video: {
       id: 'video-01',
-      title: '题库练习导览',
+      title: '首页与功能总览',
       duration: '00:16',
       url: assetUrl('video/home-video-01-guide.mp4'),
       coverUrl: assetUrl('images/home-video-01-guide.jpg'),
-      desc: '快速了解题库、章节和随机练习的使用路径。'
+      desc: '概览小程序首页入口、公告区和学习内容布局。'
     },
     videos: []
   },
