@@ -1,2 +1,17 @@
 .page {
 }
+
+.hero-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 176rpx;
+  height: 64rpx;
+  margin-top: 24rpx;
+  padding: 0 24rpx;
+  border-radius: 12rpx;
+  background: #eef5ff;
+  color: #176bff;
+  font-size: 24rpx;
+  font-weight: 700;
+}

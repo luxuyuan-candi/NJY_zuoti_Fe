@@ -2,6 +2,7 @@
   <view class="hero">
     <text class="hero-title">{{title}}</text>
     <text class="hero-subtitle">{{subtitle}}</text>
+    <view wx:if="{{!recordMode && !loading && mistakes.length}}" class="hero-action" bindtap="removeAll">一键移除全部</view>
   </view>
 
   <view class="section list">

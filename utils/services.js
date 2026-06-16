@@ -178,6 +178,10 @@ const removeMistake = (mistakeId) => request({
   url: `/records/mistakes/${mistakeId}`,
   method: 'DELETE'
 }).then(() => getMistakes());
+const removeAllMistakes = () => request({
+  url: '/records/mistakes',
+  method: 'DELETE'
+});
 const getFavorites = () => request({ url: '/records/favorites' });
 const saveFavorite = (questionId) => request({
   url: '/records/favorites',
@@ -236,6 +240,7 @@ module.exports = {
   getMistakeDetail,
   getRecordMistakeDetail,
   removeMistake,
+  removeAllMistakes,
   getFavorites,
   saveFavorite,
   removeFavorite,
