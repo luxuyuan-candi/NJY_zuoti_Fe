@@ -36,3 +36,7 @@
 .analysis {
   border-color: #bfe5cd;
 }
+
+.practical-detail {
+  margin-top: 26rpx;
+}

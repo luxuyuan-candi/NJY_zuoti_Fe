@@ -16,7 +16,7 @@
       </view>
       <text class="title" style="margin-top: 20rpx;">{{question.stem}}</text>
 
-      <view class="option-list">
+      <view wx:if="{{question.options && question.options.length}}" class="option-list">
         <view
           wx:for="{{question.options}}"
           wx:key="key"
@@ -25,6 +25,9 @@
           <text class="option-key">{{item.key}}</text>
           <text class="option-text">{{item.text}}</text>
         </view>
+      </view>
+      <view wx:else class="analysis" style="margin-top: 26rpx;">
+        <text class="desc">本题为简答题。</text>
       </view>
     </view>
 

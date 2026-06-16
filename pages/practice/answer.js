@@ -121,7 +121,20 @@ Page({
     const changedAfterSubmit = !!existingResult && existingResult.selected !== selected;
     this.setData({
       selected,
-      submitted: changedAfterSubmit ? false : this.data.submitted
+      submitted: changedAfterSubmit ? false : this.data.submitted,
+      analysisRevealed: changedAfterSubmit ? false : this.data.analysisRevealed
+    });
+  },
+
+  onPracticalAnswerInput(e) {
+    const selected = (e.detail.value || '').trimStart();
+    const currentQuestion = this.data.currentQuestion;
+    const existingResult = currentQuestion ? this.data.answerResults[currentQuestion.id] : null;
+    const changedAfterSubmit = !!existingResult && existingResult.selected !== selected;
+    this.setData({
+      selected,
+      submitted: changedAfterSubmit ? false : this.data.submitted,
+      analysisRevealed: changedAfterSubmit ? false : this.data.analysisRevealed
     });
   },
 
@@ -129,9 +142,9 @@ Page({
     const { currentQuestion, selected, answerResults } = this.data;
     if (!currentQuestion) return;
     const isPractical = !((currentQuestion.options || []).length);
-    const submittedAnswer = isPractical ? '__PRACTICAL_COMPLETED__' : selected;
+    const submittedAnswer = isPractical ? (selected || '').trim() : selected;
     if (!submittedAnswer) {
-      wx.showToast({ title: '请先选择答案', icon: 'none' });
+      wx.showToast({ title: isPractical ? '请先输入答案' : '请先选择答案', icon: 'none' });
       return;
     }
 
@@ -169,7 +182,18 @@ Page({
         });
         this.refreshNavItems(nextQuestions, nextResults);
       })
-      .catch(() => wx.showToast({ title: '提交失败', icon: 'none' }));
+      .catch((error) => {
+        const detail = (error && error.data && error.data.detail) || error.detail || '';
+        if (detail) {
+          wx.showModal({
+            title: '提交失败',
+            content: detail,
+            showCancel: false
+          });
+          return;
+        }
+        wx.showToast({ title: '提交失败', icon: 'none' });
+      });
   },
 
   revealAnalysis() {
@@ -309,7 +333,7 @@ Page({
           questionId: question.id,
           stem: question.stem || '',
           chapter: (((question.knowledge || {}).pathNames || []).slice(0, -1).join(' / ')) || title || bankName || '练习题',
-          selected: result.selected === '__PRACTICAL_COMPLETED__' ? '' : result.selected,
+          selected: result.selected || '',
           answer: result.answer || '',
           correct: !!result.correct,
           analysis: result.analysis || '',

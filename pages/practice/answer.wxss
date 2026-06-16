@@ -59,6 +59,21 @@
   font-weight: 700;
 }
 
+.practical-answer-input {
+  width: 100%;
+  min-height: 280rpx;
+  padding: 24rpx;
+  border: 1rpx solid #d8dfeb;
+  border-radius: 14rpx;
+  background: #f8fbff;
+  box-sizing: border-box;
+  line-height: 1.7;
+}
+
+.reference-answer {
+  white-space: pre-wrap;
+}
+
 .score-table {
   display: flex;
   flex-direction: column;
