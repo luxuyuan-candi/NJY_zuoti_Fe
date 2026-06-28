@@ -1,3 +1,7 @@
+.profile-page {
+  padding-bottom: 40rpx;
+}
+
 .profile-card {
   display: flex;
   align-items: center;
@@ -67,13 +71,28 @@
   font-size: 24rpx;
 }
 
+.profile-arrow {
+  color: #a3824f;
+  font-size: 28rpx;
+}
+
 .medal {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 12rpx;
   min-height: 144rpx;
   text-align: center;
+}
+
+.medal-mark {
+  color: #b48847;
+  font-size: 30rpx;
+}
+
+.medal-name {
+  color: #314435;
   font-size: 24rpx;
 }
 

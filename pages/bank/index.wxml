@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page bank-page">
   <view class="hero bank-hero">
     <text class="hero-title">题库练习</text>
     <text class="hero-subtitle">按题库与等级分层练习，保持节奏，稳步进阶。</text>
@@ -6,7 +6,9 @@
 
   <block wx:if="{{authorized}}">
     <view class="section">
-      <input class="input bank-search" placeholder="搜索题库或等级" bindinput="updateKeyword" />
+      <view class="search-shell">
+        <input class="input bank-search" placeholder="搜索题库或等级" bindinput="updateKeyword" />
+      </view>
     </view>
   </block>
 
@@ -26,13 +28,19 @@
     <view class="card bank-card" wx:for="{{visibleBanks}}" wx:key="id" data-id="{{item.id}}" bindtap="goChapter">
       <view class="row between bank-card-head">
         <text class="tag">{{item.levelLabel}}</text>
-        <text class="muted">{{item.type}}</text>
+        <text class="bank-card-type">{{item.type}}</text>
       </view>
       <text class="title bank-card-title">{{item.name}}</text>
       <text class="desc bank-card-desc">{{item.desc}}</text>
-      <view class="row between bank-card-meta">
-        <text class="muted">题量 {{item.total}}</text>
-        <text class="muted">{{item.cached}}</text>
+      <view class="bank-card-meta">
+        <view class="bank-card-metric">
+          <text class="bank-card-metric-value">{{item.total}}</text>
+          <text class="bank-card-metric-label">题量</text>
+        </view>
+        <view class="bank-card-metric bank-card-metric-right">
+          <text class="bank-card-metric-value">{{item.cached || '已整理'}}</text>
+          <text class="bank-card-metric-label">资料状态</text>
+        </view>
       </view>
       <view class="progress bank-card-progress">
         <view class="progress-fill" style="width: 100%;"></view>

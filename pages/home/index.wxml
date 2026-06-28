@@ -1,15 +1,22 @@
 <view class="page page-home">
+  <view class="page-ornament page-ornament-left"></view>
+  <view class="page-ornament page-ornament-right"></view>
+
   <view class="brand-block">
     <text class="brand-title">学以致考</text>
     <text class="brand-subtitle">专注考试 · 高效成长</text>
   </view>
 
-  <view class="notice-bar" bindtap="goNotice">
-    <text class="notice-label">公告</text>
-    <view class="notice-marquee">
-      <view class="notice-track">
-        <text class="notice-text">{{notice.marqueeText || notice.title}}</text>
-      </view>
+  <view class="notice-panel" bindtap="goNotice">
+    <view class="notice-icon-shell">
+      <image class="notice-icon" src="/assets/designs/ui-refresh/icon-notice.png" mode="aspectFit"></image>
+    </view>
+    <view class="notice-main">
+      <text class="notice-text">{{notice.marqueeText || notice.title}}</text>
+    </view>
+    <view class="notice-action">
+      <text class="notice-action-text">查看详情</text>
+      <text class="notice-action-arrow">></text>
     </view>
   </view>
 
@@ -19,20 +26,36 @@
         <image class="video-cover" src="{{item.coverUrl}}" mode="aspectFill"></image>
         <view class="video-shade"></view>
         <view class="video-top">
-          <text class="tag">精选课程</text>
-          <text class="video-time">{{item.duration}}</text>
+          <text class="video-badge">本周精选</text>
         </view>
-        <view class="play">▶</view>
-        <text class="video-title">{{item.title}}</text>
-        <text class="video-desc">{{item.desc}}</text>
+        <view class="video-copy">
+          <text class="video-title">{{item.title}}</text>
+          <text class="video-subtitle">{{item.subtitle || item.desc}}</text>
+          <text class="video-teacher">{{item.teacher || '主讲：张老师'}}</text>
+        </view>
+        <view class="play-shell">
+          <view class="play-button">
+            <image class="play-icon" src="/assets/designs/ui-refresh/icon-play.png" mode="aspectFit"></image>
+          </view>
+        </view>
+        <view class="video-progress-row">
+          <text class="video-progress-text">{{item.duration}}</text>
+          <view class="video-progress">
+            <view class="video-progress-fill"></view>
+          </view>
+          <text class="video-progress-text">{{item.progressText || '已学 36%'}}</text>
+        </view>
       </view>
     </swiper-item>
   </swiper>
 
   <view class="section">
-    <view class="section-head">
-      <text class="section-title">学习资料</text>
-      <text class="section-link">{{promotions.length}} 项</text>
+    <view class="section-head section-head-home">
+      <view class="section-title-wrap">
+        <image class="section-title-icon" src="/assets/designs/ui-refresh/icon-bank.png" mode="aspectFit"></image>
+        <text class="section-title">学习资料</text>
+      </view>
+      <text class="section-link">全部资料 ></text>
     </view>
     <view class="promo-grid">
       <view class="card promo-card" wx:for="{{promotions}}" wx:key="id" data-id="{{item.id}}" bindtap="goPromotion">
@@ -41,18 +64,36 @@
         </view>
         <text class="promo-title">{{item.title}}</text>
         <text class="promo-desc">{{item.desc}}</text>
-        <view class="promo-meta row between">
-          <text class="tag gray">{{item.tag}}</text>
-          <text class="promo-file">{{item.fileName}}</text>
-        </view>
+        <text class="promo-summary">{{item.summary}}</text>
         <view class="promo-actions">
           <view class="promo-cache-btn" data-id="{{item.id}}" catchtap="cachePromotion">
             <text wx:if="{{cacheProgressMap[item.id] >= 0 && cacheProgressMap[item.id] <= 100}}">{{cacheProgressMap[item.id]}}%</text>
             <text wx:elif="{{cacheMap[item.id]}}">本地打开</text>
-            <text wx:else>缓存到本地</text>
+            <text wx:else>{{item.summary}}</text>
           </view>
         </view>
       </view>
     </view>
+  </view>
+
+  <view class="shortcut-card">
+    <view
+      class="shortcut-item"
+      wx:for="{{shortcuts}}"
+      wx:key="key"
+      data-url="{{item.url}}"
+      data-mode="{{item.mode}}"
+      bindtap="openShortcut"
+    >
+      <image class="shortcut-icon" src="{{item.iconUrl}}" mode="aspectFit"></image>
+      <text class="shortcut-label">{{item.label}}</text>
+    </view>
+  </view>
+
+  <view class="quote-card">
+    <view class="quote-bamboo"></view>
+    <view class="quote-mountain"></view>
+    <text class="quote-text">书山有路勤为径，学海无涯苦作舟。</text>
+    <text class="quote-author">—— 韩愈</text>
   </view>
 </view>

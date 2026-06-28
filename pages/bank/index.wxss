@@ -1,13 +1,37 @@
+.bank-page {
+  padding-bottom: 40rpx;
+}
+
 .bank-hero {
-  margin-bottom: 6rpx;
+  margin-bottom: 8rpx;
+}
+
+.search-shell {
+  padding: 8rpx;
+  border: 1rpx solid rgba(211, 194, 168, 0.44);
+  border-radius: 28rpx;
+  background: rgba(255, 251, 246, 0.92);
+  box-shadow: 0 16rpx 30rpx rgba(82, 61, 30, 0.05);
 }
 
 .bank-search {
   padding-left: 30rpx;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.bank-card {
+  padding: 30rpx;
 }
 
 .bank-card-head {
   margin-bottom: 18rpx;
+}
+
+.bank-card-type {
+  color: #8f7a58;
+  font-size: 24rpx;
 }
 
 .bank-card-title {
@@ -19,9 +43,33 @@
 }
 
 .bank-card-meta {
-  margin-top: 22rpx;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 26rpx;
+}
+
+.bank-card-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.bank-card-metric-right {
+  text-align: right;
+}
+
+.bank-card-metric-value {
+  color: #204730;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.bank-card-metric-label {
+  color: #8b7d67;
+  font-size: 22rpx;
 }
 
 .bank-card-progress {
-  margin-top: 18rpx;
+  margin-top: 22rpx;
 }

@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page record-page">
   <view class="hero">
     <text class="hero-title">学习记录</text>
     <text class="hero-subtitle">错题、收藏、成绩和趋势都在这里沉淀。</text>
@@ -12,13 +12,13 @@
 
   <block wx:else>
     <view class="section grid-3">
-      <view class="card metric" wx:for="{{stats}}" wx:key="label">
+      <view class="card metric stat-card" wx:for="{{stats}}" wx:key="label">
         <text class="metric-value">{{item.value}}</text>
         <text class="metric-label">{{item.label}}</text>
       </view>
     </view>
 
-    <view class="section grid-3">
+    <view class="section quick-grid">
       <view class="card feature-card" bindtap="goMistake">
         <image class="feature-icon" src="/assets/designs/ui-refresh/icon-notebook.png" mode="aspectFit"></image>
         <text class="title">错题本</text>
@@ -39,17 +39,17 @@
     <view class="section">
       <view class="section-head">
         <text class="section-title">最近记录</text>
-        <text class="section-link" bindtap="goTrend">趋势</text>
+        <text class="section-link" bindtap="goTrend">趋势详情 ></text>
       </view>
       <view class="list">
-        <view class="card" wx:for="{{records}}" wx:key="id" data-id="{{item.id}}" data-type="{{item.type}}" bindtap="goResult">
+        <view class="card record-card" wx:for="{{records}}" wx:key="id" data-id="{{item.id}}" data-type="{{item.type}}" bindtap="goResult">
           <view class="row between">
             <text class="title">{{item.title}}</text>
             <text class="tag">{{item.type}}</text>
           </view>
-          <view class="row between" style="margin-top: 16rpx;">
+          <view class="row between record-card-meta">
             <text class="muted">{{item.dateTime || item.date}}</text>
-            <text class="metric-value" style="font-size: 30rpx;">{{item.score}}</text>
+            <text class="record-card-score">{{item.score}}</text>
           </view>
         </view>
         <view class="card" wx:if="{{!records.length}}">

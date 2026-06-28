@@ -30,7 +30,9 @@ Page({
         return getBanks();
       })
       .then((banks) => {
-        if (!banks) return;
+        if (!banks) {
+          return;
+        }
         this.setData({ banks, authorized: true }, () => this.applyFilters());
       })
       .catch((error) => {
@@ -54,9 +56,8 @@ Page({
     const { banks, keyword } = this.data;
     const normalizedKeyword = keyword.toLowerCase();
     const visibleBanks = banks.filter((bank) => {
-      const keywordMatched = !normalizedKeyword
-        || `${bank.name} ${bank.desc} ${bank.levelLabel} ${bank.type}`.toLowerCase().includes(normalizedKeyword);
-      return keywordMatched;
+      const bankText = `${bank.name} ${bank.desc} ${bank.levelLabel} ${bank.type}`.toLowerCase();
+      return !normalizedKeyword || bankText.includes(normalizedKeyword);
     });
     this.setData({ visibleBanks });
   },

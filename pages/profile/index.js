@@ -57,9 +57,7 @@ Page({
 
     return getMedals()
       .then((medals) => {
-        const preview = (medals || [])
-          .filter((item) => item && item.achieved)
-          .slice(0, 3);
+        const preview = (medals || []).filter((item) => item && item.achieved).slice(0, 3);
         this.setData({ medals: preview.length ? preview.map((item) => item.name) : ['继续加油'] });
       })
       .catch(() => {});
@@ -75,8 +73,7 @@ Page({
       tools.push(MANAGER_TOOL);
     }
     if (canManageNotice) {
-      tools.push(NOTICE_TOOL);
-      tools.push(FEEDBACK_TOOL);
+      tools.push(NOTICE_TOOL, FEEDBACK_TOOL);
     }
     tools.push(...BASE_TOOLS);
 

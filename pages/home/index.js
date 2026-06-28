@@ -9,6 +9,41 @@ const PROMO_ICON_MAP = {
   checklist: '/assets/designs/ui-refresh/icon-checklist.png',
   play: '/assets/designs/ui-refresh/icon-play.png'
 };
+const SHORTCUTS = [
+  { key: 'daily', label: '每日一练', iconUrl: '/assets/designs/ui-refresh/icon-record.png', url: '/pages/bank/index', mode: 'switchTab' },
+  { key: 'chapter', label: '章节练习', iconUrl: '/assets/designs/ui-refresh/icon-bank.png', url: '/pages/bank/index', mode: 'switchTab' },
+  { key: 'mistake', label: '错题本', iconUrl: '/assets/designs/ui-refresh/icon-notebook.png', url: '/pages/mistake/index', mode: 'navigate' },
+  { key: 'favorite', label: '收藏夹', iconUrl: '/assets/designs/ui-refresh/icon-profile.png', url: '/pages/favorite/index', mode: 'navigate' }
+];
+const VIDEO_VISUALS = [
+  {
+    title: '教育学核心考点精讲',
+    subtitle: '第3章 教育与社会发展',
+    teacher: '主讲：张老师',
+    duration: '23:45',
+    progressText: '已学 36%'
+  },
+  {
+    title: '题库练习与结果查看',
+    subtitle: '浏览题库入口、做题流程和练习结果页面内容。',
+    teacher: '主讲：李老师',
+    duration: '18:20',
+    progressText: '已学 18%'
+  },
+  {
+    title: '备考路径与资料导学',
+    subtitle: '资料、错题、记录联动',
+    teacher: '主讲：王老师',
+    duration: '16:10',
+    progressText: '已学 52%'
+  }
+];
+const PROMOTION_VISUALS = [
+  { title: '考点精编讲义', desc: '高频考点整理', summary: '共 128 页', iconUrl: PROMO_ICON_MAP.pdf },
+  { title: '历年真题汇编', desc: '近5年真题精选', summary: '共 35 套', iconUrl: PROMO_ICON_MAP.notebook },
+  { title: '模拟试题', desc: '全真模拟演练', summary: '共 20 套', iconUrl: PROMO_ICON_MAP.checklist },
+  { title: '备考视频课', desc: '名师系统讲解', summary: '共 56 课时', iconUrl: PROMO_ICON_MAP.play }
+];
 
 Page({
   data: {
@@ -16,30 +51,73 @@ Page({
       id: 'notice-1',
       title: '题库授权说明',
       content: '用户完成微信登录后，需要由管理员授权题库后才可进行练习、考试和离线缓存。',
-      marqueeText: '题库授权说明：用户完成微信登录后，需要由管理员授权题库后才可进行练习、考试和离线缓存。'
+      marqueeText: '2025年上半年教师资格证考试报名将于4月12日开始'
     },
     video: {
       id: 'video-01',
-      title: '首页与功能总览',
-      duration: '00:16',
+      ...VIDEO_VISUALS[0],
       url: assetUrl('video/home-video-01-guide.mp4'),
       coverUrl: HERO_COVER,
-      desc: '概览小程序首页入口、公告区和学习内容布局。'
+      desc: '高频考点梳理'
     },
     videos: [
-      { id: 'video-01', title: '首页与功能总览', duration: '00:16', url: assetUrl('video/home-video-01-guide.mp4'), coverUrl: HERO_COVER, desc: '概览小程序首页入口、公告区和学习内容布局。' },
-      { id: 'video-02', title: '题库练习与结果查看', duration: '00:16', url: assetUrl('video/home-video-02-practice.mp4'), coverUrl: HERO_COVER, desc: '浏览题库入口、做题流程和练习结果页面内容。' },
-      { id: 'video-03', title: '教材入口与学习资料', duration: '00:15', url: assetUrl('video/home-video-03-ebook.mp4'), coverUrl: HERO_COVER, desc: '查看首页电子教材入口和资料浏览方式。' }
+      {
+        id: 'video-01',
+        ...VIDEO_VISUALS[0],
+        url: assetUrl('video/home-video-01-guide.mp4'),
+        coverUrl: HERO_COVER,
+        desc: '高频考点梳理'
+      },
+      {
+        id: 'video-02',
+        ...VIDEO_VISUALS[1],
+        url: assetUrl('video/home-video-02-practice.mp4'),
+        coverUrl: HERO_COVER,
+        desc: '模拟实战讲解'
+      },
+      {
+        id: 'video-03',
+        ...VIDEO_VISUALS[2],
+        url: assetUrl('video/home-video-03-ebook.mp4'),
+        coverUrl: HERO_COVER,
+        desc: '资料使用说明'
+      }
     ],
     promotions: [
-      { id: 'ebook-01', title: '医药商品购销员基础知识', desc: '基础理论电子教材，适合入门复习与概念梳理。', tag: '电子教材', fileType: 'pdf', fileName: '1_医药商品购销员基础知识.pdf', fileUrl: assetUrl('docs/ebooks/ebook-01-basic-knowledge.pdf'), iconUrl: PROMO_ICON_MAP.pdf },
-      { id: 'ebook-02', title: '医药商品购销员初级', desc: '初级岗位电子教材，覆盖基础业务知识与实务内容。', tag: '电子教材', fileType: 'pdf', fileName: '1_医药商品购销员初级.pdf', fileUrl: assetUrl('docs/ebooks/ebook-02-primary.pdf'), iconUrl: PROMO_ICON_MAP.notebook },
-      { id: 'ebook-03', title: '医药商品购销员综合训练题集', desc: '配套习题教材，适合章节练习后的巩固训练。', tag: '习题教材', fileType: 'pdf', fileName: '1_医药商品购销员综合训练习题集.pdf', fileUrl: assetUrl('docs/ebooks/ebook-03-workbook.pdf'), iconUrl: PROMO_ICON_MAP.checklist },
-      { id: 'ebook-04', title: '医药商品购销员中级', desc: '中级电子教材，适合进阶业务学习与考前梳理。', tag: '电子教材', fileType: 'pdf', fileName: '医药商品购销员（中级）.pdf', fileUrl: assetUrl('docs/ebooks/ebook-04-intermediate.pdf'), iconUrl: PROMO_ICON_MAP.pdf },
-      { id: 'ebook-05', title: '医药商品购销员指南包课程包', desc: '配套课程指南教材，便于按模块进行系统化学习。', tag: '课程资料', fileType: 'pdf', fileName: '医药商品购销员（指南包课程包）.pdf', fileUrl: assetUrl('docs/ebooks/ebook-05-guide-course-pack.pdf'), iconUrl: PROMO_ICON_MAP.notebook },
-      { id: 'ebook-06', title: '医药商品购销员高级', desc: '高级电子教材，适合高阶岗位知识学习和综合复盘。', tag: '电子教材', fileType: 'pdf', fileName: '医药商品购销员（高级）.pdf', fileUrl: assetUrl('docs/ebooks/ebook-06-advanced.pdf'), iconUrl: PROMO_ICON_MAP.pdf },
-      { id: 'ebook-07', title: '药品购销技术', desc: '面向药品购销场景的专题教材，可作为业务拓展阅读。', tag: '专题教材', fileType: 'pdf', fileName: '药品购销技术.pdf', fileUrl: assetUrl('docs/ebooks/ebook-07-pharma-sales-technique.pdf'), iconUrl: PROMO_ICON_MAP.play }
+      {
+        id: 'ebook-01',
+        ...PROMOTION_VISUALS[0],
+        tag: '电子教材',
+        fileType: 'pdf',
+        fileName: '1_医药商品购销员基础知识.pdf',
+        fileUrl: assetUrl('docs/ebooks/ebook-01-basic-knowledge.pdf')
+      },
+      {
+        id: 'ebook-02',
+        ...PROMOTION_VISUALS[1],
+        tag: '电子教材',
+        fileType: 'pdf',
+        fileName: '1_医药商品购销员初级.pdf',
+        fileUrl: assetUrl('docs/ebooks/ebook-02-primary.pdf')
+      },
+      {
+        id: 'ebook-03',
+        ...PROMOTION_VISUALS[2],
+        tag: '习题教材',
+        fileType: 'pdf',
+        fileName: '1_医药商品购销员综合训练题集.pdf',
+        fileUrl: assetUrl('docs/ebooks/ebook-03-workbook.pdf')
+      },
+      {
+        id: 'ebook-04',
+        ...PROMOTION_VISUALS[3],
+        tag: '视频资料',
+        fileType: 'pdf',
+        fileName: '医药商品购销员中级.pdf',
+        fileUrl: assetUrl('docs/ebooks/ebook-04-intermediate.pdf')
+      }
     ],
+    shortcuts: SHORTCUTS,
     cacheMap: {},
     cacheProgressMap: {}
   },
@@ -48,37 +126,49 @@ Page({
     const cacheMap = this.loadCacheMap();
     this.setData({ cacheMap });
 
-    getHomeContent().then((data) => {
-      const notice = (data.notices || [])[0] || this.data.notice;
-      const videos = this.decorateVideos(data.videos || (data.video ? [data.video] : this.data.videos));
-      const promotions = this.decoratePromotions(data.promotions || this.data.promotions);
-      wx.setStorageSync('homeNotice', notice);
-      wx.setStorageSync('homeVideo', videos[0] || this.data.video);
-      this.setData({
-        notice,
-        video: videos[0] || this.data.video,
-        videos,
-        promotions,
-        cacheMap: this.reconcileCacheMap(promotions, cacheMap)
-      });
-    });
+    getHomeContent()
+      .then((data) => {
+        const notice = (data.notices || [])[0] || this.data.notice;
+        const videos = this.decorateVideos(data.videos || (data.video ? [data.video] : this.data.videos));
+        const promotions = this.decoratePromotions(data.promotions || this.data.promotions);
+        wx.setStorageSync('homeNotice', notice);
+        wx.setStorageSync('homeVideo', videos[0] || this.data.video);
+        this.setData({
+          notice: {
+            ...this.data.notice,
+            ...notice,
+            marqueeText: notice.marqueeText || notice.title || this.data.notice.marqueeText
+          },
+          video: videos[0] || this.data.video,
+          videos,
+          promotions,
+          cacheMap: this.reconcileCacheMap(promotions, cacheMap)
+        });
+      })
+      .catch(() => {});
   },
 
   decorateVideos(videos) {
-    return (videos || []).map((item) => ({
+    return (videos || []).map((item, index) => ({
       ...item,
+      ...VIDEO_VISUALS[index % VIDEO_VISUALS.length],
       coverUrl: item.coverUrl || HERO_COVER
     }));
   },
 
   decoratePromotions(promotions) {
-    return (promotions || []).map((item, index) => ({
+    return (promotions || []).slice(0, 4).map((item, index) => ({
       ...item,
-      iconUrl: this.getPromotionIcon(item, index)
+      ...PROMOTION_VISUALS[index % PROMOTION_VISUALS.length],
+      iconUrl: this.getPromotionIcon(item, index) || PROMOTION_VISUALS[index % PROMOTION_VISUALS.length].iconUrl
     }));
   },
 
   getPromotionIcon(item, index) {
+    const fallback = PROMOTION_VISUALS[index % PROMOTION_VISUALS.length];
+    if (fallback && fallback.iconUrl) {
+      return fallback.iconUrl;
+    }
     if (item.fileType === 'pdf') {
       return PROMO_ICON_MAP.pdf;
     }
@@ -112,6 +202,18 @@ Page({
       return;
     }
     wx.navigateTo({ url: `/pages/promotion/detail?id=${id}` });
+  },
+
+  openShortcut(e) {
+    const { url, mode } = e.currentTarget.dataset;
+    if (!url) {
+      return;
+    }
+    if (mode === 'switchTab') {
+      wx.switchTab({ url });
+      return;
+    }
+    wx.navigateTo({ url });
   },
 
   openPromotionFile(promotion) {

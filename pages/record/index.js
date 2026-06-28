@@ -1,15 +1,17 @@
 const { ensureIdentity, getRecordDashboard } = require('../../utils/services');
 
+const DEFAULT_STATS = [
+  { label: '总做题数', value: '0' },
+  { label: '正确率', value: '0%' },
+  { label: '考试数', value: '0' }
+];
+
 Page({
   data: {
     authorized: true,
     unauthorizedMessage: '游客无权查看记录，请先完成身份配置并联系管理员授权。',
     records: [],
-    stats: [
-      { label: '总做题数', value: '0' },
-      { label: '正确率', value: '0%' },
-      { label: '考试数', value: '0' }
-    ],
+    stats: DEFAULT_STATS,
     mistakeDesc: '完成练习后生成',
     favoriteDesc: '做题时点击收藏生成',
     trendDesc: '完成练习后生成',
@@ -25,11 +27,7 @@ Page({
             unauthorizedMessage: '游客无权查看记录，请先完成身份配置并联系管理员授权。',
             records: [],
             hasCompletedPractice: false,
-            stats: [
-              { label: '总做题数', value: '0' },
-              { label: '正确率', value: '0%' },
-              { label: '考试数', value: '0' }
-            ],
+            stats: DEFAULT_STATS,
             mistakeDesc: '完成练习后生成',
             favoriteDesc: '做题时点击收藏生成',
             trendDesc: '完成练习后生成'
@@ -39,19 +37,17 @@ Page({
         return getRecordDashboard();
       })
       .then((dashboard) => {
-        if (!dashboard) return;
+        if (!dashboard) {
+          return;
+        }
         const recentRecords = (dashboard.records || []).slice(0, 4);
         this.setData({
           authorized: true,
           records: recentRecords,
-          stats: dashboard.stats || this.data.stats,
-          mistakeDesc: dashboard.hasCompletedPractice
-            ? `${dashboard.mistakeCount || 0} 道待复盘`
-            : '完成练习后生成',
+          stats: dashboard.stats || DEFAULT_STATS,
+          mistakeDesc: dashboard.hasCompletedPractice ? `${dashboard.mistakeCount || 0} 道待复盘` : '完成练习后生成',
           favoriteDesc: `${dashboard.favoriteCount || 0} 道已收藏`,
-          trendDesc: dashboard.hasCompletedPractice
-            ? `${(dashboard.records || []).length} 次完成记录`
-            : '完成练习后生成',
+          trendDesc: dashboard.hasCompletedPractice ? `${(dashboard.records || []).length} 次完成记录` : '完成练习后生成',
           hasCompletedPractice: !!dashboard.hasCompletedPractice
         });
       })
@@ -69,7 +65,9 @@ Page({
   },
 
   goMistake() {
-    if (!this.data.authorized) return;
+    if (!this.data.authorized) {
+      return;
+    }
     if (!this.data.hasCompletedPractice) {
       wx.showToast({ title: '请先完成一次练习', icon: 'none' });
       return;
@@ -78,12 +76,16 @@ Page({
   },
 
   goFavorite() {
-    if (!this.data.authorized) return;
+    if (!this.data.authorized) {
+      return;
+    }
     wx.navigateTo({ url: '/pages/favorite/index' });
   },
 
   goTrend() {
-    if (!this.data.authorized) return;
+    if (!this.data.authorized) {
+      return;
+    }
     if (!this.data.hasCompletedPractice) {
       wx.showToast({ title: '请先完成一次练习', icon: 'none' });
       return;
@@ -92,7 +94,9 @@ Page({
   },
 
   goResult(e) {
-    if (!this.data.authorized) return;
+    if (!this.data.authorized) {
+      return;
+    }
     const { id, type } = e.currentTarget.dataset;
     wx.navigateTo({ url: type === '考试' ? '/pages/exam/result' : `/pages/practice/result?recordId=${id}` });
   }

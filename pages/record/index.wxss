@@ -1,13 +1,35 @@
-.grid-3 .card {
-  min-height: 156rpx;
+.record-page {
+  padding-bottom: 44rpx;
+}
+
+.stat-card {
+  min-height: 164rpx;
+  justify-content: center;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18rpx;
 }
 
 .feature-card {
+  min-height: 214rpx;
   text-align: left;
 }
 
 .feature-icon {
-  width: 54rpx;
-  height: 54rpx;
-  margin-bottom: 18rpx;
+  width: 56rpx;
+  height: 56rpx;
+  margin-bottom: 20rpx;
+}
+
+.record-card-meta {
+  margin-top: 18rpx;
+}
+
+.record-card-score {
+  color: #204730;
+  font-size: 32rpx;
+  font-weight: 800;
 }

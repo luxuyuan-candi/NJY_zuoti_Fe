@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page profile-page">
   <view class="card profile-card" bindtap="goLogin">
     <view class="avatar-shell">
       <view class="avatar">
@@ -12,23 +12,26 @@
       </view>
       <text class="profile-quote">书山有路勤为径，学海无涯苦作舟。</text>
     </view>
-    <text class="muted">></text>
+    <text class="profile-arrow">></text>
   </view>
 
   <view class="section">
     <view class="section-head">
       <text class="section-title">奖牌</text>
-      <text class="section-link" bindtap="goMedal">全部</text>
+      <text class="section-link" bindtap="goMedal">全部 ></text>
     </view>
     <view class="grid-3">
-      <view class="card medal" wx:for="{{medals}}" wx:key="*this">★<text>{{item}}</text></view>
+      <view class="card medal" wx:for="{{medals}}" wx:key="*this">
+        <text class="medal-mark">★</text>
+        <text class="medal-name">{{item}}</text>
+      </view>
     </view>
   </view>
 
   <view class="section">
     <view class="section-head">
       <text class="section-title">排名</text>
-      <text class="section-link" bindtap="goRanking">详情</text>
+      <text class="section-link" bindtap="goRanking">详情 ></text>
     </view>
     <view class="grid-3">
       <view class="card metric" wx:for="{{ranking}}" wx:key="label">
@@ -50,7 +53,7 @@
           </view>
           <text class="title">{{item.name}}</text>
         </view>
-        <text class="muted">></text>
+        <text class="profile-arrow">></text>
       </view>
     </view>
   </view>
