@@ -1,29 +1,40 @@
 <view class="page with-bottom-bar">
-  <view class="hero">
+  <view class="hero settings-hero">
     <text class="hero-title">练习设置</text>
-    <text class="hero-subtitle">{{title || bankName || '当前题库'}}，共 {{totalQuestions}} 题，本次预计 {{selectedCount}} 题。</text>
+    <text class="hero-subtitle">{{title || bankName || '当前题库'}} - 共 {{totalQuestions}} 题 - 本次 {{selectedCount}} 题</text>
   </view>
 
   <view class="section">
-    <view class="section-head"><text class="section-title">题目数量</text></view>
+    <view class="section-head">
+      <text class="section-title">题目数量</text>
+    </view>
     <view class="card picker-card">
       <picker mode="selector" range="{{countOptions}}" value="{{selectedCountIndex}}" bindchange="changeCount">
         <view class="picker-trigger row between">
-          <text class="title">选择题数</text>
-          <text class="picker-value">{{selectedCount}} 题</text>
+          <view class="picker-copy">
+            <text class="title">选择题量</text>
+            <text class="desc">设置本次练习需要包含的题目数量。</text>
+          </view>
+          <text class="picker-value">{{selectedCount}}</text>
         </view>
       </picker>
     </view>
   </view>
 
   <view class="section list">
-    <view class="card row between">
-      <text class="title">出题顺序</text>
+    <view class="card setting-row row between">
+      <view>
+        <text class="title">出题顺序</text>
+        <text class="desc">当前保持随机出题策略。</text>
+      </view>
       <text class="tag">{{order}}</text>
     </view>
-    <view class="card row between">
-      <text class="title">答后显示解析</text>
-      <switch checked="{{showAnalysis}}" bindchange="toggleAnalysis" />
+    <view class="card setting-row row between">
+      <view>
+        <text class="title">答后显示解析</text>
+        <text class="desc">提交后是否立即展示答案解析。</text>
+      </view>
+      <switch checked="{{showAnalysis}}" bindchange="toggleAnalysis" color="#204730" />
     </view>
   </view>
 

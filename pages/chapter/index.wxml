@@ -1,7 +1,7 @@
 <view class="page with-bottom-bar">
-  <view class="hero">
-    <text class="hero-title">{{bank ? bank.name : '题库章节'}}</text>
-    <text class="hero-subtitle">{{bank ? bank.levelLabel + '理论题，共 ' + bank.questionCount + ' 题。' : '正在加载题库数据。'}}</text>
+  <view class="hero chapter-hero">
+    <text class="hero-title">{{bank ? bank.name : '章节列表'}}</text>
+    <text class="hero-subtitle">{{bank ? (bank.levelLabel + ' - ' + bank.questionCount + ' 题') : '正在加载题库数据...'}}</text>
   </view>
 
   <view wx:if="{{loading}}" class="section list">
@@ -11,19 +11,20 @@
   </view>
 
   <view wx:elif="{{!chapters.length}}" class="section list">
-    <view class="card">
-      <text class="desc">当前题库还没有可用章节。</text>
+    <view class="card empty-state-card">
+      <text class="title">暂无章节内容</text>
+      <text class="desc">当前题库暂未开放章节内容。</text>
     </view>
   </view>
 
   <view wx:else class="section list">
-    <view class="card" wx:for="{{chapters}}" wx:key="id" data-id="{{item.pathKey}}" data-title="{{item.name}}" data-total="{{item.total}}" bindtap="goSettings">
+    <view class="card chapter-card" wx:for="{{chapters}}" wx:key="id" data-id="{{item.pathKey}}" data-title="{{item.name}}" data-total="{{item.total}}" bindtap="goSettings">
       <view class="row between">
         <text class="title">{{item.name}}</text>
         <text class="tag gray">{{item.cached}}</text>
       </view>
-      <text class="desc">{{item.subtitle ? item.subtitle + ' · ' : ''}}共 {{item.total}} 题</text>
-      <view class="progress" style="margin-top: 16rpx;">
+      <text class="desc">{{item.subtitle ? item.subtitle + ' - ' : ''}}{{item.total}} 题</text>
+      <view class="progress chapter-progress">
         <view class="progress-fill" style="width: 100%;"></view>
       </view>
     </view>
@@ -31,6 +32,6 @@
 
   <view class="bottom-bar">
     <view class="btn ghost" bindtap="startMistakePractice">错题重做</view>
-    <view class="btn" bindtap="startFullBankPractice">开始综合练习</view>
+    <view class="btn" bindtap="startFullBankPractice">综合练习</view>
   </view>
 </view>

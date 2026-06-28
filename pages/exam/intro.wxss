@@ -1,2 +1,3 @@
-.page {
+.info-card .title {
+  display: block;
 }

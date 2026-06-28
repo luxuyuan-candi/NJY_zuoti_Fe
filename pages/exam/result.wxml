@@ -1,11 +1,11 @@
 <view class="page">
-  <view class="hero">
+  <view class="hero result-hero">
     <text class="hero-title">92 分</text>
     <text class="hero-subtitle">超过 86% 的用户，当前进入周榜前 20。</text>
   </view>
 
   <view class="section list">
-    <view class="card" wx:for="{{breakdown}}" wx:key="name">
+    <view class="card result-detail-card" wx:for="{{breakdown}}" wx:key="name">
       <view class="row between">
         <text class="title">{{item.name}}</text>
         <text class="metric-value" style="font-size: 30rpx;">{{item.score}}</text>

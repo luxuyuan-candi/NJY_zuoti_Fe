@@ -1,17 +1,17 @@
 <view class="page">
   <view class="hero bank-hero">
-    <text class="hero-title">Question Bank</text>
-    <text class="hero-subtitle">Practice by bank and level with a cleaner study flow.</text>
+    <text class="hero-title">题库练习</text>
+    <text class="hero-subtitle">按题库与等级分层练习，保持节奏，稳步进阶。</text>
   </view>
 
   <block wx:if="{{authorized}}">
     <view class="section">
-      <input class="input bank-search" placeholder="Search bank or level" bindinput="updateKeyword" />
+      <input class="input bank-search" placeholder="搜索题库或等级" bindinput="updateKeyword" />
     </view>
   </block>
 
   <view wx:if="{{loading}}" class="section empty card">
-    <text>Loading banks...</text>
+    <text>正在加载题库...</text>
   </view>
 
   <view wx:elif="{{!authorized}}" class="section empty card">
@@ -19,7 +19,7 @@
   </view>
 
   <view wx:elif="{{!visibleBanks.length}}" class="section empty card">
-    <text>No matching banks.</text>
+    <text>没有符合条件的题库。</text>
   </view>
 
   <view wx:else class="section list">
@@ -31,7 +31,7 @@
       <text class="title bank-card-title">{{item.name}}</text>
       <text class="desc bank-card-desc">{{item.desc}}</text>
       <view class="row between bank-card-meta">
-        <text class="muted">Questions {{item.total}}</text>
+        <text class="muted">题量 {{item.total}}</text>
         <text class="muted">{{item.cached}}</text>
       </view>
       <view class="progress bank-card-progress">

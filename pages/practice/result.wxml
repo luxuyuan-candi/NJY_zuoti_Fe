@@ -1,23 +1,23 @@
 <view class="page">
-  <view class="hero">
+  <view class="hero result-hero">
     <text class="hero-title">{{heroTitle}}</text>
     <text class="hero-subtitle">{{heroSubtitle}}</text>
   </view>
 
   <view class="section grid-3">
-    <view class="card metric" wx:for="{{metrics}}" wx:key="label">
+    <view class="card metric result-metric" wx:for="{{metrics}}" wx:key="label">
       <text class="metric-value">{{item.value}}</text>
       <text class="metric-label">{{item.label}}</text>
     </view>
   </view>
 
   <view wx:if="{{details.length}}" class="section list">
-    <view class="card" wx:for="{{details}}" wx:key="name">
+    <view class="card result-detail-card" wx:for="{{details}}" wx:key="name">
       <view class="row between">
         <text class="title">{{item.name}}</text>
         <text class="muted">{{item.accuracy}}%</text>
       </view>
-      <view class="progress" style="margin-top: 14rpx;">
+      <view class="progress result-progress">
         <view class="progress-fill" style="width: {{item.accuracy}}%;"></view>
       </view>
     </view>

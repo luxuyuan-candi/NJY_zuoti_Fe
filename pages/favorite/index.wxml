@@ -1,22 +1,22 @@
 <view class="page with-bottom-bar">
   <view class="hero">
     <text class="hero-title">题目收藏</text>
-    <text class="hero-subtitle">把重点题集中起来，随时专项练习。</text>
+    <text class="hero-subtitle">把重点题集中收藏，便于随时专项复习。</text>
   </view>
 
   <view class="section list">
-    <view class="card" wx:for="{{favorites}}" wx:key="id" data-id="{{item.id}}" bindtap="openDetail">
+    <view class="card favorite-card" wx:for="{{favorites}}" wx:key="id" data-id="{{item.id}}" bindtap="openDetail">
       <view class="row between">
         <text class="title">{{item.title}}</text>
         <text class="tag">收藏</text>
       </view>
       <text class="desc">{{item.chapter}}</text>
-      <text wx:if="{{item.dateTime}}" class="desc" style="margin-top: 12rpx;">收藏时间：{{item.dateTime}}</text>
-      <view class="btn secondary" style="margin-top: 18rpx; height: 64rpx;" data-id="{{item.id}}" catchtap="remove">取消收藏</view>
+      <text wx:if="{{item.dateTime}}" class="favorite-time">收藏时间 {{item.dateTime}}</text>
+      <view class="btn secondary mini-action" data-id="{{item.id}}" catchtap="remove">取消收藏</view>
     </view>
-    <view class="card" wx:if="{{!favorites.length}}">
+    <view class="card empty-state-card" wx:if="{{!favorites.length}}">
       <text class="title">暂无收藏题</text>
-      <text class="desc">做题时点击“收藏”后，题目会进入这里，支持集中查看和专项练习。</text>
+      <text class="desc">做题时收藏的题目会在这里统一查看。</text>
     </view>
   </view>
 

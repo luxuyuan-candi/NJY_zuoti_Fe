@@ -1,2 +1,3 @@
-.page {
+.result-detail-card {
+  padding-bottom: 26rpx;
 }

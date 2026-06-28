@@ -36,7 +36,7 @@ Page({
     this.setData({
       title: result.title || '',
       heroTitle: `本次正确率 ${result.accuracy}%`,
-      heroSubtitle: `${result.title || '练习结果'}，共完成 ${result.answeredCount} 题，答错 ${result.wrongCount} 题。`,
+      heroSubtitle: `${result.title || '练习结果'} - 共完成 ${result.answeredCount} 题 - 答错 ${result.wrongCount} 题`,
       metrics: [
         { label: '总题数', value: String(result.answeredCount) },
         { label: '正确', value: String(result.correctCount) },

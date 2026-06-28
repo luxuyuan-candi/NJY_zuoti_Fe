@@ -6,8 +6,17 @@
   padding: 30rpx;
 }
 
+.picker-copy {
+  flex: 1;
+  min-width: 0;
+}
+
 .picker-value {
   color: #a27536;
-  font-size: 30rpx;
+  font-size: 34rpx;
   font-weight: 700;
+}
+
+.setting-row {
+  align-items: center;
 }

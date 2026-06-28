@@ -1,2 +1,15 @@
-.page {
+.result-hero {
+  margin-bottom: 2rpx;
+}
+
+.result-metric {
+  min-height: 148rpx;
+}
+
+.result-detail-card {
+  padding-bottom: 30rpx;
+}
+
+.result-progress {
+  margin-top: 16rpx;
 }

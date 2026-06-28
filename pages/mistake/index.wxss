@@ -1,17 +1,22 @@
-.page {
+.mistake-card {
+  padding-bottom: 30rpx;
 }
 
-.hero-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 176rpx;
-  height: 64rpx;
-  margin-top: 24rpx;
-  padding: 0 24rpx;
-  border-radius: 12rpx;
-  background: #eef5ff;
-  color: #176bff;
+.mistake-meta {
+  margin-top: 14rpx;
+  color: #6f6452;
   font-size: 24rpx;
-  font-weight: 700;
+  line-height: 1.6;
+}
+
+.mistake-analysis {
+  margin-top: 12rpx;
+  color: #857764;
+  font-size: 23rpx;
+  line-height: 1.7;
+}
+
+.mini-action {
+  margin-top: 18rpx;
+  height: 68rpx;
 }

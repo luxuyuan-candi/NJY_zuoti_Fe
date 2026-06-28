@@ -1,13 +1,22 @@
 <view class="page with-bottom-bar">
   <view class="hero">
     <text class="hero-title">综合能力模拟卷（一）</text>
-    <text class="hero-subtitle">60 题，满分 100 分，限时 90 分钟。</text>
+    <text class="hero-subtitle">60 题 - 满分 100 分 - 限时 90 分钟</text>
   </view>
 
   <view class="section list">
-    <view class="card"><text class="title">考试规则</text><text class="desc">考试中不展示答案和解析，交卷后统一查看成绩。</text></view>
-    <view class="card"><text class="title">计分方式</text><text class="desc">单选、判断按题计分，多选题需完全正确。</text></view>
-    <view class="card"><text class="title">离线提示</text><text class="desc">建议在网络稳定环境下开始考试。</text></view>
+    <view class="card info-card">
+      <text class="title">考试规则</text>
+      <text class="desc">考试过程中不展示答案与解析，交卷后统一查看结果。</text>
+    </view>
+    <view class="card info-card">
+      <text class="title">计分方式</text>
+      <text class="desc">单选、判断按题计分，多选题需要完全正确才计分。</text>
+    </view>
+    <view class="card info-card">
+      <text class="title">网络提示</text>
+      <text class="desc">建议在网络稳定的环境下开始考试。</text>
+    </view>
   </view>
 
   <view class="bottom-bar">

@@ -1,2 +1,11 @@
-.page {
+.chapter-card {
+  padding-bottom: 30rpx;
+}
+
+.chapter-progress {
+  margin-top: 18rpx;
+}
+
+.empty-state-card {
+  text-align: left;
 }

@@ -1,2 +1,15 @@
-.page {
+.favorite-card {
+  padding-bottom: 30rpx;
+}
+
+.favorite-time {
+  display: block;
+  margin-top: 12rpx;
+  color: #8c7f6a;
+  font-size: 22rpx;
+}
+
+.mini-action {
+  margin-top: 18rpx;
+  height: 68rpx;
 }
