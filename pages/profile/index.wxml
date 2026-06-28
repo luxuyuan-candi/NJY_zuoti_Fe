@@ -8,27 +8,27 @@
     <view class="profile-info">
       <view class="name-row">
         <text class="title">{{displayName}}</text>
-        <text class="role-tag">{{user.roleLabel || '普通用户'}}</text>
+        <text class="role-tag">{{user.roleLabel || 'User'}}</text>
       </view>
-      <text class="profile-quote">书山有路勤为径，学海无涯苦作舟。</text>
+      <text class="profile-quote">Keep learning. Keep moving.</text>
     </view>
-    <text class="muted">›</text>
+    <text class="muted">></text>
   </view>
 
   <view class="section">
     <view class="section-head">
-      <text class="section-title">奖牌</text>
-      <text class="section-link" bindtap="goMedal">全部</text>
+      <text class="section-title">Medals</text>
+      <text class="section-link" bindtap="goMedal">All</text>
     </view>
     <view class="grid-3">
-      <view class="card medal" wx:for="{{medals}}" wx:key="*this">🏅<text>{{item}}</text></view>
+      <view class="card medal" wx:for="{{medals}}" wx:key="*this">*<text>{{item}}</text></view>
     </view>
   </view>
 
   <view class="section">
     <view class="section-head">
-      <text class="section-title">排名</text>
-      <text class="section-link" bindtap="goRanking">详情</text>
+      <text class="section-title">Ranking</text>
+      <text class="section-link" bindtap="goRanking">More</text>
     </view>
     <view class="grid-3">
       <view class="card metric" wx:for="{{ranking}}" wx:key="label">
@@ -39,7 +39,9 @@
   </view>
 
   <view class="section">
-    <view class="section-head"><text class="section-title">工具区</text></view>
+    <view class="section-head">
+      <text class="section-title">Tools</text>
+    </view>
     <view class="list">
       <view class="card row between tool-card" wx:for="{{tools}}" wx:key="name" data-url="{{item.url}}" bindtap="goTool">
         <view class="row tool-main">
@@ -48,7 +50,7 @@
           </view>
           <text class="title">{{item.name}}</text>
         </view>
-        <text class="muted">›</text>
+        <text class="muted">></text>
       </view>
     </view>
   </view>
