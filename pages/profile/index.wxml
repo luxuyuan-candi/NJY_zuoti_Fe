@@ -1,13 +1,16 @@
 <view class="page">
   <view class="card profile-card" bindtap="goLogin">
-    <view class="avatar">
-      <image wx:if="{{user.avatarUrl}}" class="avatar-image" src="{{user.avatarUrl}}" mode="aspectFill"></image>
+    <view class="avatar-shell">
+      <view class="avatar">
+        <image wx:if="{{user.avatarUrl}}" class="avatar-image" src="{{user.avatarUrl}}" mode="aspectFill"></image>
+      </view>
     </view>
     <view class="profile-info">
       <view class="name-row">
         <text class="title">{{displayName}}</text>
         <text class="role-tag">{{user.roleLabel || '普通用户'}}</text>
       </view>
+      <text class="profile-quote">书山有路勤为径，学海无涯苦作舟。</text>
     </view>
     <text class="muted">›</text>
   </view>
@@ -38,8 +41,13 @@
   <view class="section">
     <view class="section-head"><text class="section-title">工具区</text></view>
     <view class="list">
-      <view class="card row between" wx:for="{{tools}}" wx:key="name" data-url="{{item.url}}" bindtap="goTool">
-        <text class="title">{{item.name}}</text>
+      <view class="card row between tool-card" wx:for="{{tools}}" wx:key="name" data-url="{{item.url}}" bindtap="goTool">
+        <view class="row tool-main">
+          <view class="tool-icon-shell">
+            <image class="tool-icon" src="{{item.iconUrl}}" mode="aspectFit"></image>
+          </view>
+          <text class="title">{{item.name}}</text>
+        </view>
         <text class="muted">›</text>
       </view>
     </view>

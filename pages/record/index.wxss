@@ -1,3 +1,13 @@
 .grid-3 .card {
-  min-height: 140rpx;
+  min-height: 156rpx;
+}
+
+.feature-card {
+  text-align: left;
+}
+
+.feature-icon {
+  width: 54rpx;
+  height: 54rpx;
+  margin-bottom: 18rpx;
 }

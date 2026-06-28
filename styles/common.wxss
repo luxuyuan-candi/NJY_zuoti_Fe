@@ -1,61 +1,103 @@
 .page {
   min-height: 100vh;
   box-sizing: border-box;
-  padding: 28rpx 28rpx 48rpx;
+  padding: 28rpx 30rpx 56rpx;
+  background-color: #f6efe4;
+  background-image: url("../assets/designs/ui-refresh/parchment-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
 }
 
 .page.with-bottom-bar {
-  padding-bottom: 148rpx;
+  padding-bottom: 178rpx;
 }
 
 .hero {
-  border-radius: 18rpx;
-  padding: 32rpx;
-  background: linear-gradient(135deg, #176bff 0%, #19a7ce 100%);
-  color: #fff;
+  position: relative;
+  overflow: hidden;
+  border: 1rpx solid rgba(197, 175, 142, 0.28);
+  border-radius: 30rpx;
+  padding: 34rpx 32rpx;
+  background: rgba(255, 251, 245, 0.9);
+  box-shadow: 0 18rpx 44rpx rgba(70, 50, 26, 0.08);
+  color: #1d2f22;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  right: -28rpx;
+  bottom: -28rpx;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 999rpx;
+  background: radial-gradient(circle, rgba(201, 164, 91, 0.18) 0%, rgba(201, 164, 91, 0) 72%);
+  pointer-events: none;
 }
 
 .hero-title {
   display: block;
-  font-size: 42rpx;
+  color: #204730;
+  font-size: 46rpx;
   font-weight: 700;
   line-height: 1.25;
 }
 
 .hero-subtitle {
   display: block;
-  margin-top: 14rpx;
-  color: rgba(255, 255, 255, 0.84);
-  font-size: 26rpx;
-  line-height: 1.5;
+  margin-top: 16rpx;
+  color: #6c6456;
+  font-size: 25rpx;
+  line-height: 1.7;
+}
+
+.hero-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 22rpx;
+  min-width: 220rpx;
+  height: 72rpx;
+  padding: 0 28rpx;
+  border-radius: 999rpx;
+  border: 1rpx solid rgba(193, 154, 82, 0.22);
+  background: rgba(255, 250, 243, 0.92);
+  color: #a47738;
+  font-size: 24rpx;
+  font-weight: 700;
 }
 
 .section {
-  margin-top: 28rpx;
+  margin-top: 30rpx;
 }
 
 .section-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18rpx;
+  margin-bottom: 20rpx;
 }
 
 .section-title {
-  font-size: 32rpx;
+  color: #203a2a;
+  font-size: 36rpx;
   font-weight: 700;
 }
 
 .section-link {
-  color: #176bff;
+  color: #b38745;
   font-size: 24rpx;
 }
 
 .card {
-  border: 1rpx solid #e7eaf0;
-  border-radius: 16rpx;
-  padding: 26rpx;
-  background: #fff;
+  position: relative;
+  overflow: hidden;
+  border: 1rpx solid rgba(201, 182, 151, 0.32);
+  border-radius: 28rpx;
+  padding: 28rpx;
+  background: rgba(255, 252, 248, 0.92);
+  box-shadow: 0 16rpx 38rpx rgba(69, 53, 32, 0.08);
   box-sizing: border-box;
 }
 
@@ -69,23 +111,25 @@
 }
 
 .muted {
-  color: #7d8798;
+  color: #8a7e6a;
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
-  height: 42rpx;
-  padding: 0 18rpx;
+  height: 46rpx;
+  padding: 0 20rpx;
   border-radius: 999rpx;
-  background: #eef5ff;
-  color: #176bff;
+  border: 1rpx solid rgba(43, 90, 64, 0.12);
+  background: rgba(39, 83, 58, 0.1);
+  color: #2b5a40;
   font-size: 22rpx;
 }
 
 .tag.gray {
-  background: #f0f2f5;
-  color: #687083;
+  border-color: rgba(188, 147, 79, 0.12);
+  background: rgba(188, 147, 79, 0.12);
+  color: #9a7340;
 }
 
 .grid-2 {
@@ -104,23 +148,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 88rpx;
-  border-radius: 14rpx;
-  background: #176bff;
-  color: #fff;
+  height: 92rpx;
+  padding: 0 28rpx;
+  border-radius: 999rpx;
+  background-color: transparent;
+  background-image: url("../assets/designs/ui-refresh/button-plate.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  color: #fffaf2;
   font-size: 28rpx;
   font-weight: 700;
+  letter-spacing: 1rpx;
+  box-sizing: border-box;
 }
 
 .btn.secondary {
-  background: #eef5ff;
-  color: #176bff;
+  border: 1rpx solid rgba(193, 154, 82, 0.28);
+  background-image: none;
+  background-color: rgba(255, 251, 244, 0.96);
+  color: #a17437;
 }
 
 .btn.ghost {
-  border: 1rpx solid #dbe2ee;
-  background: #fff;
-  color: #253149;
+  border: 1rpx solid rgba(36, 74, 53, 0.14);
+  background-image: none;
+  background-color: rgba(255, 251, 246, 0.88);
+  color: #244a35;
 }
 
 .bottom-bar {
@@ -130,10 +184,10 @@
   left: 0;
   z-index: 20;
   display: flex;
-  gap: 18rpx;
-  padding: 18rpx 28rpx 34rpx;
-  border-top: 1rpx solid #e7eaf0;
-  background: rgba(255, 255, 255, 0.96);
+  gap: 16rpx;
+  padding: 18rpx 24rpx 34rpx;
+  border-top: 1rpx solid rgba(201, 182, 151, 0.22);
+  background: rgba(250, 243, 232, 0.96);
   box-sizing: border-box;
 }
 
@@ -148,15 +202,16 @@
 }
 
 .title {
+  color: #1e3326;
   font-size: 30rpx;
   font-weight: 700;
 }
 
 .desc {
-  margin-top: 8rpx;
-  color: #7d8798;
+  margin-top: 10rpx;
+  color: #726756;
   font-size: 24rpx;
-  line-height: 1.55;
+  line-height: 1.7;
 }
 
 .metric {
@@ -166,13 +221,13 @@
 }
 
 .metric-value {
-  font-size: 38rpx;
+  color: #204730;
+  font-size: 40rpx;
   font-weight: 800;
-  color: #172033;
 }
 
 .metric-label {
-  color: #7d8798;
+  color: #8a7d66;
   font-size: 22rpx;
 }
 
@@ -180,28 +235,30 @@
   height: 12rpx;
   overflow: hidden;
   border-radius: 999rpx;
-  background: #edf0f5;
+  background: rgba(62, 73, 62, 0.08);
 }
 
 .progress-fill {
   height: 100%;
   border-radius: 999rpx;
-  background: #176bff;
+  background: linear-gradient(90deg, #254e37 0%, #c39a53 100%);
 }
 
 .empty {
-  padding: 52rpx 28rpx;
+  padding: 56rpx 30rpx;
   text-align: center;
-  color: #7d8798;
+  color: #7b6d57;
 }
 
 .input {
-  height: 76rpx;
-  border: 1rpx solid #e7eaf0;
-  border-radius: 14rpx;
-  padding: 0 22rpx;
-  background: #fff;
+  height: 84rpx;
+  padding: 0 24rpx;
+  border: 1rpx solid rgba(190, 171, 141, 0.34);
+  border-radius: 22rpx;
+  background: rgba(255, 252, 248, 0.94);
   box-sizing: border-box;
+  box-shadow: 0 12rpx 30rpx rgba(75, 57, 28, 0.05);
+  color: #2a3d2f;
   font-size: 26rpx;
 }
 
@@ -214,14 +271,16 @@
 
 .tab {
   flex: 0 0 auto;
-  padding: 14rpx 22rpx;
+  padding: 14rpx 24rpx;
+  border: 1rpx solid rgba(199, 182, 155, 0.26);
   border-radius: 999rpx;
-  background: #f0f2f5;
-  color: #687083;
+  background: rgba(255, 249, 240, 0.9);
+  color: #766a56;
   font-size: 24rpx;
 }
 
 .tab.active {
-  background: #176bff;
-  color: #fff;
+  border-color: #204730;
+  background: #204730;
+  color: #fff7eb;
 }

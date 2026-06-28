@@ -1,18 +1,45 @@
+.page-home {
+  padding-top: 34rpx;
+}
+
+.brand-block {
+  margin-bottom: 26rpx;
+  padding: 8rpx 6rpx 2rpx;
+}
+
+.brand-title {
+  display: block;
+  color: #1f4a33;
+  font-size: 64rpx;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.brand-subtitle {
+  display: block;
+  margin-top: 14rpx;
+  color: #6f685a;
+  font-size: 26rpx;
+  letter-spacing: 4rpx;
+}
+
 .notice-bar {
   display: flex;
   align-items: center;
   gap: 18rpx;
-  height: 72rpx;
-  margin-bottom: 20rpx;
-  padding: 0 22rpx;
-  border-radius: 18rpx;
-  background: #ffffff;
+  min-height: 84rpx;
+  margin-bottom: 24rpx;
+  padding: 0 24rpx;
+  border: 1rpx solid rgba(198, 178, 143, 0.26);
+  border-radius: 24rpx;
+  background: rgba(255, 250, 243, 0.94);
+  box-shadow: 0 14rpx 32rpx rgba(72, 56, 30, 0.06);
   overflow: hidden;
 }
 
 .notice-label {
   flex: 0 0 auto;
-  color: #176bff;
+  color: #2a5b40;
   font-size: 26rpx;
   font-weight: 700;
 }
@@ -33,7 +60,7 @@
 }
 
 .notice-text {
-  color: #52627d;
+  color: #675f53;
   font-size: 24rpx;
 }
 
@@ -47,17 +74,19 @@
 }
 
 .video-swiper {
-  height: 440rpx;
-  margin-bottom: 24rpx;
+  height: 492rpx;
+  margin-bottom: 28rpx;
 }
 
 .video-hero {
   position: relative;
   overflow: hidden;
-  min-height: 440rpx;
-  border-radius: 18rpx;
-  padding: 28rpx;
-  background: linear-gradient(145deg, #12315f 0%, #176bff 56%, #19a7ce 100%);
+  min-height: 492rpx;
+  padding: 30rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  border-radius: 30rpx;
+  background: #203224;
+  box-shadow: 0 24rpx 48rpx rgba(49, 35, 21, 0.18);
   color: #fff;
   box-sizing: border-box;
 }
@@ -74,7 +103,7 @@
 }
 
 .video-shade {
-  background: linear-gradient(180deg, rgba(12, 23, 42, 0.28) 0%, rgba(12, 23, 42, 0.82) 100%);
+  background: linear-gradient(180deg, rgba(10, 20, 14, 0.16) 0%, rgba(17, 30, 20, 0.78) 100%);
 }
 
 .video-top {
@@ -85,7 +114,7 @@
 }
 
 .video-time {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 248, 236, 0.84);
   font-size: 24rpx;
 }
 
@@ -95,11 +124,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 116rpx;
-  height: 116rpx;
-  margin: 88rpx auto 42rpx;
+  width: 132rpx;
+  height: 132rpx;
+  margin: 98rpx auto 38rpx;
   border-radius: 999rpx;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(29, 74, 49, 0.78);
+  box-shadow: 0 12rpx 28rpx rgba(0, 0, 0, 0.18);
   font-size: 44rpx;
 }
 
@@ -111,54 +141,87 @@
 }
 
 .video-title {
-  font-size: 36rpx;
+  font-size: 42rpx;
   font-weight: 800;
 }
 
 .video-desc {
-  margin-top: 10rpx;
-  color: rgba(255, 255, 255, 0.84);
+  margin-top: 12rpx;
+  color: rgba(255, 248, 236, 0.86);
   font-size: 24rpx;
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+.promo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18rpx;
 }
 
 .promo-card {
-  overflow: hidden;
-  padding-top: 0;
-  border-left: 8rpx solid #176bff;
+  display: flex;
+  flex-direction: column;
+  min-height: 350rpx;
 }
 
-.promo-image {
-  display: block;
-  width: calc(100% + 48rpx);
-  height: 180rpx;
-  margin: 0 -24rpx 24rpx;
+.promo-icon-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 20rpx;
+  border-radius: 28rpx;
+  background: linear-gradient(180deg, rgba(37, 78, 55, 0.1) 0%, rgba(195, 154, 83, 0.1) 100%);
+}
+
+.promo-icon {
+  width: 76rpx;
+  height: 76rpx;
+}
+
+.promo-title {
+  color: #203626;
+  font-size: 32rpx;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.promo-desc {
+  flex: 1;
+  margin-top: 12rpx;
+  color: #786c59;
+  font-size: 24rpx;
+  line-height: 1.65;
+}
+
+.promo-meta {
+  align-items: flex-start;
+  margin-top: 18rpx;
 }
 
 .promo-actions {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16rpx;
-  margin-top: 24rpx;
+  justify-content: flex-end;
+  margin-top: 18rpx;
 }
 
 .promo-file {
-  flex: 1;
-  min-width: 0;
-  color: #7b8798;
+  max-width: 160rpx;
+  color: #9a8a74;
   font-size: 22rpx;
   line-height: 1.4;
+  text-align: right;
 }
 
 .promo-cache-btn {
-  flex: 0 0 auto;
-  min-width: 160rpx;
-  padding: 14rpx 18rpx;
-  border-radius: 12rpx;
-  background: #eef5ff;
-  color: #176bff;
-  font-size: 24rpx;
+  min-width: 172rpx;
+  padding: 14rpx 22rpx;
+  border: 1rpx solid rgba(193, 154, 82, 0.2);
+  border-radius: 999rpx;
+  background: rgba(255, 248, 236, 0.95);
+  color: #9e7337;
+  font-size: 23rpx;
   font-weight: 700;
   text-align: center;
 }

@@ -3,11 +3,11 @@
 }
 
 .picker-trigger {
-  padding: 28rpx 30rpx;
+  padding: 30rpx;
 }
 
 .picker-value {
+  color: #a27536;
   font-size: 30rpx;
   font-weight: 700;
-  color: #176bff;
 }

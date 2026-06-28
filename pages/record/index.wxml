@@ -11,40 +11,52 @@
   </view>
 
   <block wx:else>
-  <view class="section grid-3">
-    <view class="card metric" wx:for="{{stats}}" wx:key="label">
-      <text class="metric-value">{{item.value}}</text>
-      <text class="metric-label">{{item.label}}</text>
-    </view>
-  </view>
-
-  <view class="section grid-3">
-    <view class="card" bindtap="goMistake"><text class="title">错题本</text><text class="desc">{{mistakeDesc}}</text></view>
-    <view class="card" bindtap="goFavorite"><text class="title">题目收藏</text><text class="desc">{{favoriteDesc}}</text></view>
-    <view class="card" bindtap="goTrend"><text class="title">趋势统计</text><text class="desc">{{trendDesc}}</text></view>
-  </view>
-
-  <view class="section">
-    <view class="section-head">
-      <text class="section-title">最近记录</text>
-      <text class="section-link" bindtap="goTrend">趋势</text>
-    </view>
-    <view class="list">
-      <view class="card" wx:for="{{records}}" wx:key="id" data-id="{{item.id}}" data-type="{{item.type}}" bindtap="goResult">
-        <view class="row between">
-          <text class="title">{{item.title}}</text>
-          <text class="tag">{{item.type}}</text>
-        </view>
-        <view class="row between" style="margin-top: 16rpx;">
-          <text class="muted">{{item.dateTime || item.date}}</text>
-          <text class="metric-value" style="font-size: 30rpx;">{{item.score}}</text>
-        </view>
-      </view>
-      <view class="card" wx:if="{{!records.length}}">
-        <text class="title">暂无完成记录</text>
-        <text class="desc">完成一次练习并点击“完成”后，这里才会生成统计。</text>
+    <view class="section grid-3">
+      <view class="card metric" wx:for="{{stats}}" wx:key="label">
+        <text class="metric-value">{{item.value}}</text>
+        <text class="metric-label">{{item.label}}</text>
       </view>
     </view>
-  </view>
+
+    <view class="section grid-3">
+      <view class="card feature-card" bindtap="goMistake">
+        <image class="feature-icon" src="/assets/designs/ui-refresh/icon-notebook.png" mode="aspectFit"></image>
+        <text class="title">错题本</text>
+        <text class="desc">{{mistakeDesc}}</text>
+      </view>
+      <view class="card feature-card" bindtap="goFavorite">
+        <image class="feature-icon" src="/assets/designs/ui-refresh/icon-pdf.png" mode="aspectFit"></image>
+        <text class="title">题目收藏</text>
+        <text class="desc">{{favoriteDesc}}</text>
+      </view>
+      <view class="card feature-card" bindtap="goTrend">
+        <image class="feature-icon" src="/assets/designs/ui-refresh/icon-record.png" mode="aspectFit"></image>
+        <text class="title">趋势统计</text>
+        <text class="desc">{{trendDesc}}</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">最近记录</text>
+        <text class="section-link" bindtap="goTrend">趋势</text>
+      </view>
+      <view class="list">
+        <view class="card" wx:for="{{records}}" wx:key="id" data-id="{{item.id}}" data-type="{{item.type}}" bindtap="goResult">
+          <view class="row between">
+            <text class="title">{{item.title}}</text>
+            <text class="tag">{{item.type}}</text>
+          </view>
+          <view class="row between" style="margin-top: 16rpx;">
+            <text class="muted">{{item.dateTime || item.date}}</text>
+            <text class="metric-value" style="font-size: 30rpx;">{{item.score}}</text>
+          </view>
+        </view>
+        <view class="card" wx:if="{{!records.length}}">
+          <text class="title">暂无完成记录</text>
+          <text class="desc">完成一次练习并点击“完成”后，这里才会生成统计。</text>
+        </view>
+      </view>
+    </view>
   </block>
 </view>

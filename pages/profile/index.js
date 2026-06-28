@@ -1,12 +1,18 @@
 const { ensureIdentity, getRanking, getMedals } = require('../../utils/services');
 
 const BASE_TOOLS = [
-  { name: '反馈', url: '/pages/feedback/index' }
+  { name: '意见反馈', url: '/pages/feedback/index' }
 ];
 
 const MANAGER_TOOL = { name: '人员管理', url: '/pages/admin/users/index' };
 const NOTICE_TOOL = { name: '公告配置', url: '/pages/admin/notice/index' };
-const FEEDBACK_TOOL = { name: '查看反馈', url: '/pages/admin/feedback/index' };
+const FEEDBACK_TOOL = { name: '反馈列表', url: '/pages/admin/feedback/index' };
+const TOOL_ICON_FALLBACKS = [
+  '/assets/designs/ui-refresh/icon-record.png',
+  '/assets/designs/ui-refresh/icon-bank.png',
+  '/assets/designs/ui-refresh/icon-notebook.png',
+  '/assets/designs/ui-refresh/icon-profile.png'
+];
 
 Page({
   data: {
@@ -17,7 +23,7 @@ Page({
     ranking: [
       { label: '总榜', value: '--' },
       { label: '周榜', value: '--' },
-      { label: '获得积分', value: '0' }
+      { label: '积分', value: '0' }
     ]
   },
 
@@ -43,17 +49,18 @@ Page({
           ranking: [
             { label: '总榜', value: formatRankValue(ranking.total) },
             { label: '周榜', value: formatRankValue(ranking.weekly) },
-            { label: '获得积分', value: String(ranking.currentScore || 0) }
+            { label: '积分', value: String(ranking.currentScore || 0) }
           ]
         });
       })
       .catch(() => {});
+
     return getMedals()
       .then((medals) => {
         const preview = (medals || [])
           .filter((item) => item && item.achieved)
           .slice(0, 3);
-        this.setData({ medals: preview.length ? preview.map((item) => item.name) : ['继续努力'] });
+        this.setData({ medals: preview.length ? preview.map((item) => item.name) : ['继续加油'] });
       })
       .catch(() => {});
   },
@@ -63,6 +70,7 @@ Page({
     const canManageUsers = role === 'ADMIN' || role === 'SUPER_ADMIN';
     const canManageNotice = role === 'SUPER_ADMIN';
     const tools = [];
+
     if (canManageUsers) {
       tools.push(MANAGER_TOOL);
     }
@@ -71,14 +79,22 @@ Page({
       tools.push(FEEDBACK_TOOL);
     }
     tools.push(...BASE_TOOLS);
+
     this.setData({
       user: {
         ...user,
         roleLabel: user.roleLabel || this.roleLabel(role)
       },
       displayName: user.nickname || '匿名',
-      tools
+      tools: this.decorateTools(tools)
     });
+  },
+
+  decorateTools(tools) {
+    return (tools || []).map((item, index) => ({
+      ...item,
+      iconUrl: TOOL_ICON_FALLBACKS[index % TOOL_ICON_FALLBACKS.length]
+    }));
   },
 
   roleLabel(role) {

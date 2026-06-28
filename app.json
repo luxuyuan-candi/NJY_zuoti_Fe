@@ -31,14 +31,14 @@
   ],
   "window": {
     "navigationBarTitleText": "南检院做题",
-    "navigationBarBackgroundColor": "#f7f8fb",
+    "navigationBarBackgroundColor": "#f4ecde",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#f7f8fb"
+    "backgroundColor": "#f4ecde"
   },
   "tabBar": {
-    "color": "#6b7280",
-    "selectedColor": "#176bff",
-    "backgroundColor": "#ffffff",
+    "color": "#6f6a62",
+    "selectedColor": "#204730",
+    "backgroundColor": "#fffaf4",
     "borderStyle": "black",
     "list": [
       {

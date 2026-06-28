@@ -1,2 +1,27 @@
-.page {
+.bank-hero {
+  margin-bottom: 6rpx;
+}
+
+.bank-search {
+  padding-left: 30rpx;
+}
+
+.bank-card-head {
+  margin-bottom: 18rpx;
+}
+
+.bank-card-title {
+  display: block;
+}
+
+.bank-card-desc {
+  min-height: 70rpx;
+}
+
+.bank-card-meta {
+  margin-top: 22rpx;
+}
+
+.bank-card-progress {
+  margin-top: 18rpx;
 }

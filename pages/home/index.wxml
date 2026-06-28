@@ -1,4 +1,9 @@
-<view class="page">
+<view class="page page-home">
+  <view class="brand-block">
+    <text class="brand-title">学以致考</text>
+    <text class="brand-subtitle">专注考试 · 高效成长</text>
+  </view>
+
   <view class="notice-bar" bindtap="goNotice">
     <text class="notice-label">公告</text>
     <view class="notice-marquee">
@@ -14,7 +19,7 @@
         <image class="video-cover" src="{{item.coverUrl}}" mode="aspectFill"></image>
         <view class="video-shade"></view>
         <view class="video-top">
-          <text class="tag">教学视频</text>
+          <text class="tag">精选课程</text>
           <text class="video-time">{{item.duration}}</text>
         </view>
         <view class="play">▶</view>
@@ -26,18 +31,21 @@
 
   <view class="section">
     <view class="section-head">
-      <text class="section-title">学习推广</text>
+      <text class="section-title">学习资料</text>
+      <text class="section-link">{{promotions.length}} 项</text>
     </view>
-    <view class="list">
+    <view class="promo-grid">
       <view class="card promo-card" wx:for="{{promotions}}" wx:key="id" data-id="{{item.id}}" bindtap="goPromotion">
-        <image wx:if="{{item.imageUrl}}" class="promo-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
-        <view class="row between">
-          <text class="title">{{item.title}}</text>
-          <text class="tag gray">{{item.tag}}</text>
+        <view class="promo-icon-shell">
+          <image class="promo-icon" src="{{item.iconUrl}}" mode="aspectFit"></image>
         </view>
-        <text class="desc">{{item.desc}}</text>
-        <view class="promo-actions">
+        <text class="promo-title">{{item.title}}</text>
+        <text class="promo-desc">{{item.desc}}</text>
+        <view class="promo-meta row between">
+          <text class="tag gray">{{item.tag}}</text>
           <text class="promo-file">{{item.fileName}}</text>
+        </view>
+        <view class="promo-actions">
           <view class="promo-cache-btn" data-id="{{item.id}}" catchtap="cachePromotion">
             <text wx:if="{{cacheProgressMap[item.id] >= 0 && cacheProgressMap[item.id] <= 100}}">{{cacheProgressMap[item.id]}}%</text>
             <text wx:elif="{{cacheMap[item.id]}}">本地打开</text>
